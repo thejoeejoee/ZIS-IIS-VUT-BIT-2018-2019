@@ -9,6 +9,7 @@ deploy-app:
 	npm run build
 	.venv/bin/python setup.py sdist
 	ssh josefkolar.cz mkdir -p /tmp/deploy/
+	ssh josefkolar.cz rm -rf /tmp/deploy/*
 	scp dist/* josefkolar.cz:/tmp/deploy/
 	ssh josefkolar.cz /home/ziscz/.venv/bin/pip uninstall -y ziscz
 	ssh josefkolar.cz /home/ziscz/.venv/bin/pip install /tmp/deploy/*
