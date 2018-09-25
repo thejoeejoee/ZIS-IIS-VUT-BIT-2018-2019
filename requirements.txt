@@ -1,0 +1,11 @@
+django>=2.0
+django-ckeditor
+django-recaptcha
+django-loginas
+django-countries
+django-extensions
+gunicorn
+django-webpack-loader
+Pillow
+django-imagekit
+django-rest-framework

@@ -1,0 +1,26 @@
+[Unit]
+Description=U Coufalu gunicorn service.
+After=network.target
+
+[Service]
+PIDFile=/home/ziscz/gunicorn-pid
+Environment="DJANGO_SETTINGS_MODULE=settings"
+User=www-data
+Group=www-data
+WorkingDirectory=/home/ziscz/
+ExecStart=/home/ziscz/.venv/bin/gunicorn \
+            --pid /home/ziscz/gunicorn-pid \
+            --capture-output \
+            --graceful-timeout 5 \
+            --log-level DEBUG \
+            --disable-redirect-access-to-syslog \
+            --access-logfile /home/ziscz/log/g-access.log \
+            --error-logfile /home/ziscz/log/g-error.log \
+            --log-file /home/ziscz/log/g-log.log \
+            --bind unix:/home/ziscz/ziscz.sock \
+            ziscz.zis.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+ExecStop=/bin/kill -s TERM $MAINPID
+
+[Install]
+WantedBy=multi-user.target

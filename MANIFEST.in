@@ -1,0 +1,3 @@
+graft ziscz/
+prune ziscz/assets/
+prune ziscz/media/
