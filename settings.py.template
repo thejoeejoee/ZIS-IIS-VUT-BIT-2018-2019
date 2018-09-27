@@ -1,0 +1,15 @@
+# coding=utf-8
+# noinspection PyUnresolvedReferences
+from ziscz.zis.settings_default import *
+
+SECRET_KEY = ''
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': '',
+        'HOST': '',
+        'USER': '',
+        'PASSWORD': '',
+    }
+}

@@ -35,6 +35,7 @@ def setup():
             'Pillow',
             'django-imagekit',
             'django-rest-framework',
+            'psycopg2-binary',
         ],
         entry_points={
             'console_scripts': [

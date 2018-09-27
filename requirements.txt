@@ -9,3 +9,4 @@ django-webpack-loader
 Pillow
 django-imagekit
 django-rest-framework
+psycopg2-binary
