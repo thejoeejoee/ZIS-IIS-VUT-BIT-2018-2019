@@ -1,5 +1,8 @@
 .sass-cache/
 __pycache__/
 *.pyc
+.venv/
+node_modules/
+ziscz/static/build
 .idea/
 settings.py
