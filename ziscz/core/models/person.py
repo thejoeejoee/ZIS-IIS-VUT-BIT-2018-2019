@@ -2,7 +2,7 @@
 from django.db import models
 
 
-class DegreeType(models.Model):
+class TypeDegree(models.Model):
     name = models.CharField(max_length=256)
 
 
@@ -15,7 +15,7 @@ class Person(models.Model):
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
     degree = models.ForeignKey(
-        "core.DegreeType",
+        "core.TypeDegree",
         null=True,
         on_delete=models.SET_NULL)
     birth_date = models.DateField()

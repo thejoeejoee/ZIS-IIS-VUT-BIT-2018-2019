@@ -2,13 +2,13 @@
 from django.db import models
 
 
-class AnimalType(models.Model):
+class TypeAnimal(models.Model):
     name = models.CharField(max_length=256)
 
 
 class Animal(models.Model):
     type = models.ForeignKey(
-        "core.AnimalType",
+        "core.TypeAnimal",
         on_delete=models.CASCADE)
     birth_date = models.DateField(null=True)
     country_of_origin = models.ForeignKey(

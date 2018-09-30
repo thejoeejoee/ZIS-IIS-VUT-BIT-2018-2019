@@ -2,13 +2,13 @@
 from django.db import models
 
 
-class FeedType(models.Model):
+class TypeFeed(models.Model):
     name = models.CharField(max_length=128)
 
 
 class FeedingRule(models.Model):
     feed_type = models.ForeignKey(
-        "core.FeedType",
+        "core.TypeFeed",
         on_delete=models.CASCADE)
     weight = models.PositiveIntegerField()
     periodicity = models.ForeignKey(

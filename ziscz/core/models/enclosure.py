@@ -6,13 +6,13 @@ class CleaningAccessory(models.Model):
     name = models.CharField(max_length=128)
 
 
-class EnclosureType(models.Model):
+class TypeEnclosure(models.Model):
     name = models.CharField(max_length=128)
 
 
 class Enclosure(models.Model):
     type = models.ForeignKey(
-        "core.EnclosureType",
+        "core.TypeEnclosure",
         on_delete=models.CASCADE)
     min_cleaning_duration = models.DurationField()
     min_cleaners_count = models.PositiveIntegerField()
