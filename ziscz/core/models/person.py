@@ -1,27 +1,35 @@
 # coding=utf-8
 from django.db import models
+from .base import BaseModel, BaseTypeModel
 
 
-class TypeDegree(models.Model):
-    name = models.CharField(max_length=256)
+class TypeDegree(BaseTypeModel):
+    pass
 
 
-class PersonRole(models.Model):
+class PersonRole(BaseModel):
     name = models.CharField(max_length=128)
 
 
-class Person(models.Model):
-    role = models.ForeignKey("core.PersonRole", on_delete=models.CASCADE)
+class Person(BaseModel):
+    role = models.ForeignKey(
+        "core.PersonRole",
+        on_delete=models.PROTECT,
+        related_name="person_role"
+    )
+
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
+
     degree = models.ForeignKey(
         "core.TypeDegree",
+        blank=True,
         null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL,
+        related_name="person_degree"
+    )
+
     birth_date = models.DateField()
     education = models.CharField(max_length=512)
 
-
-class AnimalKeeper(Person):
-    trained_for_animals = models.ManyToManyField("core.Animal")
-    trained_for_enclosures_cleaning = models.ManyToManyField("core.Enclosure")
+__all__ = ["TypeDegree", "PersonRole", "Person"]

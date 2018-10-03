@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django_extensions',
 
     'ziscz.web',
+    'ziscz.core',
 
     'webpack_loader',
     'imagekit',

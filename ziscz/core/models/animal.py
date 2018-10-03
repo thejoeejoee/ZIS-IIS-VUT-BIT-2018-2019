@@ -1,41 +1,99 @@
 # coding=utf-8
 from django.db import models
+from .base import BaseModel, BaseTypeModel
 
 
-class TypeAnimal(models.Model):
-    name = models.CharField(max_length=256)
+class TypeAnimal(BaseTypeModel):
+    pass
 
 
-class Animal(models.Model):
-    type = models.ForeignKey(
+class Animal(BaseModel):
+    type_animal = models.ForeignKey(
         "core.TypeAnimal",
-        on_delete=models.CASCADE)
-    birth_date = models.DateField(null=True)
-    country_of_origin = models.ForeignKey(
-        "core.Country",
+        on_delete=models.PROTECT,
+        related_name="animal_type_animal"
+    )
+
+    birth_date = models.DateField(null=True, blank=True)
+
+    origin_country = models.ForeignKey(
+        "core.TypeCountry",
+        blank=True,
         null=True,
-        on_delete=models.SET_NULL)
-    region_of_occurence = models.ForeignKey(
-        "core.RegionType",
-        null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL,
+        related_name = "animal_origin_country"
+    )
+
+    occurence_region = models.ManyToManyField(
+        "core.TypeRegion",
+        through="core.AnimalRegion"
+    )
+
     parent1 = models.ForeignKey(
         "self",
+        blank=True,
         null=True,
-        on_delete=models.SET_NULL)
+        on_delete=models.SET_NULL,
+        related_name="animal_parent1"
+    )
+
     parent2 = models.ForeignKey(
         "self",
+        blank=True,
         null=True,
-        on_delete=models.SET_NULL)
-    death_date = models.DateTimeField()
+        on_delete=models.SET_NULL,
+        related_name="animal_parent2"
+    )
+
+    death_date = models.DateTimeField(blank=True, null=True)
+
+    trained_person = models.ManyToManyField(
+        "core.Person",
+        through="core.AnimalPerson"
+    )
 
 
-class AnimalStay(models.Model):
+class AnimalStay(BaseModel):
     animal = models.ForeignKey(
         "core.Animal",
-        on_delete=models.CASCADE)
+        on_delete=models.PROTECT,
+        related_name="animal_stays"
+    )
+
     enclosure = models.ForeignKey(
         "core.Enclosure",
-        on_delete=models.CASCADE)
-    from_ = models.DateField()
-    to = models.DateField()
+        on_delete=models.PROTECT,
+        related_name="animal_stays"
+    )
+
+    date_from = models.DateField()
+    date_to = models.DateField(blank=True, null=True)
+
+
+class AnimalPerson(BaseModel):
+    animal = models.ForeignKey(
+        "core.Animal",
+        on_delete=models.PROTECT,
+        related_name="animal_person_animal"
+    )
+
+    person = models.ForeignKey(
+        "core.Person",
+        on_delete=models.PROTECT,
+        related_name="animal_person_person"
+    )
+
+class AnimalRegion(BaseModel):
+    animal = models.ForeignKey(
+        "core.Animal",
+        on_delete=models.PROTECT,
+        related_name="animal_region_animal"
+    )
+
+    country = models.ForeignKey(
+        "core.TypeRegion",
+        on_delete=models.PROTECT,
+        related_name="animal_region_region"
+    )
+
+__all__ = ["Animal", "AnimalStay", "AnimalRegion", "TypeAnimal", "AnimalPerson"]

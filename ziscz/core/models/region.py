@@ -1,10 +1,14 @@
 # coding=utf-8
 from django.db import models
+from django.utils.translation import ugettext as _
+from .base import BaseTypeModel
 
 
-class RegionType(models.Model):
-    name = models.CharField(max_length=128)
+class TypeRegion(BaseTypeModel):
+    pass
 
 
-class Country(models.Model):
-    name = models.CharField(max_length=512)
+class TypeCountry(BaseTypeModel):
+    pass
+
+__all__ = ["TypeCountry", "TypeCountry"]
