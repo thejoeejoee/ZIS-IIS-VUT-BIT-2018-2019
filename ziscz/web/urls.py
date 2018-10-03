@@ -1,9 +1,8 @@
 # coding=utf-8
-from django.urls import re_path
+from django.urls import re_path, path
 
-from .views import AppView
+from ziscz.web.views.auth import LoginView
 
 urlpatterns = [
-
-    re_path('.*', AppView.as_view()),
+    path('login', LoginView.as_view(), name='login'),
 ]

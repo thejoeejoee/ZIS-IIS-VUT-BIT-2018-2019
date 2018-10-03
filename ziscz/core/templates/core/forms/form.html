@@ -1,0 +1,7 @@
+{% load i18n %}
+<form action="{{ reverse_url }}" method="POST">
+    {# TODO: define block #}
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% trans 'Send' %}</button>
+</form>
