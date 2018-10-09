@@ -1,11 +1,8 @@
 # coding=utf-8
 from django.contrib.auth import get_user_model
 from django.db import models
+
 from .base import BaseModel, BaseTypeModel
-
-
-class TypeDegree(BaseTypeModel):
-    pass
 
 
 class TypeRole(BaseTypeModel):
@@ -24,17 +21,12 @@ class Person(BaseModel):
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)
 
-    degree = models.ForeignKey(
-        "core.TypeDegree",
-        blank=True,
-        null=True,
-        on_delete=models.SET_NULL,
-        related_name="person_degree"
-    )
-
     birth_date = models.DateField()
-    education = models.CharField(max_length=512)
+    education = models.TextField()
+    note = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return ' '.join((self.first_name, self.last_name))
 
 
-__all__ = ["TypeDegree", "TypeRole", "Person"]
-
+__all__ = ["TypeRole", "Person"]

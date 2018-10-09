@@ -1,5 +1,7 @@
 # coding=utf-8
 from django.db import models
+from django.utils.translation import ugettext as _
+
 from .base import BaseModel, BaseTypeModel
 
 
@@ -8,6 +10,11 @@ class TypeAnimal(BaseTypeModel):
 
 
 class Animal(BaseModel):
+    """
+    Zvíře jako takové.
+    """
+    name = models.CharField(verbose_name=_('Name'), max_length=64)
+
     type_animal = models.ForeignKey(
         "core.TypeAnimal",
         on_delete=models.PROTECT,
@@ -21,7 +28,7 @@ class Animal(BaseModel):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name = "animal_origin_country"
+        related_name="animal_origin_country"
     )
 
     occurence_region = models.ManyToManyField(
@@ -52,8 +59,18 @@ class Animal(BaseModel):
         through="core.AnimalPerson"
     )
 
+    class Meta:
+        verbose_name = _('Animal')
+        verbose_name_plural = _('Animals')
+
+    def __str__(self):
+        return ' '.join(map(str, (self.type_animal, self.name)))
+
 
 class AnimalStay(BaseModel):
+    """
+    Umístění zvířete do výběhu, od do.
+    """
     animal = models.ForeignKey(
         "core.Animal",
         on_delete=models.PROTECT,
@@ -71,6 +88,9 @@ class AnimalStay(BaseModel):
 
 
 class AnimalPerson(BaseModel):
+    """
+    Vyškolení osoby pro krmení zvířete.
+    """
     animal = models.ForeignKey(
         "core.Animal",
         on_delete=models.PROTECT,
@@ -83,17 +103,27 @@ class AnimalPerson(BaseModel):
         related_name="animal_person_person"
     )
 
+    class Meta:
+        unique_together = (
+            ('animal', 'person'),
+        )
+
+
 class AnimalRegion(BaseModel):
+    """
+    Oblasti výskytu zvířete.
+    """
     animal = models.ForeignKey(
         "core.Animal",
         on_delete=models.PROTECT,
         related_name="animal_region_animal"
     )
 
-    country = models.ForeignKey(
+    region = models.ForeignKey(
         "core.TypeRegion",
         on_delete=models.PROTECT,
         related_name="animal_region_region"
     )
+
 
 __all__ = ["Animal", "AnimalStay", "AnimalRegion", "TypeAnimal", "AnimalPerson"]
