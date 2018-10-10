@@ -6,3 +6,4 @@ node_modules/
 ziscz/static/build
 .idea/
 ziscz/webpack-stats.json
+settings.py
