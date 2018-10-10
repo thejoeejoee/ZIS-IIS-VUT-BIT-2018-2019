@@ -31,7 +31,7 @@ class Animal(BaseModel):
         related_name="animal_origin_country"
     )
 
-    occurence_region = models.ManyToManyField(
+    occurrence_region = models.ManyToManyField(
         "core.TypeRegion",
         through="core.AnimalRegion"
     )
@@ -60,6 +60,7 @@ class Animal(BaseModel):
     )
 
     class Meta:
+        ordering = 'name',
         verbose_name = _('Animal')
         verbose_name_plural = _('Animals')
 

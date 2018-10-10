@@ -36,6 +36,8 @@ def setup():
             'django-imagekit',
             'django-rest-framework',
             'psycopg2-binary',
+            'django-crispy-forms',
+            'django-bootstrap-datepicker-plus',
         ],
         entry_points={
             'console_scripts': [

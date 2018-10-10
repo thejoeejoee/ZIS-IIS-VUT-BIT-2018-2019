@@ -1,0 +1,23 @@
+{% extends "web/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="card-deck">
+        {% for animal in object_list %}
+            <div class="card">
+                <a href="{% url "animal_detail" animal.pk %}" class="card-header">
+                    {{ animal.name }}
+                    <small class="float-right">{{ animal.type_animal }}</small>
+                </a>
+                <div class="card-body">
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    Consectetur cumque esse nihil quaerat!
+                    Alias, consectetur, molestiae?
+                    Adipisci aliquam culpa enim est minus necessitatibus nesciunt non odit officiis sequi, unde voluptates.
+                </div>
+            </div>
+        {% empty %}
+            <li class="list-group-item">{% trans "No animals found." %}</li>
+        {% endfor %}
+    </div>
+{% endblock content %}

@@ -1,9 +1,12 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const path = require('path');
 const BundleTracker = require('webpack-bundle-tracker');
+const webpack = require('webpack');
 
 
 module.exports = (env, argv) => {
+
+    const isProduction = argv && argv.mode === 'production';
     return {
         entry: {
             main: [
@@ -12,7 +15,7 @@ module.exports = (env, argv) => {
         },
         output: {
             path: path.resolve('./ziscz/static/build/'),
-            filename: argv.mode === 'production' ? "[name].[hash].js" : "[name].js",
+            filename: isProduction ? "[name].[hash].js" : "[name].js",
             chunkFilename: 'bundle.[name].[chunkhash].js',
             publicPath: '/static/build/',
         },
