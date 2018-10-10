@@ -9,7 +9,7 @@ from django_extensions.db.fields import CreationDateTimeField, ModificationDateT
 class BaseModel(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid4, editable=False)
     x_created = CreationDateTimeField()
-    x_updated = ModificationDateTimeField()
+    x_modified = ModificationDateTimeField()
 
     class Meta:
         abstract = True

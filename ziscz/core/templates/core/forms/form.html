@@ -1,7 +1,22 @@
 {% load i18n %}
-<form action="{{ reverse_url }}" method="POST">
-    {# TODO: define block #}
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">{% trans 'Send' %}</button>
+{% load crispy_forms_tags %}
+
+<form method="post" novalidate>
+    <div class="card">
+        <div class="card-header">
+            <h6>{% trans "TODO: Generic form heading" %}</h6>
+        </div>
+        <div class="card-body">
+            {% csrf_token %}
+            {{ form|crispy }}
+        </div>
+        <div class="card-footer">
+            <small class="float-left font-italic">
+                {% if form.instance %}
+                    {% trans "Last modified at" %} {{ form.instance.x_modified }}.
+                {% endif %}
+            </small>
+            <button type="submit" class="btn btn-success float-right">{% trans 'Save' %}</button>
+        </div>
+    </div>
 </form>

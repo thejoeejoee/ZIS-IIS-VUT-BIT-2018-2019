@@ -53,7 +53,7 @@ INSTALLED_APPS = [
     'webpack_loader',
     'imagekit',
     'rest_framework',
-
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -184,3 +184,5 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 MEDIA_URL = '/media/'
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'

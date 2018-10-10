@@ -1,28 +1,25 @@
 @import "~bootstrap/scss/functions";
 
-$primary: #de127a;
-$primary: #dd4275;
-$secondary: #7a9ad0;
+$primary: lighten(#933EC5, 5%);
+// $secondary: adjust_hue($primary, -60deg);
 
 $theme-colors: (
         "gold": gold,
         "red": #cc3333
 );
 
-$light: lighten($primary, 25%);
+$border-color: $primary;
+
+$light: lighten($primary, 40%);
 $dark: #333;
 
 $body-bg: white;
 
 $font-family-base: "Roboto Condensed", sans-serif;
-$headings-font-family: "Lobster", serif;
+// $headings-font-family: "Lobster", serif;
 $font-size-base: 1.2rem;
 $navbar-light-color: $dark;
 $navbar-light-active-color: white;
-
-$radius-handwritten: 225px 70px 255px 15px / 15px 225px 15px 255px;
-
-$input-border-radius: $radius-handwritten;
 
 $lead-font-weight: 400;
 

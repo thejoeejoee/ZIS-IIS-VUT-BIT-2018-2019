@@ -1,3 +1,10 @@
-Hello!
+{% extends "web/base.html" %}
+{% load i18n %}
+{% block content %}
+    <p class="lead font-weight-bold">
+        {% trans "You're welcome in ZOO Information System!" %}
+    </p>
 
-{% include "core/forms/form.html" with form=form %}
+    {% include "core/forms/form.html" with form=form %}
+
+{% endblock content %}
