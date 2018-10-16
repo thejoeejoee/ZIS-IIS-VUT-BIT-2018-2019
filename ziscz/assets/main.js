@@ -3,6 +3,10 @@ import VueRouter from 'vue-router'
 import App from './App'
 import './scss/styles.js'
 import store from './store'
+import 'bootstrap/js/dist/collapse'
+
+window.$ = window.jQuery = require("jquery");
+
 
 const HomePage = () => import('./pages/HomePage');
 

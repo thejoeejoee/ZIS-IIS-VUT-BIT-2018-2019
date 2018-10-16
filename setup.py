@@ -38,6 +38,7 @@ def setup():
             'psycopg2-binary',
             'django-crispy-forms',
             'django-bootstrap-datepicker-plus',
+            'django_select2',
         ],
         entry_points={
             'console_scripts': [

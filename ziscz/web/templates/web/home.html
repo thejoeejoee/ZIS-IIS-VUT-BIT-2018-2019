@@ -5,6 +5,11 @@
         {% trans "You're welcome in ZOO Information System!" %}
     </p>
 
-    {% include "core/forms/form.html" with form=form %}
+
+    <div class="row">
+        <div class="col-6">
+            {% include "core/forms/form.html" with form=form %}
+        </div>
+    </div>
 
 {% endblock content %}
