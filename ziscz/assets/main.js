@@ -4,8 +4,10 @@ import App from './App'
 import './scss/styles.js'
 import store from './store'
 import 'bootstrap/js/dist/collapse'
+import 'toastr/build/toastr.min.css'
 
 window.$ = window.jQuery = require("jquery");
+window.toastr = require("toastr");
 
 
 const HomePage = () => import('./pages/HomePage');

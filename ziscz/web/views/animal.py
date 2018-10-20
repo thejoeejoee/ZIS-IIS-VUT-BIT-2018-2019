@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView
 
 from ziscz.core.models import Animal
+from ziscz.core.views.forms import SuccessMessageMixin
 from ziscz.web.forms.animal import AnimalForm
 
 
@@ -14,7 +15,7 @@ class AnimalListView(ListView):
     allow_empty = True
 
 
-class AnimalDetailView(UpdateView):
+class AnimalDetailView(SuccessMessageMixin, UpdateView):
     template_name = 'web/animal_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')

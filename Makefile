@@ -12,7 +12,7 @@ deploy-app:
 	ssh josefkolar.cz rm -rf /tmp/deploy/*
 	scp dist/* josefkolar.cz:/tmp/deploy/
 	ssh josefkolar.cz /home/ziscz/.venv/bin/pip uninstall -y ziscz
-	ssh josefkolar.cz /home/ziscz/.venv/bin/pip install /tmp/deploy/*
+	ssh josefkolar.cz /home/ziscz/.venv/bin/pip install /tmp/deploy/zis*
 	ssh josefkolar.cz PYTHONPATH=/home/ziscz/ /home/ziscz/.venv/bin/ziscz-manage collectstatic --noinput
 
 	scp conf/ziscz.gunicorn.service josefkolar.cz:/etc/systemd/system/
