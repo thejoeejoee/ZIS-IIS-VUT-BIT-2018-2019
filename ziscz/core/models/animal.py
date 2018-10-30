@@ -1,7 +1,10 @@
 # coding=utf-8
 from django.db import models
+from django.db.models import Q
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 
+from ziscz.core.models.managers.animal import AnimalStayManager
 from .base import BaseModel, BaseTypeModel
 
 
@@ -67,11 +70,19 @@ class Animal(BaseModel):
     def __str__(self):
         return ' '.join(map(str, (self.type_animal, self.name)))
 
+    @property
+    def actual_enclosure(self):
+        stays = self.animal_stays.filter(AnimalStay.filter_for_actual())
+        return stays.first().enclosure if stays.exists() else None
+
 
 class AnimalStay(BaseModel):
     """
     Umístění zvířete do výběhu, od do.
     """
+
+    objects = AnimalStayManager()
+
     animal = models.ForeignKey(
         "core.Animal",
         on_delete=models.PROTECT,
@@ -86,6 +97,18 @@ class AnimalStay(BaseModel):
 
     date_from = models.DateField()
     date_to = models.DateField(blank=True, null=True)
+
+    @staticmethod
+    def filter_for_actual(prefix=None):
+        today = timezone.now().date()
+        p = lambda i: '{}{}'.format(
+            '{}__'.format(prefix) if prefix else '',
+            i
+        )
+        return (
+                Q(**{p('date_from__lte'): today}) & (
+                Q(**{p('date_to__isnull'): True}) | Q(**{p('date_to__gte'): today}))
+        )
 
 
 class AnimalPerson(BaseModel):

@@ -39,6 +39,7 @@ def setup():
             'django-crispy-forms',
             'django-bootstrap-datepicker-plus',
             'django_select2',
+            'django-colorful',
         ],
         entry_points={
             'console_scripts': [

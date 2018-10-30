@@ -1,16 +1,18 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from django.forms import ModelForm
+from django.forms import ModelForm, ModelChoiceField
 from django_select2.forms import Select2MultipleWidget
 
 from ziscz.core.forms.widgets.datepicker import DatePickerInput
-from ziscz.core.models import Animal, AnimalRegion
+from ziscz.core.models import Animal, AnimalRegion, Enclosure, AnimalStay
 from ziscz.core.models.region import TypeRegion
 from ziscz.core.utils.m2m import update_m2m
 
 
 class AnimalForm(ModelForm):
+    animal_stay = ModelChoiceField(queryset=Enclosure.objects.all(), required=False)
+
     class Meta:
         model = Animal
         fields = (
@@ -31,6 +33,7 @@ class AnimalForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['occurrence_region'].required = False
+        self.fields['animal_stay'].initial = self.instance.actual_enclosure
 
     def _save_m2m(self):
         update_m2m(
@@ -41,3 +44,12 @@ class AnimalForm(ModelForm):
             static_object=self.instance,
             dynamic_field='region',
         )
+
+    def save(self, commit=True):
+        instance = super().save(commit=commit)
+        if 'animal_stay' in self.changed_data:
+            AnimalStay.objects.move_animal(
+                animal=self.instance,
+                new_enclosure=self.cleaned_data.get('animal_stay'),
+            )
+        return instance

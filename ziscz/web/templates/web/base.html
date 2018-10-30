@@ -26,7 +26,7 @@
             <div class="col text-right d-flex">
                 <a class="flex-fill text-white" href="{% url 'animal_list' %}">{% trans "Animals" %}</a>
                 <a class="flex-fill text-white" href="#">{% trans "Persons" %}</a>
-                <a class="flex-fill text-white" href="#">{% trans "Enclosures" %}</a>
+                <a class="flex-fill text-white" href="{% url 'enclosure_list' %}"href="#">{% trans "Enclosures" %}</a>
                 <a class="flex-fill text-white" href="#">{% trans "Calendar" %}</a>
             </div>
         </div>
@@ -36,7 +36,7 @@
             </div>
         </div>
         <div class="row justify-content-between p-3 bg-primary">
-            <div class="col-2"></div>
+            <div class="col-6"><small class="text-light">Josef Kolář, Iva Kavánková, Son Hai Nguyen</small></div>
             <div class="col-2 text-right">
                 <a href="{% url "admin:index" %}" class="text-light">
                     {% trans "administration" %}

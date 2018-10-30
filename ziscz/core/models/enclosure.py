@@ -1,5 +1,8 @@
 # coding=utf-8
+from colorful.fields import RGBColorField
 from django.db import models
+from django.utils import timezone
+from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
 
@@ -20,16 +23,23 @@ class TypeEnclosure(BaseTypeModel):
         through="core.TypeEnclosureTypeCleaningAccessory"
     )
 
+    color = RGBColorField(null=True, blank=True)
+
 
 class Enclosure(BaseModel):
     """
     Výběh.
     """
+
+    name = models.CharField(verbose_name=_('Name'), max_length=64)
+
     type_enclosure = models.ForeignKey(
         "core.TypeEnclosure",
         on_delete=models.PROTECT,
         related_name="enclosure_type_enclosure"
     )
+
+    color = RGBColorField(null=True, blank=True)
 
     min_cleaning_duration = models.DurationField()
     min_cleaners_count = models.PositiveIntegerField()
@@ -38,6 +48,24 @@ class Enclosure(BaseModel):
         "core.Person",
         through="core.EnclosurePerson"
     )
+
+    note = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    @property
+    def enclosure_color(self):
+        return self.color or self.type_enclosure.color
+
+    @property
+    def current_animals(self):
+        from ziscz.core.models import Animal, AnimalStay
+        today = timezone.now().date()
+        return Animal.objects.filter(
+            AnimalStay.filter_for_actual('animal_stays'),
+            animal_stays__enclosure=self,
+        )
 
 
 class Cleaning(models.Model):
