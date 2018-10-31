@@ -7,10 +7,10 @@
                 :style="{backgroundColor: enclosure.enclosure_color}"
                 class="card"
             >
-                <span class="card-header text-light">
+                <a class="card-header text-light" :href="url(enclosure)">
                     {{ enclosure.name }}
                     <small class="float-right">{{ enclosure.type_enclosure }}</small>
-                </span>
+                </a>
                 <div class="card-body">
                     <ul>
                         <li v-for="animal in enclosure.animals">
@@ -27,10 +27,18 @@
 
 <script>
     import {mapState} from 'vuex'
+    import reverse from 'django-reverse'
 
     export default {
         name: "App",
-        computed: mapState(['enclosures']),
+        computed: {
+            ...mapState(['enclosures']),
+        },
+        methods: {
+            url(enclosure) {
+                return reverse('enclosure_detail', enclosure.id);
+            }
+        }
     }
 </script>
 

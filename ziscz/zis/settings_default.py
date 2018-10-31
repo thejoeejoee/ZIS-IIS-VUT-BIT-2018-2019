@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     'bootstrap_datepicker_plus',
     'django_select2',
     'colorful',
+    'django_js_reverse',
 ]
 
 MIDDLEWARE = [
@@ -194,3 +195,5 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 BOOTSTRAP4 = {
     'include_jquery': True,
 }
+
+JS_REVERSE_EXCLUDE_NAMESPACES = ['admin']

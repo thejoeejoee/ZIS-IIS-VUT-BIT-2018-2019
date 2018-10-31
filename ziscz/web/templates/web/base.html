@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Josef Kolář (xkolar71), Iva Kavánková (xkavan05), Son Hai Nguyen (xnguye16)">
 
+    <script src="{% url 'js_reverse' %}" type="text/javascript"></script>
     {% render_bundle 'main' %}
 </head>
 <body>
@@ -27,7 +28,7 @@
                 <a class="flex-fill text-white" href="{% url 'animal_list' %}">{% trans "Animals" %}</a>
                 <a class="flex-fill text-white" href="#">{% trans "Persons" %}</a>
                 <a class="flex-fill text-white" href="{% url 'enclosure_list' %}">{% trans "Enclosures" %}</a>
-                <a class="flex-fill text-white"  href="{% url 'calendar' %}">{% trans "Calendar" %}</a>
+                <a class="flex-fill text-white" href="{% url 'calendar' %}">{% trans "Calendar" %}</a>
             </div>
         </div>
         <div class="row border-left border-right p-4 bg-light">
@@ -36,7 +37,9 @@
             </div>
         </div>
         <div class="row justify-content-between p-3 bg-primary">
-            <div class="col-6"><small class="text-light">Josef Kolář, Iva Kavánková, Son Hai Nguyen</small></div>
+            <div class="col-6">
+                <small class="text-light">Josef Kolář, Iva Kavánková, Son Hai Nguyen</small>
+            </div>
             <div class="col-2 text-right">
                 <a href="{% url "admin:index" %}" class="text-light">
                     {% trans "administration" %}

@@ -40,6 +40,7 @@ def setup():
             'django-bootstrap-datepicker-plus',
             'django_select2',
             'django-colorful',
+            'django-js-reverse',
         ],
         entry_points={
             'console_scripts': [

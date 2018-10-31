@@ -22,7 +22,10 @@ class TypeEnclosure(BaseTypeModel):
         through="core.TypeEnclosureTypeCleaningAccessory"
     )
 
-    color = RGBColorField(null=True, blank=True)
+    color = RGBColorField(
+        null=True, blank=True,
+        help_text=_('Describing color used for type of enclosure in system UI as helper, black is default.')
+    )
 
 
 class Enclosure(BaseModel):
@@ -38,7 +41,10 @@ class Enclosure(BaseModel):
         related_name="enclosure_type_enclosure"
     )
 
-    color = RGBColorField(null=True, blank=True)
+    color = RGBColorField(
+        null=True, blank=True,
+        help_text=_('Describing color used in system UI as helper, black is default.')
+    )
 
     min_cleaning_duration = models.DurationField()
     min_cleaners_count = models.PositiveIntegerField()

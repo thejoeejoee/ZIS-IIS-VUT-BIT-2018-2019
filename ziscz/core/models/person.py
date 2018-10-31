@@ -1,6 +1,8 @@
 # coding=utf-8
+
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
 
@@ -22,11 +24,16 @@ class Person(BaseModel):
     last_name = models.CharField(max_length=256)
 
     birth_date = models.DateField()
-    education = models.TextField()
+    education = models.TextField(null=True, blank=True)
     note = models.TextField(null=True, blank=True)
 
     def __str__(self):
         return ' '.join((self.first_name, self.last_name))
+
+    class Meta:
+        verbose_name = _('Person')
+        verbose_name_plural = _('Persons')
+        ordering = ('last_name', 'first_name',)
 
 
 __all__ = ["TypeRole", "Person"]

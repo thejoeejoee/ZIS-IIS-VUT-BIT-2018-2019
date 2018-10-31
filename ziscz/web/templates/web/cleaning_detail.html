@@ -2,4 +2,9 @@
 
 {% block content %}
     {% include "core/forms/form.html" with form=form %}
+    {% if not form.updating %}
+        <script>
+            window.zis.installCleaningPlanning('#cleaning-planning');
+        </script>
+    {% endif %}
 {% endblock content %}
