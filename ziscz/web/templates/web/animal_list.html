@@ -4,18 +4,22 @@
 {% block content %}
     <div class="card-deck">
         {% for animal in object_list %}
-            <div class="card">
+            <div class="card mb-4">
                 <a href="{% url "animal_detail" animal.pk %}" class="card-header">
                     {{ animal.name }}
                     <small class="float-right">{{ animal.type_animal }}</small>
                 </a>
                 <div class="card-body">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                    Consectetur cumque esse nihil quaerat!
-                    Alias, consectetur, molestiae?
-                    Adipisci aliquam culpa enim est minus necessitatibus nesciunt non odit officiis sequi, unde voluptates.
+                    <strong style="color: {{ animal.actual_enclosure.enclosure_color }}">{{ animal.actual_enclosure }}</strong>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                        Consectetur cumque esse nihil quaerat!
+                    </p>
                 </div>
             </div>
+            {% if forloop.counter|divisibleby:3 %}
+                <div class="clearfix d-block w-100"></div>
+            {% endif %}
         {% empty %}
             <li class="list-group-item">{% trans "No animals found." %}</li>
         {% endfor %}

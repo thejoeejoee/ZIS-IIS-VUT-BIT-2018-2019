@@ -1,29 +1,9 @@
 {% extends "web/base.html" %}
-{% load i18n %}
+{% load i18n color utils %}
 
 {% block content %}
-    <div class="card-deck">
-        {% for enlosure in object_list %}
-            <div class="card">
-                <span {# href="{% url "animal_detail" enlosure.pk %}" #} class="card-header text-primary">
-                    {{ enlosure.name }}
-                    <small class="float-right">{{ enlosure.type_enclosure }}</small>
-                </span>
-                <div class="card-body">
-                    <ul>
-                        {% for animal in enlosure.current_animals %}
-                            <li>
-                                {{ animal }}
-                            </li>
-                        {% empty %}
-                            <small class="font-italic">{% trans "No animals at this moment." %}</small>
-                        {% endfor %}
-
-                    </ul>
-                </div>
-            </div>
-        {% empty %}
-            <li class="list-group-item">{% trans "No enclosures found." %}</li>
-        {% endfor %}
-    </div>
+    <div id="enclosure-list"></div>
+    <script>
+        window.zis.installEnclosureList('#enclosure-list', JSON.parse('{{ data|to_json }}'));
+    </script>
 {% endblock content %}

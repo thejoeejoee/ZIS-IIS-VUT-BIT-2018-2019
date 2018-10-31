@@ -1,7 +1,6 @@
 # coding=utf-8
 from colorful.fields import RGBColorField
 from django.db import models
-from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
@@ -56,12 +55,12 @@ class Enclosure(BaseModel):
 
     @property
     def enclosure_color(self):
-        return self.color or self.type_enclosure.color
+        # black is default for rgb fields
+        return (self.color if self.color != '#000000' else None) or self.type_enclosure.color
 
     @property
     def current_animals(self):
         from ziscz.core.models import Animal, AnimalStay
-        today = timezone.now().date()
         return Animal.objects.filter(
             AnimalStay.filter_for_actual('animal_stays'),
             animal_stays__enclosure=self,
