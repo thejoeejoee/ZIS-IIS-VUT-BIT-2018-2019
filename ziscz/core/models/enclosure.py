@@ -82,7 +82,7 @@ class Cleaning(models.Model):
         through="core.CleaningPerson"
     )
 
-    date = models.DateTimeField()
+    date = models.DateTimeField(help_text=_('Planned start of cleaning.'))
 
     length = models.DurationField()
 
@@ -140,4 +140,4 @@ class CleaningPerson(BaseModel):
 
 
 __all__ = ["TypeCleaningAccessory", "TypeEnclosure", "Enclosure", "EnclosurePerson",
-           "TypeEnclosureTypeCleaningAccessory"]
+           "TypeEnclosureTypeCleaningAccessory", "CleaningPerson", "Cleaning"]

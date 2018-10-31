@@ -1,0 +1,26 @@
+{% extends "web/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <div class="row justify-content-between">
+        <div class="col-2"></div>
+        <div class="col-6 text-right">
+            <div class="btn-group d-inline-block">
+                <a href="{% url "cleaning_create" %}" class="btn btn-success">
+                    {% trans "Plan new cleaning" %}
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul>
+                {% for event in events %}
+                    <li>
+                        {{ event.date }}
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

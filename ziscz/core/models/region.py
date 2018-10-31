@@ -16,4 +16,4 @@ class TypeCountry(BaseTypeModel):
     pass
 
 
-__all__ = ["TypeCountry", "TypeCountry"]
+__all__ = ["TypeCountry", "TypeRegion"]

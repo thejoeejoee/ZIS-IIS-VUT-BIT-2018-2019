@@ -1,16 +1,16 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from django.forms import ModelForm, ModelChoiceField
+from django.forms import ModelChoiceField
 from django_select2.forms import Select2MultipleWidget
 
+from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.widgets.datepicker import DatePickerInput
-from ziscz.core.models import Animal, AnimalRegion, Enclosure, AnimalStay
-from ziscz.core.models.region import TypeRegion
+from ziscz.core.models import Animal, AnimalRegion, Enclosure, AnimalStay, TypeRegion
 from ziscz.core.utils.m2m import update_m2m
 
 
-class AnimalForm(ModelForm):
+class AnimalForm(BaseModelForm):
     animal_stay = ModelChoiceField(queryset=Enclosure.objects.all(), required=False)
 
     class Meta:

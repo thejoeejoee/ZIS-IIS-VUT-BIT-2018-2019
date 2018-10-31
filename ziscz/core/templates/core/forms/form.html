@@ -1,24 +1,29 @@
 {% load i18n %}
-{% load crispy_forms_tags utils %}
+{% load crispy_forms_tags utils humanize %}
 
 
-<form method="post" novalidate>
+<form method="POST" novalidate>
     <div class="card">
         <div class="card-header">
             <h6>
+                {% if not form.updating %}
+                    {% trans "New" %}
+                {% endif %}
                 {{ form.instance|get_verbose_name }}
-                {{ form.instance }}
+                {% if form.updating %}
+                    {{ form.instance }}
+                {% endif %}
             </h6>
         </div>
         <div class="card-body">
             {{ form.media }}
             {% csrf_token %}
-            {{ form|crispy }}
+            {% crispy form %}
         </div>
         <div class="card-footer">
-            <small class="float-left font-italic">
-                {% if form.instance %}
-                    {% trans "Last modified at" %} {{ form.instance.x_modified }}.
+            <small class="float-left font-italic" title="{{ form.instance.x_modified }}">
+                {% if form.updating %}
+                    {% trans "Last modified at" %} {{ form.instance.x_modified|naturaltime }}.
                 {% endif %}
             </small>
             <button type="submit" class="btn btn-success float-right">{% trans 'Save' %}</button>
