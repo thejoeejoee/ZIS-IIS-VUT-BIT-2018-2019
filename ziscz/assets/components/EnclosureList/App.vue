@@ -11,15 +11,7 @@
                     {{ enclosure.name }}
                     <small class="float-right">{{ enclosure.type_enclosure }}</small>
                 </a>
-                <div class="card-body">
-                    <ul>
-                        <li v-for="animal in enclosure.animals">
-                            {{ animal.type_animal }}
-                            <strong>{{ animal.name }}</strong>
-                        </li>
-                        <li v-if="!enclosure.animals.length">No animals in enclosure at this moment.</li>
-                    </ul>
-                </div>
+                <animal-list :enclosure="enclosure"/>
             </div>
         </template>
     </div>
@@ -28,20 +20,19 @@
 <script>
     import {mapState} from 'vuex'
     import reverse from 'django-reverse'
+    import AnimalList from "./AnimalList";
 
     export default {
         name: "App",
+        components: {AnimalList},
         computed: {
             ...mapState(['enclosures']),
         },
         methods: {
             url(enclosure) {
                 return reverse('enclosure_detail', enclosure.id);
-            }
+            },
         }
     }
 </script>
 
-<style scoped>
-
-</style>

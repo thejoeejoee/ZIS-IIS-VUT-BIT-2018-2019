@@ -1,13 +1,13 @@
 # coding=utf-8
 from django.conf import settings
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, Manager
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 from relativefilepathfield.fields import RelativeFilePathField
 
-from ziscz.core.models.managers.animal import AnimalStayManager
+from ziscz.core.models.managers.animal import AnimalStayManager, LiveAnimalsManager
 from .base import BaseModel, BaseTypeModel
 
 
@@ -23,6 +23,9 @@ class Animal(BaseModel):
     """
     Zvíře jako takové.
     """
+    objects = Manager()
+    live_animals = LiveAnimalsManager()
+
     name = models.CharField(verbose_name=_('Name'), max_length=64)
 
     type_animal = models.ForeignKey(

@@ -5,6 +5,9 @@
     <h1 class="d-flex justify-content-between">
         <span class="flex-fill">
             {% trans "Animals" %}
+            {% if type_animal %}
+                <span class="small text-gray">({{ type_animal }})</span>
+            {% endif %}
             <a href="{% url 'animal_create' %}" class="btn btn-success" title="{% trans "Add new animal" %}">+</a>
         </span>
         <span class="flex-fill image-filter text-right">
@@ -21,7 +24,7 @@
         </span>
     </h1>
     <hr>
-    <div class="row no-gutters">
+    <div class="row no-gutters justify-content-around">
         {% for animal in object_list %}
             <div class="col-12 col-md-6 col-md-4 col-xl-3 mb-3">
                 <div class="card mx-2">
@@ -38,17 +41,21 @@
                     </a>
                     <div class="card-body p-2 px-4">
                         <div class="row small">
-                            <div class="col-12 border-bottom border-gray">
-                                <img src="{% static "img/icons/couple.svg" %}" alt="{% trans "Parents" %}" width="20" class="svg fill-primary m-2">
-                                {{ animal.parent1.name|default:'-' }}, {{ animal.parent2.name|default:'-' }}
-                            </div>
+                            {% if animal.parent1 or animal.parent2 %}
+                                <div class="col-12 border-bottom border-gray">
+                                    <img src="{% static "img/icons/couple.svg" %}" alt="{% trans "Parents" %}" width="20" class="svg fill-primary m-2">
+                                    {{ animal.parent1.name|default:'-' }}, {{ animal.parent2.name|default:'-' }}
+                                </div>
+                            {% endif %}
+                            {% if animal.children %}
+                                <div class="col-12 border-bottom border-gray">
+                                    <img src="{% static "img/icons/family.svg" %}" alt="{% trans "Children" %}" width="20" class="svg fill-primary m-2">
+                                    {% for child in animal.children %}
+                                        {{ child.name }}{% if not forloop.last %},{% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                             <div class="col-12">
-                                <img src="{% static "img/icons/family.svg" %}" alt="{% trans "Children" %}" width="20" class="svg fill-primary m-2">
-                                {% for child in animal.children %}
-                                    {{ child.name }}{% if not forloop.last %},{% endif %}
-                                {% endfor %}
-                            </div>
-                            <div class="col-12 border-top border-gray">
                                 <img src="{% static "img/icons/stork.svg" %}" alt="{% trans "Birth date" %}" width="20" class="svg fill-primary m-2">
                                 {{ animal.birth_date }}
                             </div>
@@ -75,7 +82,10 @@
                 {% endif %}
             </div>
         {% empty %}
-            <div class="list-group-item">{% trans "No animals found." %}</div>
+            <div class="col-3 text-center">
+                <img src="{% static "img/icons/animals/081-moon-sad.svg" %}" alt="{% trans "No animals found." %}" class="svg w-100">
+                <h2 class="d-inline-block pt-3">{% trans "No animals found." %}</h2>
+            </div>
         {% endfor %}
     </div>
 {% endblock content %}

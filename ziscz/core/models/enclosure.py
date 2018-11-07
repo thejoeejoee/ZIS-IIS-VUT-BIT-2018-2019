@@ -67,9 +67,9 @@ class Enclosure(BaseModel):
     @property
     def current_animals(self):
         from ziscz.core.models import Animal, AnimalStay
-        return Animal.objects.filter(
-            AnimalStay.filter_for_actual('animal_stays'),
-            animal_stays__enclosure=self,
+        return Animal.live_animals.filter(
+            AnimalStay.filter_for_actual('animal_stay_animal'),
+            animal_stay_animal__enclosure=self,
         )
 
 

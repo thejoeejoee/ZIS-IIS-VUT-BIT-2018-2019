@@ -5,7 +5,7 @@ import typing
 from datetime import timedelta
 from typing import Optional
 
-from django.db.models import Manager
+from django.db.models import Manager, Q
 from django.db.transaction import atomic
 from django.utils import timezone
 
@@ -32,4 +32,16 @@ class AnimalStayManager(Manager):
             enclosure=new_enclosure,
             date_from=today,
             date_to=None,
+        )
+
+
+class LiveAnimalsManager(Manager):
+    def get_queryset(self):
+        today = timezone.now().date()
+        return super().get_queryset().filter(
+            Q(
+                death_date__isnull=True,
+            ) | Q(
+                death_date__gt=today
+            )
         )
