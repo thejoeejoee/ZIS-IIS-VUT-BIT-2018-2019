@@ -15,3 +15,5 @@ django-bootstrap-datepicker-plus
 django_select2
 django-colorful
 django-js-reverse
+django-relativefilepathfield
+django-debug-toolbar

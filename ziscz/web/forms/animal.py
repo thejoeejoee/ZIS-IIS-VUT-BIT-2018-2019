@@ -1,10 +1,12 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from crispy_forms.layout import Layout, Row
 from django.forms import ModelChoiceField
 from django_select2.forms import Select2MultipleWidget
 
 from ziscz.core.forms.base import BaseModelForm
+from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.widgets.datepicker import DatePickerInput
 from ziscz.core.models import Animal, AnimalRegion, Enclosure, AnimalStay, TypeRegion
 from ziscz.core.utils.m2m import update_m2m
@@ -22,6 +24,9 @@ class AnimalForm(BaseModelForm):
             'origin_country',
             'occurrence_region',
             'death_date',
+
+            'parent1',
+            'parent2',
         )
 
         widgets = {
@@ -34,6 +39,29 @@ class AnimalForm(BaseModelForm):
         super().__init__(*args, **kwargs)
         self.fields['occurrence_region'].required = False
         self.fields['animal_stay'].initial = self.instance.actual_enclosure
+
+        self.helper.layout = Layout(
+            'name',
+            'type_animal',
+            Row(
+                Col('birth_date'),
+                Col('death_date'),
+            ),
+            Row(
+                Col('origin_country'),
+                Col('occurrence_region'),
+            ),
+            Row(
+                Col('parent1'),
+                Col('parent2'),
+            ),
+            'animal_stay',
+        )
+
+        if self.updating:
+            self.fields['parent1'].queryset = self.fields['parent2'].queryset = self.fields['parent1'].queryset.filter(
+                type_animal=self.instance.type_animal
+            ).exclude(pk=self.instance.pk)
 
     def _save_m2m(self):
         update_m2m(
@@ -53,3 +81,7 @@ class AnimalForm(BaseModelForm):
                 new_enclosure=self.cleaned_data.get('animal_stay'),
             )
         return instance
+
+    def clean(self):
+        # TODO: animal parent validation
+        return super().clean()

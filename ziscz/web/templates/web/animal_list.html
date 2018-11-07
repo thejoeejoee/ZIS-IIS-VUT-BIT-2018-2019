@@ -1,27 +1,81 @@
 {% extends "web/base.html" %}
-{% load i18n %}
+{% load i18n staticfiles %}
 
 {% block content %}
-    <div class="card-deck">
-        {% for animal in object_list %}
-            <div class="card mb-4">
-                <a href="{% url "animal_detail" animal.pk %}" class="card-header">
-                    {{ animal.name }}
-                    <small class="float-right">{{ animal.type_animal }}</small>
+    <h1 class="d-flex justify-content-between">
+        <span class="flex-fill">
+            {% trans "Animals" %}
+            <a href="{% url 'animal_create' %}" class="btn btn-success" title="{% trans "Add new animal" %}">+</a>
+        </span>
+        <span class="flex-fill image-filter text-right">
+            {% for tp in type_animal_list %}
+                <a
+                    title="{{ tp }}"
+                    href="{% url 'animal_list' %}{% if tp != type_animal %}?type_animal={{ tp.id }}{% endif %}"
+                    class="flex-fill text-center image-filter-item {% if type_animal and tp == type_animal %}active{% endif %}"
+                >
+                    {# TODO: resolve static correctly #}
+                    <img src="/static/img/icons/animals/{{ tp.icon }}" width="50" alt="" class="d-inline-block">
                 </a>
-                <div class="card-body">
-                    <strong style="color: {{ animal.actual_enclosure.enclosure_color }}">{{ animal.actual_enclosure }}</strong>
-                    <p>
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-                        Consectetur cumque esse nihil quaerat!
-                    </p>
+            {% endfor %}
+        </span>
+    </h1>
+    <hr>
+    <div class="row no-gutters">
+        {% for animal in object_list %}
+            <div class="col-12 col-md-6 col-md-4 col-xl-3 mb-3">
+                <div class="card mx-2">
+                    <a href="{% url "animal_detail" animal.pk %}" class="card-header">
+                        {{ animal.name }}
+                        <small class="float-right">
+                            {% if animal.type_animal.icon %}
+                                {# TODO: resolve static correctly #}
+                                <img src="/static/img/icons/animals/{{ animal.type_animal.icon }}" width="40" class="svg">
+                            {% else %}
+                                {{ animal.type_animal }}
+                            {% endif %}
+                        </small>
+                    </a>
+                    <div class="card-body p-2 px-4">
+                        <div class="row small">
+                            <div class="col-12 border-bottom border-gray">
+                                <img src="{% static "img/icons/couple.svg" %}" alt="{% trans "Parents" %}" width="20" class="svg fill-primary m-2">
+                                {{ animal.parent1.name|default:'-' }}, {{ animal.parent2.name|default:'-' }}
+                            </div>
+                            <div class="col-12">
+                                <img src="{% static "img/icons/family.svg" %}" alt="{% trans "Children" %}" width="20" class="svg fill-primary m-2">
+                                {% for child in animal.children %}
+                                    {{ child.name }}{% if not forloop.last %},{% endif %}
+                                {% endfor %}
+                            </div>
+                            <div class="col-12 border-top border-gray">
+                                <img src="{% static "img/icons/stork.svg" %}" alt="{% trans "Birth date" %}" width="20" class="svg fill-primary m-2">
+                                {{ animal.birth_date }}
+                            </div>
+                            {% if animal.death_date %}
+                                <div class="col-12 border-top border-gray">
+                                    <img src="{% static "img/icons/cross.svg" %}" alt="{% trans "Death date" %}" width="20" class="svg fill-primary m-2">
+                                    {{ animal.death_date }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-footer small px-1 text-center"
+                        {# style="color: {{ animal.actual_enclosure.enclosure_color }}" #}>
+                        <img src="{% static "img/icons/location-pointer.svg" %}" alt="{% trans "Enclosure detail" %}" width="20">
+                        {% if animal.actual_enclosure %}
+                            <a href="{% url 'enclosure_detail' animal.actual_enclosure.pk %}" class="link-keep-color">{{ animal.actual_enclosure }}</a>
+                        {% else %}
+                            -
+                        {% endif %}
+                    </div>
                 </div>
+                {% if forloop.counter|divisibleby:3 %}
+                    <div class="clearfix d-block w-100"></div>
+                {% endif %}
             </div>
-            {% if forloop.counter|divisibleby:3 %}
-                <div class="clearfix d-block w-100"></div>
-            {% endif %}
         {% empty %}
-            <li class="list-group-item">{% trans "No animals found." %}</li>
+            <div class="list-group-item">{% trans "No animals found." %}</div>
         {% endfor %}
     </div>
 {% endblock content %}

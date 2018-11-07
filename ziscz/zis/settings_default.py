@@ -59,9 +59,12 @@ INSTALLED_APPS = [
     'django_select2',
     'colorful',
     'django_js_reverse',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -69,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
 ]
 
 TEMPLATES = [
@@ -197,3 +201,7 @@ BOOTSTRAP4 = {
 }
 
 JS_REVERSE_EXCLUDE_NAMESPACES = ['admin']
+
+ICONS_PATH = os.path.join(BASE_DIR, 'web/static/img/icons/animals/')
+
+INTERNAL_IPS = ['127.0.0.1', ]

@@ -41,6 +41,8 @@ def setup():
             'django_select2',
             'django-colorful',
             'django-js-reverse',
+            'django-relativefilepathfield',
+            'django-debug-toolbar',
         ],
         entry_points={
             'console_scripts': [

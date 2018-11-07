@@ -1,0 +1,58 @@
+@import './bootstrap.scss';
+
+.image-filter {
+  .image-filter-item {
+    //@extend .mx;
+    width: 75px;
+    height: 75px;
+    display: inline-block;
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      transition: $transition-fade;
+      border-radius: 100%;
+      border: $primary $border-width*3 solid;
+      opacity: 0;
+    }
+    &.active,
+    &:hover {
+      &:after {
+        opacity: 1;
+      }
+    }
+    &:hover {
+      text-decoration: none;
+    }
+  }
+}
+
+.link-keep-color {
+  color: unset;
+  &:hover {
+    color: unset;
+  }
+}
+
+.text-decoration-none {
+  text-decoration: none;
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.border-gray {
+  border-color: $card-border-color !important;
+}
+
+.fill-gray {
+  fill: $card-border-color !important;
+}
+
+.fill-primary {
+  fill: $primary !important;
+}

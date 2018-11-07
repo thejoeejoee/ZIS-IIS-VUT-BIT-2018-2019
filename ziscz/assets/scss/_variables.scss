@@ -23,4 +23,11 @@ $navbar-light-active-color: white;
 
 $lead-font-weight: 400;
 
+$container-max-widths: (
+        sm: 720px,
+        md: 960px,
+        lg: 1140px,
+        xl: 1440px
+);
+
 @import "~bootstrap/scss/variables";

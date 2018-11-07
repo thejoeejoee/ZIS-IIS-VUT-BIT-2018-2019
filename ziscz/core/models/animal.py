@@ -1,15 +1,22 @@
 # coding=utf-8
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils import timezone
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
+from relativefilepathfield.fields import RelativeFilePathField
 
 from ziscz.core.models.managers.animal import AnimalStayManager
 from .base import BaseModel, BaseTypeModel
 
 
 class TypeAnimal(BaseTypeModel):
-    pass
+    icon = RelativeFilePathField(
+        path=settings.ICONS_PATH,
+        blank=True,
+        null=True
+    )
 
 
 class Animal(BaseModel):
@@ -55,7 +62,7 @@ class Animal(BaseModel):
         related_name="animal_parent2"
     )
 
-    death_date = models.DateTimeField(blank=True, null=True)
+    death_date = models.DateField(blank=True, null=True)
 
     trained_person = models.ManyToManyField(
         "core.Person",
@@ -63,17 +70,21 @@ class Animal(BaseModel):
     )
 
     class Meta:
-        ordering = 'name',
+        ordering = '-death_date', 'type_animal', 'name',
         verbose_name = _('Animal')
         verbose_name_plural = _('Animals')
 
     def __str__(self):
         return ' '.join(map(str, (self.type_animal, self.name)))
 
-    @property
+    @cached_property
     def actual_enclosure(self):
-        stays = self.animal_stays.filter(AnimalStay.filter_for_actual())
-        return stays.first().enclosure if stays.exists() else None
+        stay = self.animal_stay_animal.filter(AnimalStay.filter_for_actual()).first()
+        return stay.enclosure if stay else None
+
+    @cached_property
+    def children(self):
+        return self.animal_parent1.all() | self.animal_parent2.all()
 
 
 class AnimalStay(BaseModel):
@@ -86,13 +97,13 @@ class AnimalStay(BaseModel):
     animal = models.ForeignKey(
         "core.Animal",
         on_delete=models.PROTECT,
-        related_name="animal_stays"
+        related_name="animal_stay_animal"
     )
 
     enclosure = models.ForeignKey(
         "core.Enclosure",
         on_delete=models.PROTECT,
-        related_name="animal_stays"
+        related_name="animal_stay_enclosure"
     )
 
     date_from = models.DateField()

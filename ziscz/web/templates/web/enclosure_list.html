@@ -2,6 +2,11 @@
 {% load i18n color utils %}
 
 {% block content %}
+    <h1>
+        {% trans "Enclosures" %}
+        <a class="btn btn-success float-right" href="{% url "enclosure_create" %}">{% trans "New enclosure" %}</a>
+    </h1>
+    <hr>
     <div id="enclosure-list"></div>
     <script>
         window.zis.installEnclosureList('#enclosure-list', JSON.parse('{{ data|to_json }}'));
