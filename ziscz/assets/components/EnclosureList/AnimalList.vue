@@ -1,7 +1,8 @@
 <template>
     <div class="card-body">
-        <draggable v-model="animals" :options="{group: 'animals'}" element="ul">
+        <draggable v-model="animals" :options="{group: 'animals'}" element="ul" class="list-unstyled small">
             <li v-for="animal in enclosure.animals">
+                <img :src="'/static/img/icons/animals/' + animal.type_animal_icon" :alt="animal.type_animal" width="25">
                 {{ animal.type_animal }}
                 <strong>{{ animal.name }}</strong>
             </li>

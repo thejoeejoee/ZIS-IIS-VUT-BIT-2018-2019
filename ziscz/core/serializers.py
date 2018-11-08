@@ -9,6 +9,7 @@ from ziscz.core.models import Animal, Enclosure
 
 class AnimalSerializer(ModelSerializer):
     type_animal = StringRelatedField()
+    type_animal_icon = StringRelatedField(source='type_animal.icon')
 
     class Meta:
         model = Animal
@@ -16,6 +17,7 @@ class AnimalSerializer(ModelSerializer):
             'id',
             'name',
             'type_animal',
+            'type_animal_icon',
         )
 
 

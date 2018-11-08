@@ -129,7 +129,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Prague'
 
 USE_I18N = True
 
@@ -139,8 +139,6 @@ USE_TZ = True
 
 ROOT_URLCONF = 'ziscz.zis.urls'
 
-COUNTRIES_ONLY = ['CZ', 'DE', 'PL', 'GB']
-
 LANGUAGE_CODE = 'cs'
 
 LANGUAGES = (
@@ -149,8 +147,6 @@ LANGUAGES = (
 )
 
 LOCALE_PATHS = os.path.join(BASE_DIR, 'locale'),
-
-MODELTRANSLATION_FALLBACK_LANGUAGES = ('en',)
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
@@ -173,8 +169,6 @@ CKEDITOR_CONFIGS = {
         'removeFormatAttributes': '',
     },
 }
-
-ROOT_SITE_DOMAIN = 'zis.localhost'
 
 LOGINAS_REDIRECT_URL = '/'
 

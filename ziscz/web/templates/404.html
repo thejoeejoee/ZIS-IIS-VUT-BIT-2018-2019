@@ -1,0 +1,9 @@
+{% extends "web/base.html" %}
+{% load staticfiles i18n %}
+
+{% block content %}
+    <div class="text-center">
+        <img src="{% static 'img/icons/animals/081-moon-sad.svg' %}" alt="{% trans "Page not found" %}" width="300" class="m-5">
+        <h1>{% trans "Page not found." %}</h1>
+    </div>
+{% endblock %}

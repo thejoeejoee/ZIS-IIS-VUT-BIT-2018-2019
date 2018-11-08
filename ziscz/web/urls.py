@@ -8,10 +8,11 @@ from ziscz.web.views.auth import LoginView
 from ziscz.web.views.calendar import CalendarView
 from ziscz.web.views.cleaning import CleaningDetailView, CleaningCreateView
 from ziscz.web.views.enclosure import EnclosureListView, EnclosureDetailView, EnclosureCreateView, EnclosureAnimals
-from ziscz.web.views.home import HomeView
+from ziscz.web.views.home import HomeView, HelpView
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
+    path('help', HelpView.as_view(), name='help'),
 
     path('animal', AnimalListView.as_view(), name='animal_list'),
     path('animal/create', AnimalCreateView.as_view(), name='animal_create'),

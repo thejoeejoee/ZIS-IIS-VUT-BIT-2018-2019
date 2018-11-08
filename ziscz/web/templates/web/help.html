@@ -1,0 +1,28 @@
+{% extends "web/base.html" %}
+{% load i18n %}
+{% block content %}
+    <h1>{% trans "Help" %}</h1>
+
+    <h3>Zadání</h3>
+    <p class="text-justify">
+        Navrhněte jednoduchý informační systém pro ZOO, v které pracují vyškolení ošetřovatelé, kteří se starají o
+        zvířata v ZOO. Informační systém umožňuje <a href="{% url 'calendar' %}">plánovat krmení a čištění klecí/výběhů</a> pro konkrétní zvířátka. Každý
+        ošetřovatel je vyškolen pro krmení jednoho či více druhů zvěře a pro určité typy klecí/výběhů. Systém uchovává
+        <a href="{% url 'animal_list' %}">informace o zvířatech</a> (datum narození, země původu, rodiče oblast výskytu ve volné přírodě atd.) i o samotných
+        ošetřovatelích (jméno, příjmení, datum narození, vzdělání, titul, atd.).
+
+    </p>
+    <p class="text-justify">
+        Systém umožňuje <a href="{% url 'cleaning_create' %}">efektivní plánování</a>
+        čištění výběhu, kdy každý typ výběhu (vodní nádrž, klec, venkovní výběh atd.) má specifické nároky: potřebný
+        čas, pomůcky, počet ošetřovatelů, atd. Systém uchovává informace, kdo čištění provedl, ale zároveň umožňuje
+        kontrolu, zda jsou ošetřovatelé pro dané čištění vyškoleni.
+    </p>
+    <p class="text-justify">
+        Stejně tak systém umožňuje kontrolu při plánování
+        krmení zvěře, konkrétní ošetřovatel musí být kompetentní ke krmení zvířete a musí mít v danou dobu čas (nemůže
+        krmit na více místech, nebo krmit a zároveň čistit klec na druhé straně ZOO). U krmení je zaznamenáno množství
+        žrádla, čas krmení, ošetřovatel, zvíře. Při úmrtí zvířete se zaznamená datum úmrtí a další krmení se pro zvíře
+        již neplánuje, ale záznam v systému zůstává.
+    </p>
+{% endblock content %}
