@@ -35,7 +35,6 @@ class AnimalListView(ListView):
             object_list = self.get_queryset().filter(type_animal=type_animal)
 
         data = super().get_context_data(object_list=object_list, **kwargs)
-        data['type_animal_list'] = TypeAnimal.objects.all()
         data.update(dict(
             type_animal_list=TypeAnimal.objects.all(),
             type_animal=type_animal,
@@ -44,14 +43,14 @@ class AnimalListView(ListView):
 
 
 class AnimalDetailView(SuccessMessageMixin, UpdateView):
-    template_name = 'web/animal_detail.html'
+    template_name = 'web/form_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')
     model = Animal
 
 
 class AnimalCreateView(SuccessMessageMixin, CreateView):
-    template_name = 'web/animal_detail.html'
+    template_name = 'web/form_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')
     model = Animal

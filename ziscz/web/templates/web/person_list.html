@@ -1,0 +1,21 @@
+{% extends "web/base.html" %}
+{% load i18n %}
+
+{% block content %}
+    <h1>
+        {% trans "Persons" %}
+        <a href="{% url "person_create" %}" class="btn btn-success">+</a>
+    </h1>
+    <hr>
+    <div class="row">
+        {% for person in object_list %}
+            <div class="col-3">
+                <div class="card">
+                    <img class="card-img-top" src="http://i.pravatar.cc/300?u={{ person.pk }}">
+                    <div class="card-header"><a href="{% url "person_detail" person.pk %}">{{ person }}</a></div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+{% endblock %}
