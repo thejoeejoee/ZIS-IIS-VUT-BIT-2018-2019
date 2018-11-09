@@ -24,12 +24,31 @@
             <a class="col-6 text-decoration-none" href="{% url "home" %}">
                 <span class="display-4 text-white">ZIS</span>
             </a>
-            <div class="col text-right d-flex">
-                <a class="flex-fill text-white" href="{% url 'animal_list' %}">{% trans "Animals" %}</a>
-                <a class="flex-fill text-white" href="{% url 'person_list' %}">{% trans "Persons" %}</a>
-                <a class="flex-fill text-white" href="{% url 'enclosure_list' %}">{% trans "Enclosures" %}</a>
-                <a class="flex-fill text-white" href="{% url 'calendar' %}">{% trans "Calendar" %}</a>
-                <a class="flex-fill text-white" href="{% url 'help' %}">{% trans "Help" %}</a>
+            <div class="col text-right d-flex fill-white">
+                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'animal_list' %}">
+                    <img src="{% static "img/icons/animals/165-dog.svg" %}" alt="{% trans "Animals" %}" height="45" class="svg fill-white flex-fill">
+                    <span class="flex-fill">{% trans "Animals" %}</span>
+                </a>
+
+                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'person_list' %}">
+                    <img src="{% static "img/icons/networking.svg" %}" alt="{% trans "Persons" %}" height="45" class="svg fill-white flex-fill">
+                    <span class="flex-fill">{% trans "Persons" %}</span>
+                </a>
+
+                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'enclosure_list' %}">
+                    <img src="{% static "img/icons/map.svg" %}" alt="{% trans "Enclosures" %}" height="45" class="svg fill-white flex-fill">
+                    <span class="flex-fill">{% trans "Enclosures" %}</span>
+                </a>
+
+                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'calendar' %}">
+                    <img src="{% static "img/icons/calendar.svg" %}" alt="{% trans "Calendar" %}" height="45" class="svg fill-white flex-fill">
+                    <span class="flex-fill">{% trans "Calendar" %}</span>
+                </a>
+
+                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'help' %}">
+                    <img src="{% static "img/icons/question.svg" %}" alt="{% trans "Help" %}" height="45" class="svg fill-white flex-fill">
+                    <span class="flex-fill">{% trans "Help" %}</span>
+                </a>
             </div>
         </div>
         <div class="row border-left border-right p-4 bg-light">
