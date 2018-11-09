@@ -3,24 +3,28 @@
 
 {% block content %}
     <div class="row justify-content-between">
-        <div class="col-2"></div>
+        <div class="col-6"><h1>{% trans "Calendar" %}</h1></div>
         <div class="col-6 text-right">
             <div class="btn-group d-inline-block">
                 <a href="{% url "cleaning_create" %}" class="btn btn-success">
                     {% trans "Plan new cleaning" %}
                 </a>
+                <a href="{% url "feeding_create" %}" class="btn btn-warning">
+                    {% trans "Plan new feeding" %}
+                </a>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col">
-            <ul>
-                {% for event in events %}
-                    <li>
-                        {{ event.date }}
-                    </li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
+    <hr>
+    {% regroup events by start_date as event_list %}
+
+    {% for group in event_list %}
+        <h4>{{ group.grouper }}</h4>
+        <ul>
+            {% for event in group.list %}
+                <li>{{ event.specification }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+
 {% endblock content %}

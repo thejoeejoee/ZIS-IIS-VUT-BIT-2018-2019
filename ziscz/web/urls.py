@@ -8,6 +8,7 @@ from ziscz.web.views.auth import LoginView
 from ziscz.web.views.calendar import CalendarView
 from ziscz.web.views.cleaning import CleaningDetailView, CleaningCreateView
 from ziscz.web.views.enclosure import EnclosureListView, EnclosureDetailView, EnclosureCreateView, EnclosureAnimals
+from ziscz.web.views.feeding import FeedingCreateView, FeedingDetailView
 from ziscz.web.views.home import HomeView, HelpView
 from ziscz.web.views.person import PersonListView, PersonDetailView, PersonCreateView
 
@@ -29,6 +30,9 @@ urlpatterns = [
 
     path('cleaning/create', CleaningCreateView.as_view(), name='cleaning_create'),
     path('cleaning/<uuid:pk>', CleaningDetailView.as_view(), name='cleaning_detail'),
+
+    path('feeding/create', FeedingCreateView.as_view(), name='feeding_create'),
+    path('feeding/<uuid:pk>', FeedingDetailView.as_view(), name='feeding_detail'),
 
     path('calendar', CalendarView.as_view(), name='calendar'),
 

@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from ziscz.core.models import Animal, TypeAnimal, Person, TypeRole, AnimalPerson, TypeCountry, Enclosure, TypeEnclosure
+from ziscz.core.models import Animal, TypeAnimal, Person, TypeRole, PersonTypeAnimal, TypeCountry, Enclosure, TypeEnclosure
 from ziscz.core.models.region import TypeRegion
 
 
@@ -45,9 +45,9 @@ class PersonAdmin(admin.ModelAdmin):
     ]
 
 
-@admin.register(AnimalPerson)
+@admin.register(PersonTypeAnimal)
 class AnimalPersonAdmin(admin.ModelAdmin):
     list_display = [
         'person',
-        'animal',
+        'type_animal',
     ]

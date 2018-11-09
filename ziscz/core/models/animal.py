@@ -18,6 +18,11 @@ class TypeAnimal(BaseTypeModel):
         null=True
     )
 
+    trained_persons = models.ManyToManyField(
+        "core.Person",
+        through="core.PersonTypeAnimal"
+    )
+
 
 class Animal(BaseModel):
     """
@@ -66,11 +71,6 @@ class Animal(BaseModel):
     )
 
     death_date = models.DateField(blank=True, null=True)
-
-    trained_person = models.ManyToManyField(
-        "core.Person",
-        through="core.AnimalPerson"
-    )
 
     class Meta:
         ordering = '-death_date', 'type_animal', 'name',
@@ -125,25 +125,25 @@ class AnimalStay(BaseModel):
         )
 
 
-class AnimalPerson(BaseModel):
+class PersonTypeAnimal(BaseModel):
     """
-    Vyškolení osoby pro krmení zvířete.
+    Vyškolení osoby pro krmení typ zvířete.
     """
-    animal = models.ForeignKey(
-        "core.Animal",
+    type_animal = models.ForeignKey(
+        "core.TypeAnimal",
         on_delete=models.PROTECT,
-        related_name="animal_person_animal"
+        related_name="person_type_animal_type_animal"
     )
 
     person = models.ForeignKey(
         "core.Person",
         on_delete=models.PROTECT,
-        related_name="animal_person_person"
+        related_name="person_type_animal_person"
     )
 
     class Meta:
         unique_together = (
-            ('animal', 'person'),
+            ('type_animal', 'person'),
         )
 
 
@@ -164,4 +164,4 @@ class AnimalRegion(BaseModel):
     )
 
 
-__all__ = ["Animal", "AnimalStay", "AnimalRegion", "TypeAnimal", "AnimalPerson"]
+__all__ = ["Animal", "AnimalStay", "AnimalRegion", "TypeAnimal", "PersonTypeAnimal"]

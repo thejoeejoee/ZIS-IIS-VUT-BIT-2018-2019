@@ -1,6 +1,7 @@
 # coding=utf-8
 from colorful.fields import RGBColorField
 from django.db import models
+from django.utils.formats import time_format
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
@@ -56,6 +57,11 @@ class Enclosure(BaseModel):
 
     note = models.TextField(blank=True, null=True)
 
+    class Meta:
+        verbose_name = _('Enclosure')
+        verbose_name_plural = _('Enclosures')
+        ordering = ('type_enclosure__order', 'name',)
+
     def __str__(self):
         return self.name
 
@@ -95,6 +101,18 @@ class Cleaning(models.Model):
     done = models.BooleanField(default=False)
 
     note = models.TextField(null=True, blank=True)
+
+    @property
+    def specification(self):
+        return _('Cleaning for {} at {} ({}).').format(
+            self.enclosure,
+            time_format(self.date),
+            ', '.join(map(str, self.executors.all())),
+        )
+
+    @property
+    def start_date(self):
+        return self.date.date()
 
 
 class EnclosurePerson(BaseModel):

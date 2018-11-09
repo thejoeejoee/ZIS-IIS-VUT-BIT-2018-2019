@@ -4,11 +4,11 @@ from __future__ import unicode_literals
 from crispy_forms.layout import Layout, Row, Div
 from django.forms import Textarea
 from django.utils.translation import ugettext as _
-from django_select2.forms import Select2MultipleWidget
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.widgets.datepicker import DateTimePickerInput
+from ziscz.core.forms.widgets.select2 import PersonMultipleSelectWidget, EnclosureSelectWidget
 from ziscz.core.models import Cleaning, CleaningPerson, Person, Enclosure
 from ziscz.core.utils.m2m import update_m2m
 
@@ -26,8 +26,15 @@ class CleaningForm(BaseModelForm):
 
         widgets = {
             'date': DateTimePickerInput(),
-            'executors': Select2MultipleWidget(),
+            'enclosure': EnclosureSelectWidget(),
+            'executors': PersonMultipleSelectWidget(dependent_fields={
+                'enclosure': 'enclosure_person_person__enclosure'
+            }),
             'note': Textarea(attrs=dict(rows=3)),
+        }
+
+        help_texts = {
+            'executors': _('Displayed are only persons that are able to clean selected enclosure.')
         }
 
     def __init__(self, *args, **kwargs):
@@ -55,7 +62,8 @@ class CleaningForm(BaseModelForm):
                         enclosure.min_cleaners_count
                     )
                 )
-            if data.get('length') < enclosure.min_cleaning_duration:
+            length = data.get('length')
+            if length and length < enclosure.min_cleaning_duration:
                 self.add_error(
                     'length',
                     _('Selected enclosure require longer cleaning duration ({}) than filled.').format(
