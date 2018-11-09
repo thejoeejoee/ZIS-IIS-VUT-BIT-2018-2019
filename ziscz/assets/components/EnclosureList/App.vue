@@ -12,6 +12,10 @@
                     <small class="float-right">{{ enclosure.type_enclosure }}</small>
                 </a>
                 <animal-list :enclosure="enclosure"/>
+                <div class="card-footer small" v-if="enclosure.last_cleaning_date">
+                    <img src="../../../web/static/img/icons/duster.svg" alt="" width="20">
+                    {{ enclosure.last_cleaning_date }}
+                </div>
             </div>
         </template>
     </div>

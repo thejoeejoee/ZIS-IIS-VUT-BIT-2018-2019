@@ -1,5 +1,5 @@
 {% extends "web/base.html" %}
-{% load i18n %}
+{% load i18n staticfiles %}
 
 {% block content %}
     <h1>
@@ -10,9 +10,34 @@
     <div class="row">
         {% for person in object_list %}
             <div class="col-3">
-                <div class="card">
+                <div class="card mb-3">
                     <img class="card-img-top" src="http://i.pravatar.cc/300?u={{ person.pk }}">
-                    <div class="card-header"><a href="{% url "person_detail" person.pk %}">{{ person }}</a></div>
+                    <div class="card-header d-flex flex-row justify-content-between align-items-center">
+                        <a href="{% url "person_detail" person.pk %}" class="flex-fill">
+                            {{ person }}
+                        </a>
+                        <small>{{ person.type_role|lower }}</small>
+                    </div>
+                    <div class="card-body p-2 px-4">
+                        <div class="row small">
+                            {% if person.trained_type_animals.exists %}
+                                <div class="col-12 border-bottom border-gray" title="{% trans "Qualified type animals to feed" %}">
+                                    <img src="{% static "img/icons/apple.svg" %}" alt="{% trans "Qualified type animals to feed" %}" width="20" class="svg fill-primary m-2">
+                                    {% for ta in person.trained_type_animals.all %}
+                                        {{ ta }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                            {% if person.trained_type_enclosures.exists %}
+                                <div class="col-12" title="{% trans "Qualified type enclosures to clean" %}">
+                                    <img src="{% static "img/icons/duster.svg" %}" alt="{% trans "Qualified type enclosures to clean" %}" width="20" class="svg fill-primary m-2">
+                                    {% for te in person.trained_type_enclosures.all %}
+                                        {{ te }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
                 </div>
             </div>
         {% endfor %}

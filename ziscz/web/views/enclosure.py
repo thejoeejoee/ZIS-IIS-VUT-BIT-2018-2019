@@ -19,7 +19,9 @@ from ziscz.web.forms.enclosure import EnclosureForm
 
 class EnclosureListView(ListView):
     template_name = 'web/enclosure_list.html'
-    model = Enclosure
+    queryset = Enclosure.objects.select_related(
+        'type_enclosure',
+    )
     allow_empty = True
 
     def get_context_data(self, *args, object_list=None, **kwargs):
@@ -31,14 +33,14 @@ class EnclosureListView(ListView):
 
 
 class EnclosureDetailView(SuccessMessageMixin, UpdateView):
-    template_name = 'web/enclosure_detail.html'
+    template_name = 'web/form_detail.html'
     form_class = EnclosureForm
     success_url = reverse_lazy('enclosure_list')
     model = Enclosure
 
 
 class EnclosureCreateView(SuccessMessageMixin, CreateView):
-    template_name = 'web/enclosure_detail.html'
+    template_name = 'web/form_detail.html'
     form_class = EnclosureForm
     success_url = reverse_lazy('enclosure_list')
     model = Enclosure

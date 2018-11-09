@@ -1,5 +1,7 @@
 # coding=utf-8
 from django.db import models
+from django.utils.formats import time_format
+from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
 
@@ -36,6 +38,26 @@ class Feeding(BaseModel):
     done = models.BooleanField(default=False)
 
     note = models.TextField(null=True, blank=True)
+
+    amount = models.CharField(
+        max_length=128,
+        help_text=_('Amount of feed, etc. 1 kg, 1 l or 20 pieces.')
+    )
+
+
+    @property
+    def specification(self):
+        return _('Feed for {} at {} with {} ({}) by {}.').format(
+            ', '.join(map(str, self.animals.all())),
+            time_format(self.date),
+            self.type_feed,
+            self.amount,
+            self.executor,
+        )
+
+    @property
+    def start_date(self):
+        return self.date.date()
 
 
 class FeedingAnimal(BaseModel):

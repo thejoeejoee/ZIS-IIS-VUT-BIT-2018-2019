@@ -9,7 +9,8 @@ from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.widgets.datepicker import DateTimePickerInput
 from ziscz.core.forms.widgets.select2 import PersonSelectWidget, AnimalMultipleSelectWidget
-from ziscz.core.models import Feeding
+from ziscz.core.models import Feeding, Animal, FeedingAnimal
+from ziscz.core.utils.m2m import update_m2m
 
 
 class FeedingForm(BaseModelForm):
@@ -22,6 +23,7 @@ class FeedingForm(BaseModelForm):
             'date',
             'length',
             'note',
+            'amount',
         )
 
         widgets = {
@@ -40,14 +42,18 @@ class FeedingForm(BaseModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['animals'].initial = Animal.objects.filter(feeding_animal_animal__feeding=self.instance)
         self.helper.layout = Layout(
-            'type_feed',
             'executor',
+            'animals',
+            Row(
+                Col('amount'),
+                Col('type_feed')
+            ),
             Row(
                 Col('date'),
                 Col('length'),
             ),
-            'animals',
             'note',
             Div(css_id='feeding-planning'),
         )
@@ -58,15 +64,14 @@ class FeedingForm(BaseModelForm):
         return data
 
     def _save_m2m(self):
-        pass
-        # update_m2m(
-        #     actual_objects=Person.objects.filter(feeding_person_person__feeding=self.instance),
-        #     new_objects=self.cleaned_data.get('executors'),
-        #     relation_model=FeedingPerson,
-        #     static_field='feeding',
-        #     static_object=self.instance,
-        #     dynamic_field='person',
-        # )
+        update_m2m(
+            actual_objects=self.fields['animals'].initial,
+            new_objects=self.cleaned_data.get('animals'),
+            relation_model=FeedingAnimal,
+            static_field='feeding',
+            static_object=self.instance,
+            dynamic_field='animal',
+        )
 
     def save(self, commit=True):
         instance = super().save(commit=commit)

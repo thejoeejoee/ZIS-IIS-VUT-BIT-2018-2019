@@ -13,11 +13,17 @@ from ziscz.web.forms.person import PersonForm
 class PersonListView(ListView):
     template_name = 'web/person_list.html'
 
-    model = Person
+    queryset = Person.objects.select_related(
+        'type_role',
+    ).prefetch_related(
+        'trained_type_animals',
+        'trained_type_enclosures',
+    )
 
     allow_empty = True
 
     def get_context_data(self, *, object_list=None, **kwargs):
+        # TODO: add filtration to template
         type_person = get_object_or_none(TypeRole, pk=self.request.GET.get('type_role'))
         if type_person:
             object_list = self.get_queryset().filter(type_person=type_person)

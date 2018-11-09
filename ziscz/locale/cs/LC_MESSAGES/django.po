@@ -1,0 +1,165 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-11-08 09:06+0000\n"
+"PO-Revision-Date: 2018-11-08 18:01+0100\n"
+"Language: cs\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.7.1\n"
+
+#: ziscz/core/models/animal.py:29 ziscz/core/models/base.py:27
+#: ziscz/core/models/enclosure.py:36
+msgid "Name"
+msgstr ""
+
+#: ziscz/core/models/animal.py:77
+msgid "Animal"
+msgstr ""
+
+#: ziscz/core/models/animal.py:78 ziscz/web/templates/web/animal_list.html:7
+#: ziscz/web/templates/web/base.html:28
+msgid "Animals"
+msgstr ""
+
+#: ziscz/core/models/base.py:20
+msgid "Identifier"
+msgstr ""
+
+#: ziscz/core/models/base.py:31
+msgid "Description"
+msgstr ""
+
+#: ziscz/core/models/base.py:36
+msgid "Order"
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:27
+msgid ""
+"Describing color used for type of enclosure in system UI as helper, black is "
+"default."
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:46
+msgid "Describing color used in system UI as helper, black is default."
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:91
+msgid "Planned start of cleaning."
+msgstr ""
+
+#: ziscz/core/models/person.py:34
+msgid "Person"
+msgstr ""
+
+#: ziscz/core/models/person.py:35 ziscz/web/templates/web/base.html:29
+msgid "Persons"
+msgstr ""
+
+#: ziscz/core/templates/core/forms/form.html:11
+msgid "New"
+msgstr ""
+
+#: ziscz/core/templates/core/forms/form.html:27
+msgid "Last modified at"
+msgstr ""
+
+#: ziscz/core/templates/core/forms/form.html:30
+msgid "Save"
+msgstr ""
+
+#: ziscz/core/views/forms.py:31
+#, python-brace-format
+msgid "{instance} was successfully saved."
+msgstr ""
+
+#: ziscz/web/forms/cleaning.py:54
+msgid "Selected enclosure requires {} or more executors for cleaning."
+msgstr ""
+
+#: ziscz/web/forms/cleaning.py:61
+msgid "Selected enclosure require longer cleaning duration ({}) than filled."
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:11
+msgid "Add new animal"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:46
+msgid "Parents"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:52
+msgid "Children"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:59
+msgid "Birth date"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:64
+msgid "Death date"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:72
+msgid "Enclosure detail"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:86
+#: ziscz/web/templates/web/animal_list.html:87
+msgid "No animals found."
+msgstr ""
+
+#: ziscz/web/templates/web/base.html:30
+#: ziscz/web/templates/web/enclosure_list.html:6
+msgid "Enclosures"
+msgstr ""
+
+#: ziscz/web/templates/web/base.html:31
+msgid "Calendar"
+msgstr ""
+
+#: ziscz/web/templates/web/base.html:32 ziscz/web/templates/web/help.html:4
+msgid "Help"
+msgstr ""
+
+#: ziscz/web/templates/web/base.html:46
+msgid "administration"
+msgstr ""
+
+#: ziscz/web/templates/web/calendar.html:10
+msgid "Plan new cleaning"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_list.html:7
+msgid "New enclosure"
+msgstr ""
+
+#: ziscz/web/templates/web/home.html:5
+msgid "You're welcome in ZOO Information System!"
+msgstr ""
+
+#: ziscz/web/views/enclosure.py:70
+msgid "Animal {} was moved."
+msgid_plural "Animals {} were moved."
+msgstr[0] ""
+msgstr[1] ""
+msgstr[2] ""
+
+#: ziscz/zis/settings_default.py:147
+msgid "Czech"
+msgstr ""
+
+#: ziscz/zis/settings_default.py:148
+msgid "English"
+msgstr ""

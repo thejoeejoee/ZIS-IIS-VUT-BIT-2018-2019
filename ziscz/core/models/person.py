@@ -27,13 +27,25 @@ class Person(BaseModel):
     education = models.TextField(null=True, blank=True)
     note = models.TextField(null=True, blank=True)
 
+    trained_type_animals = models.ManyToManyField(
+        "core.TypeAnimal",
+        through="core.PersonTypeAnimal",
+        help_text=_("Type animals that is qualified to feed.")
+    )
+
+    trained_type_enclosures = models.ManyToManyField(
+        "core.TypeEnclosure",
+        through="core.PersonTypeEnclosure",
+        help_text=_("Type enclosures that is qualified to clean.")
+    )
+
     def __str__(self):
         return ' '.join((self.first_name, self.last_name))
 
     class Meta:
         verbose_name = _('Person')
         verbose_name_plural = _('Persons')
-        ordering = ('last_name', 'first_name',)
+        ordering = ('type_role__order', 'last_name', 'first_name',)
 
 
 __all__ = ["TypeRole", "Person"]

@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django_select2.forms import ModelSelect2MultipleWidget, ModelSelect2Widget
 
-from ziscz.core.models import Person, Animal, Enclosure
+from ziscz.core.models import Person, Animal, Enclosure, TypeAnimal, TypeEnclosure
 
 
 class PersonMultipleSelectWidget(ModelSelect2MultipleWidget):
@@ -35,4 +35,18 @@ class AnimalMultipleSelectWidget(ModelSelect2MultipleWidget):
     search_fields = (
         'name__icontains',
         'type_animal__name__icontains',
+    )
+
+
+class TypeAnimalMultipleSelectWidget(ModelSelect2MultipleWidget):
+    model = TypeAnimal
+    search_fields = (
+        'name__icontains',
+    )
+
+
+class TypeEnclosureMultipleSelectWidget(ModelSelect2MultipleWidget):
+    model = TypeEnclosure
+    search_fields = (
+        'name__icontains',
     )

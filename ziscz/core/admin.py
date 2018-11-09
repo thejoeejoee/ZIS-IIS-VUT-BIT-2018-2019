@@ -1,8 +1,11 @@
 from django.contrib import admin
 
 # Register your models here.
-from ziscz.core.models import Animal, TypeAnimal, Person, TypeRole, PersonTypeAnimal, TypeCountry, Enclosure, TypeEnclosure
-from ziscz.core.models.region import TypeRegion
+from ziscz.core.models import (
+    Animal, TypeAnimal, Person, TypeRole,
+    PersonTypeAnimal, TypeCountry, Enclosure,
+    TypeEnclosure, TypeFeed, TypeRegion,
+    TypeCleaningAccessory)
 
 
 class BaseTypeModelAdmin(admin.ModelAdmin):
@@ -19,6 +22,8 @@ admin.register(TypeRole)(BaseTypeModelAdmin)
 admin.register(TypeRegion)(BaseTypeModelAdmin)
 admin.register(TypeCountry)(BaseTypeModelAdmin)
 admin.register(TypeEnclosure)(BaseTypeModelAdmin)
+admin.register(TypeFeed)(BaseTypeModelAdmin)
+admin.register(TypeCleaningAccessory)(BaseTypeModelAdmin)
 
 
 @admin.register(Animal)

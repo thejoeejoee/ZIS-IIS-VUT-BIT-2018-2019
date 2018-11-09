@@ -28,7 +28,8 @@ class CleaningForm(BaseModelForm):
             'date': DateTimePickerInput(),
             'enclosure': EnclosureSelectWidget(),
             'executors': PersonMultipleSelectWidget(dependent_fields={
-                'enclosure': 'enclosure_person_person__enclosure'
+                # all persons qualified to clean selected enclosure
+                'enclosure': 'person_type_enclosure_person__type_enclosure__enclosure_type_enclosure'
             }),
             'note': Textarea(attrs=dict(rows=3)),
         }

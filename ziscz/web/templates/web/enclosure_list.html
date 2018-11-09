@@ -4,7 +4,8 @@
 {% block content %}
     <h1>
         {% trans "Enclosures" %}
-        <a class="btn btn-success float-right" href="{% url "enclosure_create" %}">{% trans "New enclosure" %}</a>
+        <a class="btn btn-success" href="{% url "enclosure_create" %}">+</a>
+
     </h1>
     <hr>
     <div id="enclosure-list"></div>

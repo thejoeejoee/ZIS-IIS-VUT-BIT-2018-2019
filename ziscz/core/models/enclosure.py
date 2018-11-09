@@ -1,10 +1,14 @@
 # coding=utf-8
+import typing
+
 from colorful.fields import RGBColorField
 from django.db import models
+from django.utils import timezone
 from django.utils.formats import time_format
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
+
 
 
 class TypeCleaningAccessory(BaseTypeModel):
@@ -26,6 +30,11 @@ class TypeEnclosure(BaseTypeModel):
     color = RGBColorField(
         null=True, blank=True,
         help_text=_('Describing color used for type of enclosure in system UI as helper, black is default.')
+    )
+
+    trained_persons = models.ManyToManyField(
+        "core.Person",
+        through="core.PersonTypeEnclosure"
     )
 
 
@@ -50,11 +59,6 @@ class Enclosure(BaseModel):
     min_cleaning_duration = models.DurationField()
     min_cleaners_count = models.PositiveIntegerField()
 
-    trained_persons = models.ManyToManyField(
-        "core.Person",
-        through="core.EnclosurePerson"
-    )
-
     note = models.TextField(blank=True, null=True)
 
     class Meta:
@@ -76,7 +80,17 @@ class Enclosure(BaseModel):
         return Animal.live_animals.filter(
             AnimalStay.filter_for_actual('animal_stay_animal'),
             animal_stay_animal__enclosure=self,
+        ).select_related(
+            'type_animal',
         )
+
+    @property
+    def last_cleaning(self) -> typing.Optional["Cleaning"]:
+        today = timezone.now().date()
+        return self.cleaning_enclosure.filter(
+            done=True,
+            date__lt=today
+        ).order_by('date').last()
 
 
 class Cleaning(models.Model):
@@ -115,20 +129,20 @@ class Cleaning(models.Model):
         return self.date.date()
 
 
-class EnclosurePerson(BaseModel):
+class PersonTypeEnclosure(BaseModel):
     """
-    Člověk vyškolený k čištění výběhu.
+    Člověk vyškolený k čištění typu výběhu.
     """
-    enclosure = models.ForeignKey(
-        "core.Enclosure",
+    type_enclosure = models.ForeignKey(
+        "core.TypeEnclosure",
         on_delete=models.PROTECT,
-        related_name="enclosure_person_enclosure"
+        related_name="person_type_enclosure_type_enclosure"
     )
 
     person = models.ForeignKey(
         "core.Person",
         on_delete=models.PROTECT,
-        related_name="enclosure_person_person"
+        related_name="person_type_enclosure_person"
     )
 
 
@@ -163,5 +177,5 @@ class CleaningPerson(BaseModel):
     )
 
 
-__all__ = ["TypeCleaningAccessory", "TypeEnclosure", "Enclosure", "EnclosurePerson",
+__all__ = ["TypeCleaningAccessory", "TypeEnclosure", "Enclosure", "PersonTypeEnclosure",
            "TypeEnclosureTypeCleaningAccessory", "CleaningPerson", "Cleaning"]
