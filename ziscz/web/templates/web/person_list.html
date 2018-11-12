@@ -1,6 +1,10 @@
 {% extends "web/base.html" %}
 {% load i18n staticfiles %}
 
+{% block title %}
+    {% trans "Persons" %} |
+{% endblock %}
+
 {% block content %}
     <h1>
         {% trans "Persons" %}

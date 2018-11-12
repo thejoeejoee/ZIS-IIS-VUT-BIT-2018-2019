@@ -1,11 +1,22 @@
 {% extends "web/base.html" %}
 
+{% load i18n utils %}
+
+{% block title %}
+    {% if form.updating %}
+        {{ object }} |
+    {% else %}
+        {% trans "New" %} {{ form.instance|get_verbose_name }} |
+    {% endif %}
+{% endblock %}
+
+
 {% block content %}
 
     <div class="row justify-content-center">
         <div class="col-8">
             {% include "core/forms/form.html" with form=form %}
         </div>
-        <div class="col"></div>
+        {% block second_col %}{% endblock %}
     </div>
 {% endblock content %}

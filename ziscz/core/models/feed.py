@@ -44,6 +44,8 @@ class Feeding(BaseModel):
         help_text=_('Amount of feed, etc. 1 kg, 1 l or 20 pieces.')
     )
 
+    class Meta:
+        ordering = 'date',
 
     @property
     def specification(self):
@@ -75,6 +77,9 @@ class FeedingAnimal(BaseModel):
         on_delete=models.PROTECT,
         related_name="feeding_animal_animal"
     )
+
+    class Meta:
+        ordering = 'feeding__date',
 
 
 __all__ = ["TypeFeed", "Feeding", "FeedingAnimal"]

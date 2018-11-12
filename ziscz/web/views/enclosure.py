@@ -33,7 +33,7 @@ class EnclosureListView(ListView):
 
 
 class EnclosureDetailView(SuccessMessageMixin, UpdateView):
-    template_name = 'web/form_detail.html'
+    template_name = 'web/enclosure_detail.html'
     form_class = EnclosureForm
     success_url = reverse_lazy('enclosure_list')
     model = Enclosure

@@ -1,5 +1,9 @@
 {% extends "web/base.html" %}
-{% load i18n %}
+{% load i18n utils %}
+
+{% block title %}
+    {% trans "Calendar" %} |
+{% endblock %}
 
 {% block content %}
     <div class="row justify-content-between">

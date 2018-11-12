@@ -43,7 +43,7 @@ class AnimalListView(ListView):
 
 
 class AnimalDetailView(SuccessMessageMixin, UpdateView):
-    template_name = 'web/form_detail.html'
+    template_name = 'web/animal_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')
     model = Animal

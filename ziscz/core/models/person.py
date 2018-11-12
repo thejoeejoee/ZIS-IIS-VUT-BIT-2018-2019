@@ -30,13 +30,15 @@ class Person(BaseModel):
     trained_type_animals = models.ManyToManyField(
         "core.TypeAnimal",
         through="core.PersonTypeAnimal",
-        help_text=_("Type animals that is qualified to feed.")
+        help_text=_("Type animals that is qualified to feed."),
+        blank=True,
     )
 
     trained_type_enclosures = models.ManyToManyField(
         "core.TypeEnclosure",
         through="core.PersonTypeEnclosure",
-        help_text=_("Type enclosures that is qualified to clean.")
+        help_text=_("Type enclosures that is qualified to clean."),
+        blank=True,
     )
 
     def __str__(self):

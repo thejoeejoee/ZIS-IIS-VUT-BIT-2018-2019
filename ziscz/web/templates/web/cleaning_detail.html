@@ -1,5 +1,11 @@
 {% extends "web/base.html" %}
 
+{% load i18n %}
+
+{% block title %}
+    {% trans "Cleaning" %} |
+{% endblock %}
+
 {% block content %}
     {% include "core/forms/form.html" with form=form %}
     {% if not form.updating %}

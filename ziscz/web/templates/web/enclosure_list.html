@@ -1,14 +1,22 @@
 {% extends "web/base.html" %}
 {% load i18n color utils %}
 
+
+{% block title %}
+    {% trans "Enclosures" %} |
+{% endblock %}
+
+
 {% block content %}
     <h1>
         {% trans "Enclosures" %}
         <a class="btn btn-success" href="{% url "enclosure_create" %}">+</a>
-
     </h1>
     <hr>
     <div id="enclosure-list"></div>
+    <div class="mt-3 alert alert-info">
+        {% trans "With drag'n drop you can transfer animals between enclosures." %}
+    </div>
     <script>
         window.zis.installEnclosureList('#enclosure-list', JSON.parse('{{ data|to_json }}'));
     </script>

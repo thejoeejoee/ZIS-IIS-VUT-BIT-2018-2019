@@ -124,6 +124,9 @@ class AnimalStay(BaseModel):
                 Q(**{p('date_to__isnull'): True}) | Q(**{p('date_to__gte'): today}))
         )
 
+    class Meta:
+        ordering = 'date_from',
+
 
 class PersonTypeAnimal(BaseModel):
     """

@@ -1,0 +1,71 @@
+{% extends "web/form_detail.html" %}
+{% load i18n staticfiles %}
+
+{% block second_col %}
+    <div class="col">
+        {% if object.current_animals.exists %}
+            <div class="card mb-3" style="background-color: {{ enclosure.enclosure_color }}">
+                <div class="card-header">{% trans "Current animals" %}</div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        {% for animal in object.current_animals %}
+                            <li>
+                                {# TODO: resoled via static #}
+                                <a href="{% url "animal_detail" animal.pk %}" class="link-keep-color">
+                                    <img src="/static/img/icons/animals/{{ animal.type_animal.icon }}" alt="{{ animal.type_animal }}" width="25">
+                                    {{ animal }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        <div class="card mb-3">
+            <div class="card-header">{% trans "Cleanings" %}</div>
+            <div class="card-body">TODO</div>
+        </div>
+        {% if object.type_enclosure.required_cleaning_accessory.exists %}
+            <div class="card mb-3">
+                <div class="card-header">{% trans "Cleaning accessory" %}</div>
+                <div class="card-body">
+                    {% for accessory in object.type_enclosure.required_cleaning_accessory.all %}
+                        {{ accessory }}{% if not forloop.last %}, {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+        {% if object.type_enclosure.trained_persons.exists %}
+            <div class="card mb-3">
+                <div class="card-header d-flex align-items-center">
+                    <span class="flex-fill">{% trans "Qualified cleaners" %}</span>
+                    <span class="small">{% trans "New cleaning" %}</span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for person in object.type_enclosure.trained_persons.all %}
+                        <li class="list-group-item d-flex align-items-center">
+                            <a href="{% url "person_detail" person.pk %}" class="flex-fill">{{ person }}</a>
+                            <a href="{% url "cleaning_create" %}?enclosure={{ object.pk }}&executor={{ person.pk }}" class="btn btn-sm btn-outline-info" title="{% trans "Plan new cleaning" %}">
+                                <img src="{% static "img/icons/duster.svg" %}" alt="" width="20">
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        {% if object.type_enclosure.enclosure_type_enclosure.count > 1 %}
+            <div class="card mb-3">
+                <div class="card-header">{% trans "Same type enclosures" %}</div>
+                <ul class="list-group list-group-flush">
+                    {% for enc in object.type_enclosure.enclosure_type_enclosure.all %}
+                        {% if enc != object %}
+                            <li class="list-group-item">
+                                <a href="{% url "enclosure_detail" enc.pk %}">{{ enc }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

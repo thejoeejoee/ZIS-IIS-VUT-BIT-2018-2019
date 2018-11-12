@@ -79,3 +79,21 @@
 .select2-container--default .select2-selection--single .select2-selection__arrow {
   height: (36px + 15px);
 }
+
+/** vue datetime */
+.vdatetime-popup__header,
+.vdatetime-calendar__month__day--selected > span > span,
+.vdatetime-calendar__month__day--selected:hover > span > span {
+  background: $primary !important;
+}
+
+.vdatetime-year-picker__item--selected,
+.vdatetime-time-picker__item--selected,
+.vdatetime-popup__actions__button {
+  color: $primary !important;
+}
+
+/** somebody adding display none for invalid-feedback :-( */
+.invalid-feedback {
+  display: block !important;
+}

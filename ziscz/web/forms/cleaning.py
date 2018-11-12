@@ -1,31 +1,36 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from typing import Optional
+
 from crispy_forms.layout import Layout, Row, Div
+from django.db.transaction import atomic
 from django.forms import Textarea
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
-from ziscz.core.forms.widgets.datepicker import DateTimePickerInput
+from ziscz.core.forms.fields import DateRangeField
 from ziscz.core.forms.widgets.select2 import PersonMultipleSelectWidget, EnclosureSelectWidget
 from ziscz.core.models import Cleaning, CleaningPerson, Person, Enclosure
 from ziscz.core.utils.m2m import update_m2m
 
 
 class CleaningForm(BaseModelForm):
+    date_range = DateRangeField(required=False)
+
     class Meta:
         model = Cleaning
         fields = (
             'enclosure',
-            'date',
             'length',
             'note',
             'executors',
+            'date',
         )
 
         widgets = {
-            'date': DateTimePickerInput(),
             'enclosure': EnclosureSelectWidget(),
             'executors': PersonMultipleSelectWidget(dependent_fields={
                 # all persons qualified to clean selected enclosure
@@ -40,16 +45,24 @@ class CleaningForm(BaseModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        # filled by range
+        self.fields['date'].required = False
         self.helper.layout = Layout(
             'enclosure',
             'executors',
             Row(
-                Col('date'),
                 Col('length'),
+                Col('note'),
             ),
-            'note',
-            Div(css_id='cleaning-planning'),
+            Div(render_to_string('web/cleaning_planning_note.html')),
+            Div(css_id='cleaning-planning') if not self.updating else Div(),
         )
+
+        enclosure = self.fields['enclosure'].initial or self.initial.get('enclosure')  # type: Optional[Enclosure]
+        if enclosure:
+            self.initial.update(dict(
+                length=enclosure.min_cleaning_duration,
+            ))
 
     def clean(self):
         data = super().clean()
@@ -71,6 +84,11 @@ class CleaningForm(BaseModelForm):
                         enclosure.min_cleaning_duration
                     )
                 )
+
+        date_range = data.get('date_range')
+        if date_range:
+            self.instance.date = data['date'] = date_range[0]
+
         return data
 
     def _save_m2m(self):
@@ -83,6 +101,25 @@ class CleaningForm(BaseModelForm):
             dynamic_field='person',
         )
 
+    @atomic
     def save(self, commit=True):
         instance = super().save(commit=commit)
+
+        if not self.updating:
+            date_range = self.cleaned_data.get('date_range')
+            for date in date_range[1:]:
+                # skip first
+                cleaning = Cleaning(
+                    enclosure=instance.enclosure,
+                    length=instance.length,
+                    note=instance.note,
+                    date=date,
+                )
+                cleaning.save()
+                for person in self.cleaned_data.get('executors'):
+                    CleaningPerson.objects.create(
+                        cleaning=cleaning,
+                        person=person,
+                    )
+
         return instance
