@@ -5,6 +5,7 @@ export default function create(initial) {
         state: {
             ...{},
             ...initial,
-        }
+        },
+        strict: false,
     });
 }

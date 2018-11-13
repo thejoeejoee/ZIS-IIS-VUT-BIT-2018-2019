@@ -3,14 +3,14 @@
 {% load i18n %}
 
 {% block title %}
-    {% trans "Cleaning" %} |
+    {% trans "Feeding" %} |
 {% endblock %}
 
 {% block content %}
     {% include "core/forms/form.html" with form=form %}
     {% if not form.updating %}
         <script>
-            window.zis.installRangePlanning('#cleaning-planning');
+            window.zis.installRangePlanning('#feeding-planning');
         </script>
     {% endif %}
 {% endblock content %}

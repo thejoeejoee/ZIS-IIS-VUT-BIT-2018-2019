@@ -1,7 +1,11 @@
 # coding=utf-8
+from datetime import timedelta
+from typing import Tuple
 
 from django.contrib.auth import get_user_model
 from django.db import models
+from django.db.models import Q, F, DateTimeField, ExpressionWrapper, QuerySet
+from django.utils.datetime_safe import datetime
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
@@ -48,6 +52,38 @@ class Person(BaseModel):
         verbose_name = _('Person')
         verbose_name_plural = _('Persons')
         ordering = ('type_role__order', 'last_name', 'first_name',)
+
+    def find_in_time(self, start: datetime, length: timedelta) -> Tuple[QuerySet, QuerySet]:
+        """
+        Finds some activities in given time range - (QS(Feeding), QS(Cleaning)).
+        """
+        # TODO: I'am not 100 % sure.
+        end = start + length
+        end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
+        feeding_conflict = self.feeding_executor.annotate(
+            start=F('date'),
+            end=end_field
+        ).filter(
+            Q(end__gt=start, end__lt=end) |
+            Q(start__gt=start, start__lt=end) |
+            Q(start__gt=start, end__lt=end) |
+            Q(start__lt=start, end__gt=end)
+        )
+
+        end_field = ExpressionWrapper(F('cleaning__date') + F('cleaning__length'), output_field=DateTimeField())
+
+        cleaning_conflict = self.cleaning_person_person.annotate(
+            start=F('cleaning__date'),
+            end=end_field
+        ).filter(
+            Q(end__gt=start, end__lt=end) |
+            Q(start__gt=start, start__lt=end) |
+            Q(start__gt=start, end__lt=end) |
+            Q(start__lt=start, end__gt=end)
+        )
+
+        from ziscz.core.models import Cleaning
+        return feeding_conflict, Cleaning.objects.filter(pk__in=cleaning_conflict.values_list('cleaning_id'))
 
 
 __all__ = ["TypeRole", "Person"]

@@ -33,7 +33,7 @@
                 </div>
                 <div class="row justify-content-center" v-if="rangeUnit">
                     <div class="col-3 text-right">
-                        first cleaning
+                        first
                         <datetime
                             v-model="dateFrom"
                             :auto="true"

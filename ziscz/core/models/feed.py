@@ -1,6 +1,6 @@
 # coding=utf-8
 from django.db import models
-from django.utils.formats import time_format
+from django.utils.formats import time_format, date_format
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
@@ -46,6 +46,12 @@ class Feeding(BaseModel):
 
     class Meta:
         ordering = 'date',
+
+    def __str__(self):
+        return _('Feeding at {} {}').format(
+            time_format(self.date),
+            date_format(self.date),
+        )
 
     @property
     def specification(self):

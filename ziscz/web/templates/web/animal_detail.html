@@ -14,17 +14,17 @@
                                 {{ feeding_rel.feeding.amount }}
                                 {{ feeding_rel.feeding.type_feed }}
                             </span>
-                            <small>
+                            <span>
                                 {{ feeding_rel.feeding.executor.last_name }},
                                 {{ feeding_rel.feeding.date|default:''|date:'d.m.Y' }}
-                            </small>
+                            </span>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
         {% if object.animal_stay_animal.exists %}
-            <div class="card mb-3">
+            <div class="card mb-3 small">
                 <div class="card-header">{% trans "Enclosure history" %}</div>
                 <div class="card-body py-2">
                     <ul class="list-unstyled mb-1">
@@ -32,9 +32,9 @@
                             <li
                                 class="d-flex align-items-center justify-content-between {% if not forloop.last %}border-bottom border-gray{% endif %}">
                                 <a href="{% url 'enclosure_detail' stay.enclosure.pk %}">{{ stay.enclosure }}</a>
-                                <small>
+                                <span>
                                     {{ stay.date_from|default:''|date:'d.m.Y' }}–{{ stay.date_to|default:''|date:'d.m.Y' }}
-                                </small>
+                                </span>
                             </li>
                         {% endfor %}
                     </ul>

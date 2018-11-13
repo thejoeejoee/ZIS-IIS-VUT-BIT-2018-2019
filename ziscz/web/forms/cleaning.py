@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from typing import Optional
 
-from crispy_forms.layout import Layout, Row, Div
+from crispy_forms.layout import Layout, Row, Div, HTML
 from django.db.transaction import atomic
 from django.forms import Textarea
 from django.template.loader import render_to_string
@@ -36,7 +36,7 @@ class CleaningForm(BaseModelForm):
                 # all persons qualified to clean selected enclosure
                 'enclosure': 'person_type_enclosure_person__type_enclosure__enclosure_type_enclosure'
             }),
-            'note': Textarea(attrs=dict(rows=3)),
+            'note': Textarea(attrs=dict(rows=2)),
         }
 
         help_texts = {
@@ -54,7 +54,7 @@ class CleaningForm(BaseModelForm):
                 Col('length'),
                 Col('note'),
             ),
-            Div(render_to_string('web/cleaning_planning_note.html')),
+            HTML(render_to_string('web/cleaning_planning_note.html')),
             Div(css_id='cleaning-planning') if not self.updating else Div(),
         )
 

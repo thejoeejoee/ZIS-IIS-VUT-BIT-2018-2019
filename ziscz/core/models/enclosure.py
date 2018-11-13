@@ -3,12 +3,12 @@ import typing
 
 from colorful.fields import RGBColorField
 from django.db import models
+from django.db.models import QuerySet
 from django.utils import timezone
-from django.utils.formats import time_format
+from django.utils.formats import time_format, date_format
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
-
 
 
 class TypeCleaningAccessory(BaseTypeModel):
@@ -86,11 +86,22 @@ class Enclosure(BaseModel):
 
     @property
     def last_cleaning(self) -> typing.Optional["Cleaning"]:
+        return self.last_done_cleanings.last()
+
+    @property
+    def last_done_cleanings(self) -> QuerySet:
         today = timezone.now().date()
         return self.cleaning_enclosure.filter(
             done=True,
             date__lt=today
-        ).order_by('date').last()
+        ).order_by('date')
+
+    @property
+    def planned_cleanings(self) -> QuerySet:
+        today = timezone.now().date()
+        return self.cleaning_enclosure.filter(
+            date__gte=today
+        ).order_by('-date')
 
 
 class Cleaning(models.Model):
@@ -115,6 +126,15 @@ class Cleaning(models.Model):
     done = models.BooleanField(default=False)
 
     note = models.TextField(null=True, blank=True)
+
+    class Meta:
+        ordering = 'date',
+
+    def __str__(self):
+        return _('Cleaning at {} {}').format(
+            time_format(self.date),
+            date_format(self.date),
+        )
 
     @property
     def specification(self):

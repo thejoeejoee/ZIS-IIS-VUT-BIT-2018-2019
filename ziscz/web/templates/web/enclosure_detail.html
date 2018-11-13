@@ -2,11 +2,11 @@
 {% load i18n staticfiles %}
 
 {% block second_col %}
-    <div class="col">
+    <div class="col small">
         {% if object.current_animals.exists %}
             <div class="card mb-3" style="background-color: {{ enclosure.enclosure_color }}">
                 <div class="card-header">{% trans "Current animals" %}</div>
-                <div class="card-body">
+                <div class="card-body py-2">
                     <ul class="list-unstyled">
                         {% for animal in object.current_animals %}
                             <li>
@@ -21,14 +21,54 @@
                 </div>
             </div>
         {% endif %}
-        <div class="card mb-3">
-            <div class="card-header">{% trans "Cleanings" %}</div>
-            <div class="card-body">TODO</div>
-        </div>
+        {% if object.planned_cleanings.exists %}
+            <div class="card mb-3">
+                <div class="card-header">{% trans "Closest planned cleanings" %}</div>
+                <div class="card-body py-2">
+                    <ul class="list-unstyled mb-1">
+                        {% for cleaning in object.planned_cleanings|slice:":3" reversed %}
+                            <li
+                                class="d-flex align-items-center justify-content-between {% if not forloop.last %}border-bottom border-gray{% endif %}">
+                                <span>
+                                    {% for executor in cleaning.executors.all %}
+                                        {{ executor.last_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </span>
+                                <span>
+                                    {{ cleaning.date|default:''|date:'H:i d.m.Y' }}
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+        {% if object.last_done_cleanings.exists %}
+            <div class="card mb-3">
+                <div class="card-header">{% trans "Last cleanings" %}</div>
+                <div class="card-body py-2">
+                    <ul class="list-unstyled mb-1">
+                        {% for cleaning in object.last_done_cleanings|slice:":3" reversed %}
+                            <li
+                                class="d-flex align-items-center justify-content-between {% if not forloop.last %}border-bottom border-gray{% endif %}">
+                                <span>
+                                    {% for executor in cleaning.executors.all %}
+                                        {{ executor.last_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}
+                                </span>
+                                <span>
+                                    {{ cleaning.date|default:''|date:'H:i d.m.Y' }}
+                                </span>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
         {% if object.type_enclosure.required_cleaning_accessory.exists %}
             <div class="card mb-3">
                 <div class="card-header">{% trans "Cleaning accessory" %}</div>
-                <div class="card-body">
+                <div class="card-body py-2">
                     {% for accessory in object.type_enclosure.required_cleaning_accessory.all %}
                         {{ accessory }}{% if not forloop.last %}, {% endif %}
                     {% endfor %}
@@ -39,7 +79,7 @@
             <div class="card mb-3">
                 <div class="card-header d-flex align-items-center">
                     <span class="flex-fill">{% trans "Qualified cleaners" %}</span>
-                    <span class="small">{% trans "New cleaning" %}</span>
+                    <span class="">{% trans "New cleaning" %}</span>
                 </div>
                 <ul class="list-group list-group-flush">
                     {% for person in object.type_enclosure.trained_persons.all %}
