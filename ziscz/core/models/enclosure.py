@@ -132,21 +132,24 @@ class Cleaning(models.Model):
 
     def __str__(self):
         return _('Cleaning at {} {}').format(
-            time_format(self.date),
+            time_format(self.date, use_l10n=True),
             date_format(self.date),
         )
 
     @property
     def specification(self):
-        return _('Cleaning for {} at {} ({}).').format(
+        return _('{} by {}').format(
             self.enclosure,
-            time_format(self.date),
             ', '.join(map(str, self.executors.all())),
         )
 
     @property
     def start_date(self):
         return self.date.date()
+
+    @property
+    def end(self):
+        return self.date + self.length
 
 
 class PersonTypeEnclosure(BaseModel):

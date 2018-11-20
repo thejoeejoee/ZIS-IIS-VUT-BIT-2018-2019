@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 
     'ziscz.web',
     'ziscz.core',
+    'ziscz.api',
 
     'webpack_loader',
     'imagekit',

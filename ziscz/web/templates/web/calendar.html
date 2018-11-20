@@ -20,15 +20,9 @@
         </div>
     </div>
     <hr>
-    {% regroup events by start_date as event_list %}
-
-    {% for group in event_list %}
-        <h4>{{ group.grouper }}</h4>
-        <ul>
-            {% for event in group.list %}
-                <li>{{ event.specification }}</li>
-            {% endfor %}
-        </ul>
-    {% endfor %}
+    <div id="calendar"></div>
+    <script>
+        window.zis.installCalendar('#calendar');
+    </script>
 
 {% endblock content %}

@@ -17,3 +17,4 @@ django-colorful
 django-js-reverse
 django-relativefilepathfield
 django-debug-toolbar
+python-dateutil

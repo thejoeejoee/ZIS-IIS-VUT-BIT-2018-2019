@@ -13,6 +13,7 @@ urlpatterns = [
                   path('admin/', include(loginas.urls)),
                   path('admin/', admin.site.urls),
                   path('select2-api/', include('django_select2.urls')),
+                  path('api/', include('ziscz.api.urls')),
                   path('js-reverse', cache_page(3600)(urls_js), name='js_reverse'),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT) + [

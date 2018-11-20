@@ -49,23 +49,26 @@ class Feeding(BaseModel):
 
     def __str__(self):
         return _('Feeding at {} {}').format(
-            time_format(self.date),
+            time_format(self.date, use_l10n=True),
             date_format(self.date),
         )
 
     @property
     def specification(self):
-        return _('Feed for {} at {} with {} ({}) by {}.').format(
+        return _('{} by {} ({} {})').format(
             ', '.join(map(str, self.animals.all())),
-            time_format(self.date),
+            self.executor,
             self.type_feed,
             self.amount,
-            self.executor,
         )
 
     @property
     def start_date(self):
         return self.date.date()
+
+    @property
+    def end(self):
+        return self.date + self.length
 
 
 class FeedingAnimal(BaseModel):
