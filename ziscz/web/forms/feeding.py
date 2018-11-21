@@ -11,6 +11,7 @@ from django.utils.translation import ugettext as _
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.fields import DateRangeField
+from ziscz.core.forms.widgets.duration import DurationPickerWidget
 from ziscz.core.forms.widgets.select2 import PersonSelectWidget, AnimalMultipleSelectWidget
 from ziscz.core.models import Feeding, Animal, FeedingAnimal, Person
 from ziscz.core.utils.m2m import update_m2m
@@ -38,6 +39,7 @@ class FeedingForm(BaseModelForm):
             ),
             'note': Textarea(attrs=dict(rows=2)),
             'executor': PersonSelectWidget(),
+            'length': DurationPickerWidget(),
         }
         help_texts = {
             'animals': _('Only animals, that could be feed by selected person, are displayed.')

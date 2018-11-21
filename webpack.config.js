@@ -109,6 +109,10 @@ module.exports = (env, argv) => {
         plugins: [
             new VueLoaderPlugin(),
             new BundleTracker({filename: './ziscz/webpack-stats.json'}),
+            new webpack.ProvidePlugin({
+                $: 'jquery',
+                jQuery: 'jquery',
+            }),
         ]
     }
 };

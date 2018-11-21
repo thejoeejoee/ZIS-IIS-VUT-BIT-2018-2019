@@ -105,3 +105,20 @@
 .invalid-feedback {
   display: block !important;
 }
+
+/** duration widget */
+.bdp-input {
+  display: flex;
+  .bdp-block {
+    flex: 1 1 auto;
+    &:not(:last-child) {
+      @extend .mr-2;
+    }
+  }
+  .hidden {
+    display: none;
+  }
+  .input-sm {
+    @extend .form-control-sm;
+  }
+}

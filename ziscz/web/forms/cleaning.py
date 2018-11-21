@@ -12,6 +12,7 @@ from django.utils.translation import ugettext as _
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.fields import DateRangeField
+from ziscz.core.forms.widgets.duration import DurationPickerWidget
 from ziscz.core.forms.widgets.select2 import PersonMultipleSelectWidget, EnclosureSelectWidget
 from ziscz.core.models import Cleaning, CleaningPerson, Person, Enclosure
 from ziscz.core.utils.m2m import update_m2m
@@ -37,6 +38,7 @@ class CleaningForm(BaseModelForm):
                 'enclosure': 'person_type_enclosure_person__type_enclosure__enclosure_type_enclosure'
             }),
             'note': Textarea(attrs=dict(rows=2)),
+            'length': DurationPickerWidget(),
         }
 
         help_texts = {
