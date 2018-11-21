@@ -5,6 +5,7 @@ import 'toastr/build/toastr.min.css'
 import installEnclosureList from './components/EnclosureList/main';
 import installRangePlanning from './components/RangePlanning/main';
 import installCalendar from './components/Calendar/main';
+import replaceSvgImg from './utils/svg';
 
 window.$ = window.jQuery = require("jquery");
 window.toastr = require("toastr");
@@ -16,4 +17,5 @@ window.zis = {
     installEnclosureList,
     installRangePlanning,
     installCalendar,
+    replaceSvgImg,
 };

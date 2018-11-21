@@ -1,0 +1,51 @@
+{% load i18n staticfiles %}
+
+<div class="card mx-2">
+    <a href="{% url "animal_detail" animal.pk %}" class="card-header">
+        {{ animal.name }}
+        <small class="float-right">
+            {% if animal.type_animal.icon %}
+                <img src="{% static "img/icons/animals/"|add:animal.type_animal.icon %}" width="40" class="svg">
+            {% else %}
+                {{ animal.type_animal }}
+            {% endif %}
+        </small>
+    </a>
+    <div class="card-body p-2 px-4">
+        <div class="row small">
+            {% if animal.parent1 or animal.parent2 %}
+                <div class="col-12 border-bottom border-gray">
+                    <img src="{% static "img/icons/couple.svg" %}" alt="{% trans "Parents" %}" width="20" class="svg fill-primary m-2">
+                    {{ animal.parent1.name|default:'-' }}, {{ animal.parent2.name|default:'-' }}
+                </div>
+            {% endif %}
+            {% if animal.children %}
+                <div class="col-12 border-bottom border-gray">
+                    <img src="{% static "img/icons/family.svg" %}" alt="{% trans "Children" %}" width="20" class="svg fill-primary m-2">
+                    {% for child in animal.children %}
+                        {{ child.name }}{% if not forloop.last %},{% endif %}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            <div class="col-12">
+                <img src="{% static "img/icons/stork.svg" %}" alt="{% trans "Birth date" %}" width="20" class="svg fill-primary m-2">
+                {{ animal.birth_date }}
+            </div>
+            {% if animal.death_date %}
+                <div class="col-12 border-top border-gray">
+                    <img src="{% static "img/icons/cross.svg" %}" alt="{% trans "Death date" %}" width="20" class="svg fill-primary m-2">
+                    {{ animal.death_date }}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="card-footer small px-1 text-center"
+        {# style="color: {{ animal.actual_enclosure.enclosure_color }}" #}>
+        <img src="{% static "img/icons/location-pointer.svg" %}" alt="{% trans "Enclosure detail" %}" width="20">
+        {% if animal.actual_enclosure %}
+            <a href="{% url 'enclosure_detail' animal.actual_enclosure.pk %}" class="link-keep-color">{{ animal.actual_enclosure }}</a>
+        {% else %}
+            -
+        {% endif %}
+    </div>
+</div>
