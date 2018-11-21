@@ -36,12 +36,13 @@ class AnimalStayManager(Manager):
 
 
 class LiveAnimalsManager(Manager):
-    def get_queryset(self):
+    @staticmethod
+    def get_dead_filter() -> Q:
         today = timezone.now().date()
-        return super().get_queryset().filter(
-            Q(
-                death_date__isnull=True,
-            ) | Q(
-                death_date__gt=today
-            )
+        return Q(
+            death_date__isnull=False,
+            death_date__lte=today,
         )
+
+    def get_queryset(self):
+        return super().get_queryset().filter(~self.get_dead_filter())

@@ -41,7 +41,7 @@
     </div>
     <div class="card-footer small px-1 text-center"
         {# style="color: {{ animal.actual_enclosure.enclosure_color }}" #}>
-        <img src="{% static "img/icons/location-pointer.svg" %}" alt="{% trans "Enclosure detail" %}" width="20">
+        <img src="{% static "img/icons/location-pointer.svg" %}" alt="{% trans "Enclosure detail" %}" width="20" class="svg">
         {% if animal.actual_enclosure %}
             <a href="{% url 'enclosure_detail' animal.actual_enclosure.pk %}" class="link-keep-color">{{ animal.actual_enclosure }}</a>
         {% else %}

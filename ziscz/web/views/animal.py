@@ -5,7 +5,7 @@ from django.db.models import Prefetch
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, CreateView
 
-from ziscz.core.models import Animal, TypeAnimal, AnimalStay, Enclosure
+from ziscz.core.models import Animal, TypeAnimal, AnimalStay
 from ziscz.core.utils.utils import get_object_or_none
 from ziscz.core.views.forms import SuccessMessageMixin
 from ziscz.web.forms.animal import AnimalForm
@@ -30,14 +30,19 @@ class AnimalListView(ListView):
         )
 
     def get_context_data(self, *, object_list=None, **kwargs):
-        type_animal = get_object_or_none(TypeAnimal, pk=self.request.GET.get('type_animal'))
-        if type_animal:
-            object_list = self.get_queryset().filter(type_animal=type_animal)
-
         data = super().get_context_data(object_list=object_list, **kwargs)
+
+        type_animal = get_object_or_none(TypeAnimal, pk=self.request.GET.get('type_animal'))
+        object_list = object_list or self.get_queryset()
+        if type_animal:
+            object_list = object_list.filter(type_animal=type_animal)
+
+        dead_q = Animal.live_animals.get_dead_filter()
         data.update(dict(
             type_animal_list=TypeAnimal.objects.all(),
             type_animal=type_animal,
+            object_list=object_list.filter(~dead_q),
+            dead_animals=object_list.filter(dead_q),
         ))
         return data
 

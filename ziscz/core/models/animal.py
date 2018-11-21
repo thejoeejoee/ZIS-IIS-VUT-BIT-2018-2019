@@ -89,6 +89,11 @@ class Animal(BaseModel):
     def children(self):
         return self.animal_parent1.all() | self.animal_parent2.all()
 
+    @cached_property
+    def dead(self) -> bool:
+        today = timezone.now().today().date()
+        return self.death_date and self.death_date <= today
+
 
 class AnimalStay(BaseModel):
     """
