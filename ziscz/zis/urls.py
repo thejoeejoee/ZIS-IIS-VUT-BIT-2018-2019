@@ -10,6 +10,7 @@ from django_js_reverse.views import urls_js
 
 urlpatterns = [
                   path('i18n/', include('django.conf.urls.i18n')),
+                  path('accounts/', include('django.contrib.auth.urls')),
                   path('admin/', include(loginas.urls)),
                   path('admin/', admin.site.urls),
                   path('select2-api/', include('django_select2.urls')),

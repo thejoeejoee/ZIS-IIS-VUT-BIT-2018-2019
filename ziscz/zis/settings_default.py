@@ -200,3 +200,5 @@ JS_REVERSE_EXCLUDE_NAMESPACES = ['admin']
 ICONS_PATH = os.path.join(BASE_DIR, 'web/static/img/icons/animals/')
 
 INTERNAL_IPS = ['127.0.0.1', ]
+
+LOGIN_REDIRECT_URL = '/'

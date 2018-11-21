@@ -6,13 +6,17 @@
     <div class="card">
         <div class="card-header">
             <h6>
-                {% if not form.updating %}
-                    {% trans "New" %}
-                {% endif %}
-                {{ form.instance|get_verbose_name }}
-                {% if form.updating %}
-                    {{ form.instance }}
-                {% endif %}
+                {% block title %}
+                    {% if not form.updating %}
+                        {% trans "New" %}
+                    {% endif %}
+                    {% if form.instance %}
+                        {{ form.instance|get_verbose_name }}
+                    {% endif %}
+                    {% if form.updating %}
+                        {{ form.instance }}
+                    {% endif %}
+                {% endblock %}
             </h6>
         </div>
         <div class="card-body">
@@ -20,12 +24,17 @@
             {% crispy form %}
         </div>
         <div class="card-footer">
-            <small class="float-left font-italic" title="{{ form.instance.x_modified }}">
-                {% if form.updating %}
-                    {% trans "Last modified at" %} {{ form.instance.x_modified|naturaltime }}.
-                {% endif %}
-            </small>
-            <button type="submit" class="btn btn-success float-right">{% trans 'Save' %}</button>
+            {% block form_card_footer_left %}
+                <small class="float-left font-italic" title="{{ form.instance.x_modified }}">
+                    {% if form.updating %}
+                        {% trans "Last modified at" %} {{ form.instance.x_modified|naturaltime }}.
+                    {% endif %}
+
+                </small>
+            {% endblock form_card_footer_left %}
+            <button type="submit" class="btn btn-success float-right">
+                {% block save_btn_text %}{% trans 'Save' %}{% endblock save_btn_text %}
+            </button>
         </div>
     </div>
 </form>

@@ -18,37 +18,49 @@
 {% block body %}
     <div class="container">
         <div class="row justify-content-between align-items-center p-3 mt-2 bg-primary text-light">
-            <a class="col-1" href="{% url "home" %}">
-                <img src="{% static "img/icons/animals/159-cow.svg" %}" class="mh-100 d-inline-block img-fluid">
+            <a class="col-2 d-flex align-items-center" href="{% url "home" %}">
+                <img src="{% static "img/icons/animals/159-cow.svg" %}" class="mh-100 flex-fill mr-3" width="50">
+                <span class="display-4 text-white text-decoration-none flex-fill">ZIS</span>
             </a>
-            <a class="col-6 text-decoration-none" href="{% url "home" %}">
-                <span class="display-4 text-white">ZIS</span>
-            </a>
-            <div class="col text-right d-flex fill-white text-lowercase">
-                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'animal_list' %}">
-                    <img src="{% static "img/icons/animals/165-dog.svg" %}" alt="{% trans "Animals" %}" height="45" class="svg fill-white flex-fill">
-                    <span class="flex-fill">{% trans "Animals" %}</span>
-                </a>
+            <div class="col-6 text-right d-flex fill-white text-lowercase justify-content-end">
+                {% block menu %}
+                    {% if user.is_authenticated %}
+                        {% if perms.core.view_animal %}
+                            <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'animal_list' %}">
+                                <img src="{% static "img/icons/animals/165-dog.svg" %}" alt="{% trans "Animals" %}" height="45" class="svg fill-white flex-fill">
+                                <span class="flex-fill">{% trans "Animals" %}</span>
+                            </a>
+                        {% endif %}
 
-                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'person_list' %}">
-                    <img src="{% static "img/icons/networking.svg" %}" alt="{% trans "Persons" %}" height="45" class="svg fill-white flex-fill">
-                    <span class="flex-fill">{% trans "Persons" %}</span>
-                </a>
+                        {% if perms.core.view_person %}
+                            <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'person_list' %}">
+                                <img src="{% static "img/icons/networking.svg" %}" alt="{% trans "Persons" %}" height="45" class="svg fill-white flex-fill">
+                                <span class="flex-fill">{% trans "Persons" %}</span>
+                            </a>
+                        {% endif %}
 
-                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'enclosure_list' %}">
-                    <img src="{% static "img/icons/map.svg" %}" alt="{% trans "Enclosures" %}" height="45" class="svg fill-white flex-fill">
-                    <span class="flex-fill">{% trans "Enclosures" %}</span>
-                </a>
+                        {% if perms.core.view_enclosure %}
+                            <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'enclosure_list' %}">
+                                <img src="{% static "img/icons/map.svg" %}" alt="{% trans "Enclosures" %}" height="45" class="svg fill-white flex-fill">
+                                <span class="flex-fill">{% trans "Enclosures" %}</span>
+                            </a>
+                        {% endif %}
 
-                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'calendar' %}">
-                    <img src="{% static "img/icons/calendar.svg" %}" alt="{% trans "Calendar" %}" height="45" class="svg fill-white flex-fill">
-                    <span class="flex-fill">{% trans "Calendar" %}</span>
-                </a>
+                        <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'calendar' %}">
+                            <img src="{% static "img/icons/calendar.svg" %}" alt="{% trans "Calendar" %}" height="45" class="svg fill-white flex-fill">
+                            <span class="flex-fill">{% trans "Calendar" %}</span>
+                        </a>
 
-                <a class="flex-fill text-white d-flex flex-column align-items-center" href="{% url 'help' %}">
-                    <img src="{% static "img/icons/question.svg" %}" alt="{% trans "Help" %}" height="45" class="svg fill-white flex-fill">
-                    <span class="flex-fill">{% trans "Help" %}</span>
-                </a>
+                        <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'help' %}">
+                            <img src="{% static "img/icons/question.svg" %}" alt="{% trans "Help" %}" height="45" class="svg fill-white flex-fill">
+                            <span class="flex-fill">{% trans "Help" %}</span>
+                        </a>
+                        <a class="mx-3 pl-2 text-white d-flex flex-column align-items-center border-left border-light" href="{% url 'help' %}">
+                            <img src="{% static "img/icons/family.svg" %}" alt="{% trans "Help" %}" height="45" class="svg fill-white flex-fill">
+                            <span class="flex-fill">{{ user.get_short_name|default:user.last_name|default:user }}</span>
+                        </a>
+                    {% endif %}
+                {% endblock menu %}
             </div>
         </div>
         <div class="row border-left border-right p-3 py-4 bg-light">
@@ -63,7 +75,8 @@
                 </a>
             </div>
             <div class="col-4 text-right text-light">
-                <small>{% now "j.n.Y H:i:s" %}</small> |
+                <small>{% now "j.n.Y H:i:s" %}</small>
+                |
                 <a href="{% url "admin:index" %}" class="text-light">
                     {% trans "administration" %}
                 </a>

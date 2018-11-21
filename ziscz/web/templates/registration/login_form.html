@@ -1,0 +1,14 @@
+{% extends "core/forms/form.html" %}
+{% load i18n %}
+
+{% block save_btn_text %}
+    {% trans "Login" %}
+{% endblock %}
+
+{% block title %}
+    {% trans "Login" %}
+{% endblock %}
+
+{% block form_card_footer_left %}
+    <a class="float-left btn btn-outline-primary" href="{% url 'password_reset' %}">{% trans "Lost password?" %}</a>
+{% endblock %}

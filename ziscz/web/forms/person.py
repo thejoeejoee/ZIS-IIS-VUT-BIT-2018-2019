@@ -1,14 +1,19 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from crispy_forms.layout import Layout, Row
+from crispy_forms.layout import Layout, Row, HTML
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import AbstractUser, Group
+from django.db.transaction import atomic
 from django.forms import Textarea
+from django.utils.text import slugify
+from django.utils.translation import ugettext as _
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.widgets.datepicker import DatePickerInput
 from ziscz.core.forms.widgets.select2 import TypeAnimalMultipleSelectWidget, TypeEnclosureMultipleSelectWidget
-from ziscz.core.models import Person, PersonTypeEnclosure, TypeEnclosure, TypeAnimal, PersonTypeAnimal
+from ziscz.core.models import Person, PersonTypeEnclosure, TypeEnclosure, TypeAnimal, PersonTypeAnimal, TypeRole
 from ziscz.core.utils.m2m import update_m2m
 
 
@@ -58,6 +63,9 @@ class PersonForm(BaseModelForm):
                 Col('education'),
                 Col('note'),
             ),
+            Row(
+                Col(HTML(': '.join((_('User'), str(self.instance.user))))) if self.instance.user else None,
+            )
         )
 
     def _save_m2m(self):
@@ -78,8 +86,30 @@ class PersonForm(BaseModelForm):
             dynamic_field='type_animal',
         )
 
+    @atomic
     def save(self, commit=True):
-        instance = super().save(commit=commit)
+        instance = super().save(commit=commit)  # type: Person
+        if not self.updating:
+            user_model = get_user_model()  # type: AbstractUser
+            user = user_model.objects.create_user(
+                username=slugify(''.join(map(str, (
+                    instance.last_name,
+                    instance.first_name,
+                    instance.birth_date.year,
+                )))),
+                last_name=instance.last_name,
+                first_name=instance.first_name,
+            )
+            instance.user = user
+            instance.save(update_fields=['user'])
+        else:
+            user = self.instance.user  # type: AbstractUser
+
+        if user:
+            # remove all type roles groups
+            for g in Group.objects.filter(name__in=TypeRole.objects.values_list('name', flat=True)):
+                user.groups.remove(g)
+            user.groups.add(Group.objects.get_or_create(name=self.instance.type_role.name)[0])
         return instance
 
     def clean(self):
