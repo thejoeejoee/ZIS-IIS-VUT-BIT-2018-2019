@@ -1,6 +1,7 @@
 <template>
     <div>
         <full-calendar
+            ref="calendar"
             :config="config"
         ></full-calendar>
     </div>
@@ -29,86 +30,88 @@
         components: {
             FullCalendar
         },
-        data: () => ({
-            config: {
-                themeSystem: 'bootstrap4',
-                locale: 'cs',
-                // defaultView: 'day',
-                timezone: 'Europe/Prague',
-                editable: false,
-                selectable: false,
-                height: 'auto',
-                businessHours: {
-                    // days of week. an array of zero-based day of week integers (0=Sunday)
-                    dow: [0, 1, 2, 3, 4, 5, 6], // Monday - Thursday
+        data() {
+            return {
+                config: {
+                    themeSystem: 'bootstrap4',
+                    locale: 'cs',
+                    // defaultView: 'day',
+                    timezone: 'Europe/Prague',
+                    editable: false,
+                    selectable: false,
+                    height: 'auto',
+                    businessHours: {
+                        // days of week. an array of zero-based day of week integers (0=Sunday)
+                        dow: [0, 1, 2, 3, 4, 5, 6], // Monday - Thursday
 
-                    start: '08:00', // a start time (10am in this example)
-                    end: '20:00', // an end time (6pm in this example)
-                },
-                minTime: '06:00:00',
-                maxTime: '22:00:00',
-                timeFormat: 'H(:mm)', // uppercase H for 24-hour clock
-                slotLabelFormat: 'HH(:mm)',
-                nowIndicator: true,
-                eventLimit: 3, // for all non-agenda views
-
-                themeButtonIcons: {
-                    prev: '',
-                    next: '',
-                    prevYear: 'left-double-arrow',
-                    nextYear: 'right-double-arrow'
-                },
-                buttonText: {
-                    prev: '<',
-                    next: '>',
-                    agendaWeek: 'týden',
-                    listDay: 'dnešní den',
-                    month: 'měsíc'
-                },
-                defaultView: 'listDay',
-                header: {
-                    center: 'title',
-                    right: 'listDay,agendaWeek,month',
-                    left: 'prev,next'
-                },
-                views: {
-                    week: {
-                        allDaySlot: false,
-                        slotEventOverlap: true,
+                        start: '08:00', // a start time (10am in this example)
+                        end: '20:00', // an end time (6pm in this example)
                     },
-                    agendaWeek: {
-                        allDaySlot: false,
-                        slotEventOverlap: true,
+                    minTime: '06:00:00',
+                    maxTime: '22:00:00',
+                    timeFormat: 'H(:mm)', // uppercase H for 24-hour clock
+                    slotLabelFormat: 'HH(:mm)',
+                    nowIndicator: true,
+                    eventLimit: 3, // for all non-agenda views
+                    themeButtonIcons: {
+                        prev: '',
+                        next: '',
+                        prevYear: 'left-double-arrow',
+                        nextYear: 'right-double-arrow'
                     },
-                },
-                eventSources: [
-                    {
-                        /**
-                         *
-                         * @param start Date
-                         * @param end Date
-                         * @param timezone
-                         * @param callback
-                         */
-                        events(start, end, timezone, callback) {
-                            Axios.get(reverse('api:calendar_cleaning'), {params: toParams(start, end, timezone)}).then(response => {
-                                callback(response.data)
-                            })
+                    buttonText: {
+                        prev: '<',
+                        next: '>',
+                        agendaWeek: 'týden',
+                        listDay: 'detail dne',
+                        month: 'měsíc'
+                    },
+                    defaultView: 'listDay',
+                    header: {
+                        center: 'title',
+                        right: 'listDay,agendaWeek,month',
+                        left: 'prev,next'
+                    },
+                    views: {
+                        week: {
+                            allDaySlot: false,
+                            slotEventOverlap: true,
                         },
-                        color: '#17a2b8',
-                        textColor: 'white',
-                    },
-                    {
-                        events(start, end, timezone, callback) {
-                            Axios.get(reverse('api:calendar_feeding'), {params: toParams(start, end, timezone)}).then(response => {
-                                callback(response.data)
-                            })
+                        agendaWeek: {
+                            allDaySlot: false,
+                            slotEventOverlap: true,
                         },
-                        color: '#ffc107',
                     },
-                ]
+                    navLinks: true,
+                    eventSources: [
+                        {
+                            /**
+                             *
+                             * @param start Date
+                             * @param end Date
+                             * @param timezone
+                             * @param callback
+                             */
+                            events(start, end, timezone, callback) {
+                                Axios.get(reverse('api:calendar_cleaning'), {params: toParams(start, end, timezone)}).then(response => {
+                                    callback(response.data)
+                                })
+                            },
+                            color: '#17a2b8',
+                            textColor: 'white',
+                        },
+                        {
+                            events(start, end, timezone, callback) {
+                                Axios.get(reverse('api:calendar_feeding'), {params: toParams(start, end, timezone)}).then(response => {
+                                    callback(response.data)
+                                })
+                            },
+                            color: '#ffc107',
+                        },
+                    ]
+                }
             }
-        })
+        },
 
     }
 </script>
