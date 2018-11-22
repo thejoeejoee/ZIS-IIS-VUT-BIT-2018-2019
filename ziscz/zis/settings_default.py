@@ -202,3 +202,6 @@ ICONS_PATH = os.path.join(BASE_DIR, 'web/static/img/icons/animals/')
 INTERNAL_IPS = ['127.0.0.1', ]
 
 LOGIN_REDIRECT_URL = '/'
+
+SESSION_COOKIE_AGE = 30 * 60  # 30 minutes
+SESSION_SAVE_EVERY_REQUEST = True

@@ -84,19 +84,24 @@
         components: {
             datetime: Datetime
         },
-        data: () => ({
-            modes: [
-                'One time',
-                'Daily',
-                'Weekly',
-                'Monthly',
-                // 'Custom',
-            ],
-            actual: 'One time',
-            dateFrom: (new Date()).toISOString(),
-            dateTo: null,
-            date: (new Date()).toISOString(),
-        }),
+        data: () => {
+            let date = new Date();
+            date.setHours(date.getHours() + 1);
+            date.setMinutes(0);
+            return ({
+                modes: [
+                    'One time',
+                    'Daily',
+                    'Weekly',
+                    'Monthly',
+                    // 'Custom',
+                ],
+                actual: 'One time',
+                dateFrom: date.toISOString(),
+                dateTo: null,
+                date: date.toISOString(),
+            })
+        },
         computed: {
             ...mapState([]),
             range() {

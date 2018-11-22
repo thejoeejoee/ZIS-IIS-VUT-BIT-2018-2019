@@ -63,7 +63,7 @@ class CleaningForm(BaseModelForm):
         enclosure = self.fields['enclosure'].initial or self.initial.get('enclosure')  # type: Optional[Enclosure]
         if enclosure:
             self.initial.update(dict(
-                length=enclosure.min_cleaning_duration,
+                length=enclosure.min_cleaning_duration.total_seconds(),
             ))
 
     def clean(self):

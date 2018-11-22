@@ -6,8 +6,10 @@ from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
 from django.utils.formats import time_format, date_format
+from django.utils.timezone import localtime
 from django.utils.translation import ugettext as _
 
+from ziscz.core.models.managers.calendar import CleaningManager
 from .base import BaseModel, BaseTypeModel
 
 
@@ -108,6 +110,8 @@ class Cleaning(models.Model):
     """
     Pravidlo pro úklid výběhu.
     """
+    objects = CleaningManager()
+
     enclosure = models.ForeignKey(
         "core.Enclosure",
         on_delete=models.PROTECT,
@@ -132,7 +136,7 @@ class Cleaning(models.Model):
 
     def __str__(self):
         return _('Cleaning at {} {}').format(
-            time_format(self.date, use_l10n=True),
+            time_format(localtime(self.date), use_l10n=True),
             date_format(self.date),
         )
 

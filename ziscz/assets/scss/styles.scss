@@ -122,3 +122,11 @@
     @extend .form-control-sm;
   }
 }
+
+.requiredField {
+  font-weight: $font-weight-bold;
+  &:after {
+    // content: '(povinné)';
+    // color: $text-muted;
+  }
+}

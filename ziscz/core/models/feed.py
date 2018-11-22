@@ -1,8 +1,10 @@
 # coding=utf-8
 from django.db import models
 from django.utils.formats import time_format, date_format
+from django.utils.timezone import localtime
 from django.utils.translation import ugettext as _
 
+from ziscz.core.models.managers.calendar import FeedingManager
 from .base import BaseModel, BaseTypeModel
 
 
@@ -14,6 +16,8 @@ class Feeding(BaseModel):
     """
     Pravidlo pro krmení zvířat.
     """
+    objects = FeedingManager()
+
     type_feed = models.ForeignKey(
         "core.TypeFeed",
         on_delete=models.PROTECT,
@@ -49,7 +53,7 @@ class Feeding(BaseModel):
 
     def __str__(self):
         return _('Feeding at {} {}').format(
-            time_format(self.date, use_l10n=True),
+            time_format(localtime(self.date), use_l10n=True),
             date_format(self.date),
         )
 
