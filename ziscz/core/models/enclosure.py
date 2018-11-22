@@ -106,7 +106,7 @@ class Enclosure(BaseModel):
         ).order_by('-date')
 
 
-class Cleaning(models.Model):
+class Cleaning(BaseModel):
     """
     Pravidlo pro úklid výběhu.
     """
