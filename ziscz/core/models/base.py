@@ -42,3 +42,20 @@ class BaseTypeModel(BaseModel):
 
     def __str__(self):
         return self.name or self.identifier
+
+
+class BaseEventModel(BaseModel):
+    date = models.DateTimeField(help_text=_('Planned start of cleaning.'))
+    length = models.DurationField()
+    done = models.BooleanField(default=False)
+
+    class Meta:
+        abstract = True
+
+    @property
+    def start_date(self):
+        return self.date.date()
+
+    @property
+    def end(self):
+        return self.date + self.length

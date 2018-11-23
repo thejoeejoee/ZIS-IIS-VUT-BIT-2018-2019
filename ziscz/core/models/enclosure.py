@@ -9,6 +9,7 @@ from django.utils.formats import time_format, date_format
 from django.utils.timezone import localtime
 from django.utils.translation import ugettext as _
 
+from ziscz.core.models.base import BaseEventModel
 from ziscz.core.models.managers.calendar import CleaningManager
 from .base import BaseModel, BaseTypeModel
 
@@ -106,7 +107,7 @@ class Enclosure(BaseModel):
         ).order_by('-date')
 
 
-class Cleaning(BaseModel):
+class Cleaning(BaseEventModel):
     """
     Pravidlo pro úklid výběhu.
     """
@@ -122,12 +123,6 @@ class Cleaning(BaseModel):
         "core.Person",
         through="core.CleaningPerson"
     )
-
-    date = models.DateTimeField(help_text=_('Planned start of cleaning.'))
-
-    length = models.DurationField()
-
-    done = models.BooleanField(default=False)
 
     note = models.TextField(null=True, blank=True)
 
@@ -146,14 +141,6 @@ class Cleaning(BaseModel):
             self.enclosure,
             ', '.join(map(str, self.executors.all())),
         )
-
-    @property
-    def start_date(self):
-        return self.date.date()
-
-    @property
-    def end(self):
-        return self.date + self.length
 
 
 class PersonTypeEnclosure(BaseModel):

@@ -5,14 +5,14 @@ from django.utils.timezone import localtime
 from django.utils.translation import ugettext as _
 
 from ziscz.core.models.managers.calendar import FeedingManager
-from .base import BaseModel, BaseTypeModel
+from .base import BaseModel, BaseTypeModel, BaseEventModel
 
 
 class TypeFeed(BaseTypeModel):
     pass
 
 
-class Feeding(BaseModel):
+class Feeding(BaseEventModel):
     """
     Pravidlo pro krmení zvířat.
     """
@@ -34,12 +34,6 @@ class Feeding(BaseModel):
         on_delete=models.PROTECT,
         related_name="feeding_executor"
     )
-
-    date = models.DateTimeField()
-
-    length = models.DurationField()
-
-    done = models.BooleanField(default=False)
 
     note = models.TextField(null=True, blank=True)
 
@@ -65,14 +59,6 @@ class Feeding(BaseModel):
             self.type_feed,
             self.amount,
         )
-
-    @property
-    def start_date(self):
-        return self.date.date()
-
-    @property
-    def end(self):
-        return self.date + self.length
 
 
 class FeedingAnimal(BaseModel):
