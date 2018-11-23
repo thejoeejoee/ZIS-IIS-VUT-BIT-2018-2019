@@ -30,12 +30,12 @@ class Person(BaseModel):
         blank=True,
     )
 
-    first_name = models.CharField(max_length=256, verbose_name = _("First name"))
-    last_name = models.CharField(max_length=256, verbose_name = _("Last name"))
+    first_name = models.CharField(max_length=256, verbose_name=_("First name"))
+    last_name = models.CharField(max_length=256, verbose_name=_("Last name"))
 
-    birth_date = models.DateField(verbose_name = _("Birth date"))
-    education = models.TextField(null=True, blank=True, verbose_name = _("Education"))
-    note = models.TextField(null=True, blank=True, verbose_name = _("Note"))
+    birth_date = models.DateField(verbose_name=_("Birth date"))
+    education = models.TextField(null=True, blank=True, verbose_name=_("Education"))
+    note = models.TextField(null=True, blank=True, verbose_name=_("Note"))
 
     trained_type_animals = models.ManyToManyField(
         "core.TypeAnimal",

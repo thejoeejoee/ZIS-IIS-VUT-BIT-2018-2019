@@ -66,7 +66,7 @@ class Animal(BaseModel):
         null=True,
         on_delete=models.SET_NULL,
         related_name="animal_parent1",
-        verbose_name = _("Parent")
+        verbose_name=_("Parent")
     )
 
     parent2 = models.ForeignKey(
@@ -185,5 +185,6 @@ class AnimalRegion(BaseModel):
     class Meta:
         verbose_name = _("Animal region")
         verbose_name_plural = _("Animal regions")
+
 
 __all__ = ["Animal", "AnimalStay", "AnimalRegion", "TypeAnimal", "PersonTypeAnimal"]

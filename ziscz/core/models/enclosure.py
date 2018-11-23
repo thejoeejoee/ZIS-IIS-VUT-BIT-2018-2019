@@ -61,10 +61,10 @@ class Enclosure(BaseModel):
         verbose_name=_("Color")
     )
 
-    min_cleaning_duration = models.DurationField(verbose_name = _("Minimum cleaning duretion"))
-    min_cleaners_count = models.PositiveIntegerField(verbose_name = _("Minimum cleaners count"))
+    min_cleaning_duration = models.DurationField(verbose_name=_("Minimum cleaning duration"))
+    min_cleaners_count = models.PositiveIntegerField(verbose_name=_("Minimum cleaners count"))
 
-    note = models.TextField(blank=True, null=True, verbose_name = _("Note"))
+    note = models.TextField(blank=True, null=True, verbose_name=_("Note"))
 
     class Meta:
         verbose_name = _('Enclosure')
