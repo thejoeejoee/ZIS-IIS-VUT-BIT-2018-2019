@@ -39,6 +39,9 @@ def find_event(pk) -> Union[Cleaning, Feeding]:
         return get_object_or_404(Cleaning, pk=pk)
 
 
+# TODO: cannot move to history
+# TODO: cannot move already done event
+# TODO: check perms
 @method_decorator(csrf_exempt, name='dispatch')
 class CalendarEventStartChangeView(View):
     def post(self, request: WSGIRequest, *args, **kwargs):
