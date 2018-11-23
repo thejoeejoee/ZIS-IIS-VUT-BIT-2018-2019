@@ -51,18 +51,20 @@ class Enclosure(BaseModel):
     type_enclosure = models.ForeignKey(
         "core.TypeEnclosure",
         on_delete=models.PROTECT,
-        related_name="enclosure_type_enclosure"
+        related_name="enclosure_type_enclosure",
+        verbose_name=_("Type")
     )
 
     color = RGBColorField(
         null=True, blank=True,
-        help_text=_('Describing color used in system UI as helper, black is default.')
+        help_text=_('Describing color used in system UI as helper, black is default.'),
+        verbose_name=_("Color")
     )
 
-    min_cleaning_duration = models.DurationField()
-    min_cleaners_count = models.PositiveIntegerField()
+    min_cleaning_duration = models.DurationField(verbose_name = _("Minimum cleaning duretion"))
+    min_cleaners_count = models.PositiveIntegerField(verbose_name = _("Minimum cleaners count"))
 
-    note = models.TextField(blank=True, null=True)
+    note = models.TextField(blank=True, null=True, verbose_name = _("Note"))
 
     class Meta:
         verbose_name = _('Enclosure')

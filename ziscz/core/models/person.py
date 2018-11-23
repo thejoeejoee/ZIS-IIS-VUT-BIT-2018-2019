@@ -30,18 +30,19 @@ class Person(BaseModel):
         blank=True,
     )
 
-    first_name = models.CharField(max_length=256)
-    last_name = models.CharField(max_length=256)
+    first_name = models.CharField(max_length=256, verbose_name = _("First name"))
+    last_name = models.CharField(max_length=256, verbose_name = _("Last name"))
 
-    birth_date = models.DateField()
-    education = models.TextField(null=True, blank=True)
-    note = models.TextField(null=True, blank=True)
+    birth_date = models.DateField(verbose_name = _("Birth date"))
+    education = models.TextField(null=True, blank=True, verbose_name = _("Education"))
+    note = models.TextField(null=True, blank=True, verbose_name = _("Note"))
 
     trained_type_animals = models.ManyToManyField(
         "core.TypeAnimal",
         through="core.PersonTypeAnimal",
-        help_text=_("Type animals that is qualified to feed."),
+        help_text=_("Type animals that person is qualified for to feed."),
         blank=True,
+        verbose_name=_("Animal types qualification")
     )
 
     trained_type_enclosures = models.ManyToManyField(
@@ -49,6 +50,7 @@ class Person(BaseModel):
         through="core.PersonTypeEnclosure",
         help_text=_("Type enclosures that is qualified to clean."),
         blank=True,
+        verbose_name=_("Enclosure types qualification")
     )
 
     def __str__(self):

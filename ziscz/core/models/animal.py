@@ -23,6 +23,10 @@ class TypeAnimal(BaseTypeModel):
         through="core.PersonTypeAnimal"
     )
 
+    class Meta:
+        verbose_name = _("Animal type")
+        verbose_name_plural = _("Animal types")
+
 
 class Animal(BaseModel):
     """
@@ -36,7 +40,8 @@ class Animal(BaseModel):
     type_animal = models.ForeignKey(
         "core.TypeAnimal",
         on_delete=models.PROTECT,
-        related_name="animal_type_animal"
+        related_name="animal_type_animal",
+        verbose_name=_("Type")
     )
 
     birth_date = models.DateField(null=True, blank=True)
@@ -46,7 +51,8 @@ class Animal(BaseModel):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name="animal_origin_country"
+        related_name="animal_origin_country",
+        verbose_name=_("Origin country")
     )
 
     occurrence_region = models.ManyToManyField(
@@ -59,7 +65,8 @@ class Animal(BaseModel):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name="animal_parent1"
+        related_name="animal_parent1",
+        verbose_name = _("Parent")
     )
 
     parent2 = models.ForeignKey(
@@ -67,10 +74,11 @@ class Animal(BaseModel):
         blank=True,
         null=True,
         on_delete=models.SET_NULL,
-        related_name="animal_parent2"
+        related_name="animal_parent2",
+        verbose_name=_("Parent")
     )
 
-    death_date = models.DateField(blank=True, null=True)
+    death_date = models.DateField(blank=True, null=True, verbose_name=_("Death date"))
 
     class Meta:
         ordering = '-death_date', 'type_animal', 'name',
@@ -131,6 +139,8 @@ class AnimalStay(BaseModel):
 
     class Meta:
         ordering = 'date_from',
+        verbose_name = _("Animal stay")
+        verbose_name_plural = _("Animal stays")
 
 
 class PersonTypeAnimal(BaseModel):
@@ -153,6 +163,7 @@ class PersonTypeAnimal(BaseModel):
         unique_together = (
             ('type_animal', 'person'),
         )
+        verbose_name = _("Person trained on animal")
 
 
 class AnimalRegion(BaseModel):
@@ -171,5 +182,8 @@ class AnimalRegion(BaseModel):
         related_name="animal_region_region"
     )
 
+    class Meta:
+        verbose_name = _("Animal region")
+        verbose_name_plural = _("Animal regions")
 
 __all__ = ["Animal", "AnimalStay", "AnimalRegion", "TypeAnimal", "PersonTypeAnimal"]
