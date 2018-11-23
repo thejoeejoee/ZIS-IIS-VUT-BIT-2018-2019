@@ -1,35 +1,75 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from typing import Union
+from typing import Union, Type
 
 import pytz
+from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin
 from dateutil import parser
 from django.core.handlers.wsgi import WSGIRequest
+from django.db.models import ExpressionWrapper, Case, When, Value, BooleanField
+from django.db.models.functions import Now
 from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
-from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext as _
 from django.views import View
-from django.views.decorators.csrf import csrf_exempt
+from rest_framework.fields import BooleanField as RestBooleanField
 from rest_framework.generics import ListAPIView
-from rest_framework.utils import json
+from rest_framework.serializers import ModelSerializer
 
 from ziscz.api.filters import CalendarFilterBackend
 from ziscz.api.serializers.calendar import FeedingCalendarSerializer, CleaningCalendarSerializer
 from ziscz.core.models import Cleaning, Feeding
+from ziscz.core.models.base import BaseEventModel
 
 
-class CleaningCalendarView(ListAPIView):
-    queryset = Cleaning.objects.all()
-    serializer_class = CleaningCalendarSerializer
-    filter_backends = (CalendarFilterBackend,)
+def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[ModelSerializer]) -> type:
+    return type(
+        'view',
+        (ListAPIView,),
+        dict(
+            queryset=model.objects.annotate(
+                editable=ExpressionWrapper(
+                    # TODO: check TZ
+                    Case(
+                        When(
+                            date__gte=Now(),
+                            then=Value(True)
+                        ),
+                        default=Value(False),
+                        output_field=BooleanField(),
+                    ),
+                    output_field=BooleanField(),
+                )
+            ),
+            filter_backends=(CalendarFilterBackend,),
+            serializer_class=type(
+                'serializer',
+                (serializer,),
+                dict(
+                    editable=RestBooleanField(),
+                    Meta=type(
+                        'meta',
+                        (serializer.Meta,),
+                        dict(
+                            fields=serializer.Meta.fields + ('editable',)
+                        )
+                    )
+                )
+            )
+        )
+    )
 
 
-class FeedingCalendarView(ListAPIView):
-    queryset = Feeding.objects.all()
-    serializer_class = FeedingCalendarSerializer
-    filter_backends = (CalendarFilterBackend,)
+CleaningCalendarView = _calendar_event_view_factory(
+    model=Cleaning,
+    serializer=CleaningCalendarSerializer
+)
+
+FeedingCalendarView = _calendar_event_view_factory(
+    model=Feeding,
+    serializer=FeedingCalendarSerializer
+)
 
 
 def find_event(pk) -> Union[Cleaning, Feeding]:
@@ -41,11 +81,12 @@ def find_event(pk) -> Union[Cleaning, Feeding]:
 
 # TODO: cannot move to history
 # TODO: cannot move already done event
-# TODO: check perms
-@method_decorator(csrf_exempt, name='dispatch')
-class CalendarEventStartChangeView(View):
+class CalendarEventStartChangeView(CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin, View):
+    require_json = True
+    permission_required = 'core.change_cleaning', 'core.change_feeding'
+
     def post(self, request: WSGIRequest, *args, **kwargs):
-        data = json.loads(request.body.decode())
+        data = self.request_json
 
         event = find_event(data.get('id'))
         start = parser.parse(data.get('start')).astimezone(pytz.utc)
@@ -83,10 +124,12 @@ class CalendarEventStartChangeView(View):
 
 
 # TODO: "little" bit copypasted...
-@method_decorator(csrf_exempt, name='dispatch')
-class CalendarEventEndChangeView(View):
+class CalendarEventEndChangeView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    require_json = True
+    permission_required = 'core.change_cleaning', 'core.change_feeding'
+
     def post(self, request: WSGIRequest, *args, **kwargs):
-        data = json.loads(request.body.decode())
+        data = self.request_json
 
         event = find_event(data.get('id'))
         end = parser.parse(data.get('end')).astimezone(pytz.utc)

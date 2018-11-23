@@ -1,8 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-import json
-
+from braces.views import JsonRequestResponseMixin, CsrfExemptMixin
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -46,10 +45,12 @@ class EnclosureCreateView(SuccessMessageMixin, CreateView):
     model = Enclosure
 
 
-class EnclosureAnimals(View):
+class EnclosureAnimals(CsrfExemptMixin, JsonRequestResponseMixin, View):
+    require_json = True
+
     def post(self, request: WSGIRequest, *args, **kwargs):
 
-        enclosures = json.loads(request.body.decode()).get('enclosures')
+        enclosures = self.request_json.get('enclosures')
         moved = []
 
         for enclosure_data in enclosures:

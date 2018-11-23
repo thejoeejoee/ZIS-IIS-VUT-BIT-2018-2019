@@ -43,6 +43,7 @@ def setup():
             'django-js-reverse',
             'django-relativefilepathfield',
             'django-debug-toolbar',
+            'django-braces',
             'python-dateutil',
         ],
         entry_points={

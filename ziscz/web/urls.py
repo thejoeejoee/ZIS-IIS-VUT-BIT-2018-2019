@@ -1,7 +1,6 @@
 # coding=utf-8
 from django.conf import settings
 from django.urls import path, include
-from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
 from ziscz.web.views.animal import AnimalListView, AnimalDetailView, AnimalCreateView
@@ -40,7 +39,7 @@ urlpatterns = [
 
     path('login', LoginView.as_view(), name='login'),
 
-    path('api/enclosure-animals', csrf_exempt(EnclosureAnimals.as_view()), name='api_enclosure_animals'),
+    path('api/enclosure-animals', EnclosureAnimals.as_view(), name='api_enclosure_animals'),
 ]
 
 if settings.DEBUG:
