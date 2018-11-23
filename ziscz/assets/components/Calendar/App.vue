@@ -3,6 +3,7 @@
         <full-calendar
             ref="calendar"
             :config="config"
+            :editable="editable"
         ></full-calendar>
     </div>
 </template>
@@ -10,6 +11,7 @@
 <script>
     import {FullCalendar} from 'vue-full-calendar'
     import 'fullcalendar/dist/fullcalendar.css'
+    import {mapState} from 'vuex'
     import Axios from 'axios'
     import reverse from 'django-reverse'
     import moment from 'moment'
@@ -32,14 +34,14 @@
         components: {
             FullCalendar
         },
+        computed: mapState(['editable']),
         data() {
             return {
                 config: {
                     themeSystem: 'bootstrap4',
                     locale: 'cs',
-                    // defaultView: 'day',
                     timezone: 'Europe/Prague',
-                    editable: true,
+                    // editable: this.editable,
                     selectable: false,
                     height: 'auto',
                     businessHours: {

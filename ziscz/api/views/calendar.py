@@ -14,7 +14,7 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views import View
-from rest_framework.fields import BooleanField as RestBooleanField
+from rest_framework.fields import NullBooleanField
 from rest_framework.generics import ListAPIView
 from rest_framework.serializers import ModelSerializer
 
@@ -22,6 +22,16 @@ from ziscz.api.filters import CalendarFilterBackend
 from ziscz.api.serializers.calendar import FeedingCalendarSerializer, CleaningCalendarSerializer
 from ziscz.core.models import Cleaning, Feeding
 from ziscz.core.models.base import BaseEventModel
+
+
+def _to_representation_with_editable_remove(serializer: Type[ModelSerializer]):
+    def _(self: ModelSerializer, obj: BaseEventModel):
+        data = super(serializer, self).to_representation(obj)
+        if data.get('editable') is None:
+            del data['editable']
+        return data
+
+    return _
 
 
 def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[ModelSerializer]) -> type:
@@ -35,7 +45,7 @@ def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[M
                     Case(
                         When(
                             date__gte=Now(),
-                            then=Value(True)
+                            then=Value(None)
                         ),
                         default=Value(False),
                         output_field=BooleanField(),
@@ -48,12 +58,13 @@ def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[M
                 'serializer',
                 (serializer,),
                 dict(
-                    editable=RestBooleanField(),
+                    editable=NullBooleanField(),
+                    to_representation=_to_representation_with_editable_remove(serializer=serializer),
                     Meta=type(
                         'meta',
                         (serializer.Meta,),
                         dict(
-                            fields=serializer.Meta.fields + ('editable',)
+                            fields=serializer.Meta.fields + ('editable',),
                         )
                     )
                 )

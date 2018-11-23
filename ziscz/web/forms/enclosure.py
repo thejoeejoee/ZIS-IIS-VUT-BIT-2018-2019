@@ -6,6 +6,7 @@ from django.forms import Textarea
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
+from ziscz.core.forms.widgets.duration import DurationPickerWidget
 from ziscz.core.models import Enclosure
 
 
@@ -22,7 +23,8 @@ class EnclosureForm(BaseModelForm):
         )
 
         widgets = {
-            'note': Textarea(attrs=dict(rows=5))
+            'note': Textarea(attrs=dict(rows=3)),
+            'min_cleaning_duration': DurationPickerWidget()
         }
 
     def __init__(self, *args, **kwargs):

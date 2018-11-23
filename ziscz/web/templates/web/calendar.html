@@ -22,7 +22,16 @@
     <hr>
     <div id="calendar"></div>
     <script>
-        window.zis.installCalendar('#calendar');
+        function and(a, b) {
+            return a && b
+        }
+        window.zis.installCalendar(
+            '#calendar',
+            {
+                {% comment %} Global permission for editation - it's overriden by per event editation flag. {% endcomment %}
+                editable: and({{ perms.core.change_cleaning|yesno:"true,false" }}, {{ perms.core.change_feeding|yesno:"true,false" }})
+            }
+        );
     </script>
     <div class="row mt-3">
         <div class="col">
