@@ -22,7 +22,13 @@ class Person(BaseModel):
         related_name="person_type_role"
     )
 
-    user = models.OneToOneField(get_user_model(), on_delete=models.SET_NULL, null=True, blank=True)
+    user = models.OneToOneField(
+        get_user_model(),
+        related_name='person_user',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+    )
 
     first_name = models.CharField(max_length=256)
     last_name = models.CharField(max_length=256)

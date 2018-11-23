@@ -96,7 +96,7 @@
                                 revertFunc();
                                 toastr.warning(data.message);
                             } else data.message && toastr.success(data.message);
-                        })
+                        }).catch(revertFunc.bind(this))
                     },
                     eventResize(event, delta, revertFunc, jsEvent, ui, view) {
                         Axios.post(reverse('api:calendar_event_end_change'), {
@@ -107,7 +107,7 @@
                                 revertFunc();
                                 toastr.warning(data.message);
                             } else data.message && toastr.success(data.message);
-                        })
+                        }).catch(revertFunc.bind(this))
                     },
                     navLinks: true,
                     eventSources: [

@@ -4,8 +4,9 @@ from __future__ import unicode_literals
 from typing import Union, Type
 
 import pytz
-from braces.views import CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin
+from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from dateutil import parser
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import ExpressionWrapper, Case, When, Value, BooleanField
 from django.db.models.functions import Now
@@ -124,7 +125,7 @@ class CalendarEventStartChangeView(CsrfExemptMixin, JsonRequestResponseMixin, Pe
 
 
 # TODO: "little" bit copypasted...
-class CalendarEventEndChangeView(CsrfExemptMixin, JsonRequestResponseMixin, View):
+class CalendarEventEndChangeView(CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin, View):
     require_json = True
     permission_required = 'core.change_cleaning', 'core.change_feeding'
 

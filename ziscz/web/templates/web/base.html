@@ -46,10 +46,12 @@
                             </a>
                         {% endif %}
 
-                        <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'calendar' %}">
-                            <img src="{% static "img/icons/calendar.svg" %}" alt="{% trans "Calendar" %}" height="45" class="svg fill-white flex-fill">
-                            <span class="flex-fill">{% trans "Calendar" %}</span>
-                        </a>
+                        {% if perms.core.view_cleaning and perms.core.view_feeding %}
+                            <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'calendar' %}">
+                                <img src="{% static "img/icons/calendar.svg" %}" alt="{% trans "Calendar" %}" height="45" class="svg fill-white flex-fill">
+                                <span class="flex-fill">{% trans "Calendar" %}</span>
+                            </a>
+                        {% endif %}
 
                         <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'help' %}">
                             <img src="{% static "img/icons/question.svg" %}" alt="{% trans "Help" %}" height="45" class="svg fill-white flex-fill">
@@ -68,13 +70,21 @@
                 {% block content %}{% endblock content %}
             </div>
         </div>
-        <div class="row justify-content-between p-3 bg-primary">
-            <div class="col-6">
+        <div class="row justify-content-between p-3 bg-primary text-light small">
+            <div class="col">
                 <a class="small text-light" href="{% url "credits" %}">
                     Josef Kolář, Iva Kavánková, Son Hai Nguyen © VUT FIT 2018
                 </a>
             </div>
-            <div class="col-4 text-right text-light">
+            <div class="col text-center">
+                {% if user.is_authenticated %}
+                    {{ user }}
+                    {% if user.groups.exists %}
+                        ({% for g in user.groups.all %}{{ g|lower }}{% if not forloop.last %}, {% endif %}{% endfor %})
+                    {% endif %}
+                {% endif %}
+            </div>
+            <div class="col text-right text-light">
                 <small>{% now "j.n.Y H:i:s" %}</small>
                 |
                 <a href="{% url "admin:index" %}" class="text-light">
