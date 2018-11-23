@@ -12,6 +12,8 @@
     import 'fullcalendar/dist/fullcalendar.css'
     import Axios from 'axios'
     import reverse from 'django-reverse'
+    import moment from 'moment'
+    import toastr from 'toastr'
 
     /**
      * @param start Date
@@ -37,7 +39,7 @@
                     locale: 'cs',
                     // defaultView: 'day',
                     timezone: 'Europe/Prague',
-                    editable: false,
+                    editable: true,
                     selectable: false,
                     height: 'auto',
                     businessHours: {
@@ -66,7 +68,7 @@
                         listDay: 'detail dne',
                         month: 'měsíc'
                     },
-                    defaultView: 'listDay',
+                    defaultView: 'agendaWeek',
                     header: {
                         center: 'title',
                         right: 'listDay,agendaWeek,month',
@@ -81,6 +83,31 @@
                             allDaySlot: false,
                             slotEventOverlap: true,
                         },
+                    },
+                    eventClick(calEvent, jsEvent, view) {
+                        // TODO: toolbar
+                    },
+                    eventDrop(event, delta, revertFunc, jsEvent, ui, view) {
+                        Axios.post(reverse('api:calendar_event_start_change'), {
+                            id: event.id,
+                            start: moment(event.start).local().format(),
+                        }).then(({data}) => {
+                            if (!data.success) {
+                                revertFunc();
+                                toastr.warning(data.message);
+                            } else data.message && toastr.success(data.message);
+                        })
+                    },
+                    eventResize(event, delta, revertFunc, jsEvent, ui, view) {
+                        Axios.post(reverse('api:calendar_event_end_change'), {
+                            id: event.id,
+                            end: moment(event.end).local().format(),
+                        }).then(({data}) => {
+                            if (!data.success) {
+                                revertFunc();
+                                toastr.warning(data.message);
+                            } else data.message && toastr.success(data.message);
+                        })
                     },
                     navLinks: true,
                     eventSources: [
