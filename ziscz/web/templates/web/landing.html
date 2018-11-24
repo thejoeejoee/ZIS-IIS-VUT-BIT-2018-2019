@@ -1,0 +1,22 @@
+{% extends "web/base.html" %}
+
+{% load staticfiles i18n %}
+{% block body %}
+    <div class="bg-primary" style="min-height: 100vh">
+        <div class="container">
+            <div class="row justify-content-center">
+                <a class="col-12 col-lg-6 text-center" href="{% url "home" %}">
+                    {% block logo %}
+                        <img src="{% static "img/icons/animals/159-cow.svg" %}" class="m-4" width="200" alt="{% trans "ZIS" %}">
+                    {% endblock %}
+                    <h1 class="h4 text-white mb-4 font-weight-bold text-capitalize">{% trans "Zoological information system" %}</h1>
+                </a>
+            </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-6">
+                    {% block content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

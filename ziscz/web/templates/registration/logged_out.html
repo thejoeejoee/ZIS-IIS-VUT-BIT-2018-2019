@@ -1,0 +1,15 @@
+{% extends "web/landing.html" %}
+
+{% load staticfiles i18n %}
+{% block content %}
+    <div class="row justify-content-center">
+        <div class="col-12 col-lg-6 text-center d-flex justify-content-center align-items-center flex-column">
+            <img src="{% static "img/icons/animals/148-monkey-1.svg" %}" alt="{% trans "Bye bye!" %}" width="400" class="flex-fill">
+            <h1 class="text-light flex-fill mt-5">{% trans "Bye bye!" %}</h1>
+        </div>
+    </div>
+{% endblock %}
+
+{% block logo %}
+    <div class="mt-5"></div>
+{% endblock %}

@@ -6,7 +6,7 @@ import Toastr from 'toastr'
 
 
 const saveAnimals = _.debounce((state) => {
-    axios.post(reverse('api_enclosure_animals'), {
+    axios.post(reverse('api:enclosure_animals_setup'), {
         enclosures: _.map(
             state.enclosures,
             (enc) => ({

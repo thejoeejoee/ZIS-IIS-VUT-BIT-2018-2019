@@ -7,29 +7,95 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-08 09:06+0000\n"
+"POT-Creation-Date: 2018-11-24 00:41+0100\n"
 "PO-Revision-Date: 2018-11-08 18:01+0100\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
-"Last-Translator: \n"
-"Language-Team: \n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: ziscz/core/models/animal.py:29 ziscz/core/models/base.py:27
-#: ziscz/core/models/enclosure.py:36
+#: ziscz/api/views/calendar.py:115 ziscz/api/views/calendar.py:128
+#: ziscz/api/views/calendar.py:159 ziscz/api/views/calendar.py:181
+msgid "Reverted, conflict in time plan of executor {}."
+msgstr ""
+
+#: ziscz/api/views/calendar.py:134 ziscz/api/views/calendar.py:187
+msgid "Unknown action to move."
+msgstr ""
+
+#: ziscz/api/views/calendar.py:135
+msgid "Event successfully moved."
+msgstr ""
+
+#: ziscz/api/views/calendar.py:164
+msgid "Reverted, {} is the minimal duration of cleaning {}."
+msgstr ""
+
+#: ziscz/api/views/calendar.py:188
+msgid "Length of event successfully changed."
+msgstr ""
+
+#: ziscz/core/models/animal.py:27
+msgid "Animal type"
+msgstr ""
+
+#: ziscz/core/models/animal.py:28
+msgid "Animal types"
+msgstr ""
+
+#: ziscz/core/models/animal.py:38 ziscz/core/models/base.py:27
+#: ziscz/core/models/enclosure.py:49
 msgid "Name"
 msgstr ""
 
-#: ziscz/core/models/animal.py:77
+#: ziscz/core/models/animal.py:44 ziscz/core/models/enclosure.py:55
+msgid "Type"
+msgstr ""
+
+#: ziscz/core/models/animal.py:55
+msgid "Origin country"
+msgstr ""
+
+#: ziscz/core/models/animal.py:69 ziscz/core/models/animal.py:78
+msgid "Parent"
+msgstr ""
+
+#: ziscz/core/models/animal.py:81 ziscz/web/templates/web/animal_card.html:36
+msgid "Death date"
+msgstr ""
+
+#: ziscz/core/models/animal.py:85
 msgid "Animal"
 msgstr ""
 
-#: ziscz/core/models/animal.py:78 ziscz/web/templates/web/animal_list.html:7
-#: ziscz/web/templates/web/base.html:28
+#: ziscz/core/models/animal.py:86 ziscz/web/templates/web/animal_list.html:5
+#: ziscz/web/templates/web/animal_list.html:11
+#: ziscz/web/templates/web/base.html:29 ziscz/web/templates/web/base.html:30
 msgid "Animals"
+msgstr ""
+
+#: ziscz/core/models/animal.py:142
+msgid "Animal stay"
+msgstr ""
+
+#: ziscz/core/models/animal.py:143
+msgid "Animal stays"
+msgstr ""
+
+#: ziscz/core/models/animal.py:166
+msgid "Person trained on animal"
+msgstr ""
+
+#: ziscz/core/models/animal.py:186
+msgid "Animal region"
+msgstr ""
+
+#: ziscz/core/models/animal.py:187
+msgid "Animal regions"
 msgstr ""
 
 #: ziscz/core/models/base.py:20
@@ -44,37 +110,120 @@ msgstr ""
 msgid "Order"
 msgstr ""
 
-#: ziscz/core/models/enclosure.py:27
+#: ziscz/core/models/base.py:48
+msgid "Planned start of cleaning."
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:35
 msgid ""
 "Describing color used for type of enclosure in system UI as helper, black is "
 "default."
 msgstr ""
 
-#: ziscz/core/models/enclosure.py:46
+#: ziscz/core/models/enclosure.py:60
 msgid "Describing color used in system UI as helper, black is default."
 msgstr ""
 
-#: ziscz/core/models/enclosure.py:91
-msgid "Planned start of cleaning."
+#: ziscz/core/models/enclosure.py:61
+msgid "Color"
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:64
+msgid "Minimum cleaning duration"
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:65
+msgid "Minimum cleaners count"
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:67 ziscz/core/models/person.py:38
+msgid "Note"
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:70
+msgid "Enclosure"
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:71 ziscz/web/templates/web/base.html:43
+#: ziscz/web/templates/web/base.html:44
+#: ziscz/web/templates/web/enclosure_list.html:6
+#: ziscz/web/templates/web/enclosure_list.html:12
+msgid "Enclosures"
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:135
+msgid "Cleaning at {} {}"
+msgstr ""
+
+#: ziscz/core/models/enclosure.py:142
+msgid "{} by {}"
+msgstr ""
+
+#: ziscz/core/models/feed.py:42
+msgid "Amount of feed, etc. 1 kg, 1 l or 20 pieces."
+msgstr ""
+
+#: ziscz/core/models/feed.py:49
+msgid "Feeding at {} {}"
+msgstr ""
+
+#: ziscz/core/models/feed.py:56
+msgid "{} by {} ({} {})"
+msgstr ""
+
+#: ziscz/core/models/person.py:33
+msgid "First name"
 msgstr ""
 
 #: ziscz/core/models/person.py:34
+msgid "Last name"
+msgstr ""
+
+#: ziscz/core/models/person.py:36 ziscz/web/templates/web/animal_card.html:31
+msgid "Birth date"
+msgstr ""
+
+#: ziscz/core/models/person.py:37
+msgid "Education"
+msgstr ""
+
+#: ziscz/core/models/person.py:43
+msgid "Type animals that person is qualified for to feed."
+msgstr ""
+
+#: ziscz/core/models/person.py:45
+msgid "Animal types qualification"
+msgstr ""
+
+#: ziscz/core/models/person.py:51
+msgid "Type enclosures that is qualified to clean."
+msgstr ""
+
+#: ziscz/core/models/person.py:53
+msgid "Enclosure types qualification"
+msgstr ""
+
+#: ziscz/core/models/person.py:60
 msgid "Person"
 msgstr ""
 
-#: ziscz/core/models/person.py:35 ziscz/web/templates/web/base.html:29
+#: ziscz/core/models/person.py:61 ziscz/web/templates/web/base.html:36
+#: ziscz/web/templates/web/base.html:37
+#: ziscz/web/templates/web/person_list.html:5
+#: ziscz/web/templates/web/person_list.html:10
 msgid "Persons"
 msgstr ""
 
-#: ziscz/core/templates/core/forms/form.html:11
+#: ziscz/core/templates/core/forms/form.html:10
+#: ziscz/web/templates/web/form_detail.html:9
 msgid "New"
 msgstr ""
 
-#: ziscz/core/templates/core/forms/form.html:27
+#: ziscz/core/templates/core/forms/form.html:28
 msgid "Last modified at"
 msgstr ""
 
-#: ziscz/core/templates/core/forms/form.html:30
+#: ziscz/core/templates/core/forms/form.html:34
 msgid "Save"
 msgstr ""
 
@@ -83,83 +232,204 @@ msgstr ""
 msgid "{instance} was successfully saved."
 msgstr ""
 
-#: ziscz/web/forms/cleaning.py:54
+#: ziscz/web/forms/cleaning.py:45
+msgid "Displayed are only persons that are able to clean selected enclosure."
+msgstr ""
+
+#: ziscz/web/forms/cleaning.py:77
 msgid "Selected enclosure requires {} or more executors for cleaning."
 msgstr ""
 
-#: ziscz/web/forms/cleaning.py:61
+#: ziscz/web/forms/cleaning.py:85
 msgid "Selected enclosure require longer cleaning duration ({}) than filled."
 msgstr ""
 
-#: ziscz/web/templates/web/animal_list.html:11
-msgid "Add new animal"
+#: ziscz/web/forms/feeding.py:45
+msgid "Only animals, that could be feed by selected person, are displayed."
 msgstr ""
 
-#: ziscz/web/templates/web/animal_list.html:46
+#: ziscz/web/forms/feeding.py:85
+msgid "Executor {} has not time in filled date and duration - he has {}."
+msgstr ""
+
+#: ziscz/web/forms/person.py:67
+msgid "User"
+msgstr ""
+
+#: ziscz/web/templates/403.html:6 ziscz/web/templates/403.html:7
+msgid "Access denied."
+msgstr ""
+
+#: ziscz/web/templates/404.html:6
+msgid "Page not found"
+msgstr ""
+
+#: ziscz/web/templates/404.html:7
+msgid "Page not found."
+msgstr ""
+
+#: ziscz/web/templates/registration/login.html:9
+#: ziscz/web/templates/web/base.html:21
+msgid "ZIS"
+msgstr ""
+
+#: ziscz/web/templates/registration/login.html:10
+msgid "Zoological information system"
+msgstr ""
+
+#: ziscz/web/templates/registration/login_form.html:5
+#: ziscz/web/templates/registration/login_form.html:9
+msgid "Login"
+msgstr ""
+
+#: ziscz/web/templates/registration/login_form.html:13
+msgid "Lost password?"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_card.html:18
 msgid "Parents"
 msgstr ""
 
-#: ziscz/web/templates/web/animal_list.html:52
+#: ziscz/web/templates/web/animal_card.html:24
 msgid "Children"
 msgstr ""
 
-#: ziscz/web/templates/web/animal_list.html:59
-msgid "Birth date"
-msgstr ""
-
-#: ziscz/web/templates/web/animal_list.html:64
-msgid "Death date"
-msgstr ""
-
-#: ziscz/web/templates/web/animal_list.html:72
+#: ziscz/web/templates/web/animal_card.html:44
 msgid "Enclosure detail"
 msgstr ""
 
-#: ziscz/web/templates/web/animal_list.html:86
-#: ziscz/web/templates/web/animal_list.html:87
+#: ziscz/web/templates/web/animal_detail.html:7
+msgid "Feedings"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_detail.html:28
+msgid "Enclosure history"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:15
+msgid "Add new animal"
+msgstr ""
+
+#: ziscz/web/templates/web/animal_list.html:40
+#: ziscz/web/templates/web/animal_list.html:41
 msgid "No animals found."
 msgstr ""
 
-#: ziscz/web/templates/web/base.html:30
-#: ziscz/web/templates/web/enclosure_list.html:6
-msgid "Enclosures"
-msgstr ""
-
-#: ziscz/web/templates/web/base.html:31
+#: ziscz/web/templates/web/base.html:50 ziscz/web/templates/web/base.html:51
+#: ziscz/web/templates/web/calendar.html:5
+#: ziscz/web/templates/web/calendar.html:10
 msgid "Calendar"
 msgstr ""
 
-#: ziscz/web/templates/web/base.html:32 ziscz/web/templates/web/help.html:4
+#: ziscz/web/templates/web/base.html:56 ziscz/web/templates/web/base.html:57
+#: ziscz/web/templates/web/base.html:60 ziscz/web/templates/web/help.html:5
+#: ziscz/web/templates/web/help.html:10
 msgid "Help"
 msgstr ""
 
-#: ziscz/web/templates/web/base.html:46
+#: ziscz/web/templates/web/base.html:90
 msgid "administration"
 msgstr ""
 
-#: ziscz/web/templates/web/calendar.html:10
+#: ziscz/web/templates/web/calendar.html:14
+#: ziscz/web/templates/web/enclosure_detail.html:88
 msgid "Plan new cleaning"
 msgstr ""
 
-#: ziscz/web/templates/web/enclosure_list.html:7
-msgid "New enclosure"
+#: ziscz/web/templates/web/calendar.html:17
+msgid "Plan new feeding"
 msgstr ""
 
-#: ziscz/web/templates/web/home.html:5
+#: ziscz/web/templates/web/calendar.html:40
+msgid ""
+"In standard calendar view (week/month) you can move actions in time or "
+"beetween days. TODO"
+msgstr ""
+
+#: ziscz/web/templates/web/cleaning_detail.html:6
+msgid "Cleaning"
+msgstr ""
+
+#: ziscz/web/templates/web/cleaning_planning_note.html:4
+msgid ""
+"\n"
+"    TODO: describe planning\n"
+msgstr ""
+
+#: ziscz/web/templates/web/credits.html:6
+#: ziscz/web/templates/web/credits.html:12
+msgid "Credits"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_detail.html:8
+msgid "Current animals"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_detail.html:26
+msgid "Closest planned cleanings"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_detail.html:48
+msgid "Last cleanings"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_detail.html:70
+msgid "Cleaning accessory"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_detail.html:81
+msgid "Qualified cleaners"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_detail.html:82
+msgid "New cleaning"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_detail.html:98
+msgid "Same type enclosures"
+msgstr ""
+
+#: ziscz/web/templates/web/enclosure_list.html:18
+msgid "With drag'n drop you can transfer animals between enclosures."
+msgstr ""
+
+#: ziscz/web/templates/web/feeding_detail.html:6
+msgid "Feeding"
+msgstr ""
+
+#: ziscz/web/templates/web/home.html:7
 msgid "You're welcome in ZOO Information System!"
 msgstr ""
 
-#: ziscz/web/views/enclosure.py:70
+#: ziscz/web/templates/web/home.html:14
+msgid "Activities right now"
+msgstr ""
+
+#: ziscz/web/templates/web/person_list.html:28
+#: ziscz/web/templates/web/person_list.html:29
+msgid "Qualified type animals to feed"
+msgstr ""
+
+#: ziscz/web/templates/web/person_list.html:36
+#: ziscz/web/templates/web/person_list.html:37
+msgid "Qualified type enclosures to clean"
+msgstr ""
+
+#: ziscz/web/views/enclosure.py:77
 msgid "Animal {} was moved."
 msgid_plural "Animals {} were moved."
 msgstr[0] ""
 msgstr[1] ""
 msgstr[2] ""
 
-#: ziscz/zis/settings_default.py:147
+#: ziscz/web/views/person.py:64
+msgid "User was created, username is {}."
+msgstr ""
+
+#: ziscz/zis/settings_default.py:146
 msgid "Czech"
 msgstr ""
 
-#: ziscz/zis/settings_default.py:148
+#: ziscz/zis/settings_default.py:147
 msgid "English"
 msgstr ""

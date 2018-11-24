@@ -35,6 +35,10 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
+    'ziscz.web',
+    'ziscz.core',
+    'ziscz.api',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -47,10 +51,6 @@ INSTALLED_APPS = [
     'loginas',
     'ckeditor',
     'django_extensions',
-
-    'ziscz.web',
-    'ziscz.core',
-    'ziscz.api',
 
     'webpack_loader',
     'imagekit',
@@ -205,3 +205,5 @@ LOGIN_REDIRECT_URL = '/'
 
 SESSION_COOKIE_AGE = 30 * 60  # 30 minutes
 SESSION_SAVE_EVERY_REQUEST = True
+
+ADMINS = [('Josef Kolar', 'thejoeejoee@gmail.com'), ]

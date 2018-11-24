@@ -56,9 +56,9 @@
                             <img src="{% static "img/icons/question.svg" %}" alt="{% trans "Help" %}" height="45" class="svg fill-white flex-fill">
                             <span class="flex-fill">{% trans "Help" %}</span>
                         </a>
-                        <a class="pl-2 text-white d-flex flex-column align-items-center border-left border-light" href="{% url 'help' %}">
-                            <img src="{% static "img/icons/family.svg" %}" alt="{% trans "Help" %}" height="45" class="svg fill-white flex-fill">
-                            <span class="flex-fill">{{ user.get_short_name|default:user.last_name|default:user }}</span>
+                        <a class="pl-2 text-white d-flex flex-column align-items-center border-left border-light" href="{% url 'logout' %}">
+                            <img src="{% static "img/icons/exit.svg" %}" alt="{% trans "Logout" %}" height="45" class="svg fill-white flex-fill">
+                            <span class="flex-fill small">{{ user.get_short_name|default:user.last_name|default:user }}</span>
                         </a>
                     {% endif %}
                 {% endblock menu %}

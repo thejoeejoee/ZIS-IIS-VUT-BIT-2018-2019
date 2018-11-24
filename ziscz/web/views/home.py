@@ -19,3 +19,11 @@ class HomeView(LoginRequiredMixin, TemplateView):
         )
 
         return data
+
+
+class HelpView(LoginRequiredMixin, TemplateView):
+    template_name = 'web/help.html'
+
+
+class CreditsView(LoginRequiredMixin, TemplateView):
+    template_name = 'web/credits.html'
