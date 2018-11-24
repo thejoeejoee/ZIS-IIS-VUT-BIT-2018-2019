@@ -21,7 +21,7 @@
                     href="{% url 'animal_list' %}{% if tp != type_animal %}?type_animal={{ tp.id }}{% endif %}"
                     class="flex-fill text-center image-filter-item {% if type_animal and tp == type_animal %}active{% endif %}"
                 >
-                    <img src="{% static "img/icons/animals/"|add:tp.icon %}" width="50" alt="" class="d-inline-block">
+                    <img src="{% static "img/icons/animals/"|add:tp.icon %}" width="50" alt="{{ tp }}" class="d-inline-block">
                 </a>
             {% endfor %}
         </span>

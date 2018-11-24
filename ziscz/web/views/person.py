@@ -21,6 +21,7 @@ class PersonListView(PermissionRequiredMixin, ListView):
 
     queryset = Person.objects.select_related(
         'type_role',
+        'user',
     ).prefetch_related(
         'trained_type_animals',
         'trained_type_enclosures',
@@ -46,7 +47,7 @@ class PersonDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
     template_name = 'web/person_detail.html'
     form_class = PersonForm
     success_url = reverse_lazy('person_list')
-    model = Person
+    queryset = Person.objects.select_related('user')
 
 
 class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):

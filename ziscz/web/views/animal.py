@@ -20,13 +20,15 @@ class AnimalListView(ListView):
         return Animal.objects.prefetch_related(
             'animal_parent1',
             'animal_parent2',
-            # 'animal_stays__enclosure',
             Prefetch(
                 'animal_stay_animal',
-                queryset=AnimalStay.objects.filter(AnimalStay.filter_for_actual()),
-            )
+                queryset=AnimalStay.objects.filter(AnimalStay.filter_for_actual()).select_related('enclosure'),
+                to_attr='animal_stay_animal_actual'
+            ),
         ).select_related(
             'type_animal',
+            'parent1',
+            'parent2',
         )
 
     def get_context_data(self, *, object_list=None, **kwargs):

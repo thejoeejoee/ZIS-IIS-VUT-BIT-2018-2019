@@ -23,7 +23,7 @@ class TypeAnimal(BaseTypeModel):
         through="core.PersonTypeAnimal"
     )
 
-    class Meta:
+    class Meta(BaseTypeModel.Meta):
         verbose_name = _("Animal type")
         verbose_name_plural = _("Animal types")
 
@@ -90,8 +90,12 @@ class Animal(BaseModel):
 
     @cached_property
     def actual_enclosure(self):
-        stay = self.animal_stay_animal.filter(AnimalStay.filter_for_actual()).first()
-        return stay.enclosure if stay else None
+        try:
+            # prefetched
+            return self.animal_stay_animal_actual[0].enclosure
+        except (AttributeError, IndexError):
+            stay = self.animal_stay_animal.filter(AnimalStay.filter_for_actual()).first()
+            return stay.enclosure if stay else None
 
     @cached_property
     def children(self):
