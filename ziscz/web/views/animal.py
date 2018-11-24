@@ -1,6 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Prefetch
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, CreateView
@@ -49,15 +50,17 @@ class AnimalListView(ListView):
         return data
 
 
-class AnimalDetailView(SuccessMessageMixin, UpdateView):
+class AnimalDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'web/animal_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')
     model = Animal
+    permission_required = 'core.change_animal'
 
 
-class AnimalCreateView(SuccessMessageMixin, CreateView):
+class AnimalCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'web/form_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')
     model = Animal
+    permission_required = 'core.add_animal'

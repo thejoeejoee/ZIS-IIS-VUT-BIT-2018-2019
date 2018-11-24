@@ -38,6 +38,14 @@ class AnimalMultipleSelectWidget(ModelSelect2MultipleWidget):
     )
 
 
+class AnimalSelectWidget(ModelSelect2Widget):
+    model = Animal
+    search_fields = (
+        'name__icontains',
+        'type_animal__name__icontains',
+    )
+
+
 class TypeAnimalMultipleSelectWidget(ModelSelect2MultipleWidget):
     model = TypeAnimal
     search_fields = (

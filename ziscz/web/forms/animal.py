@@ -3,11 +3,14 @@ from __future__ import unicode_literals
 
 from crispy_forms.layout import Layout, Row
 from django.forms import ModelChoiceField
+from django.utils import timezone
+from django.utils.translation import ugettext as _
 from django_select2.forms import Select2MultipleWidget
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.widgets.datepicker import DatePickerInput
+from ziscz.core.forms.widgets.select2 import AnimalSelectWidget
 from ziscz.core.models import Animal, AnimalRegion, Enclosure, AnimalStay, TypeRegion
 from ziscz.core.utils.m2m import update_m2m
 
@@ -30,9 +33,23 @@ class AnimalForm(BaseModelForm):
         )
 
         widgets = {
-            'death_date': DatePickerInput(),
-            'birth_date': DatePickerInput(),
+            'death_date': DatePickerInput(
+                options=dict(
+                    maxDate='now',
+                )
+            ),
+            'birth_date': DatePickerInput(
+                options=dict(
+                    maxDate='now',
+                )
+            ),
             'occurrence_region': Select2MultipleWidget,
+            'parent1': AnimalSelectWidget(dependent_fields={
+                'type_animal': 'type_animal'
+            }),
+            'parent2': AnimalSelectWidget(dependent_fields={
+                'type_animal': 'type_animal'
+            })
         }
 
     def __init__(self, *args, **kwargs):
@@ -62,6 +79,8 @@ class AnimalForm(BaseModelForm):
             self.fields['parent1'].queryset = self.fields['parent2'].queryset = self.fields['parent1'].queryset.filter(
                 type_animal=self.instance.type_animal
             ).exclude(pk=self.instance.pk)
+        else:
+            self.fields['birth_date'].initial = timezone.now().date()
 
     def _save_m2m(self):
         update_m2m(
@@ -83,5 +102,23 @@ class AnimalForm(BaseModelForm):
         return instance
 
     def clean(self):
-        # TODO: animal parent validation
+        data = self.cleaned_data
+        parent1 = data.get('parent1')
+        if parent1 and parent1.type_animal != data.get('type_animal'):
+            self.add_error('parent1', _('Animal {} cannot have parent type of {}.').format(
+                data.get('type_animal'),
+                parent1.type_animal,
+            ))
+
+        parent2 = data.get('parent2')
+        if parent2 and parent2.type_animal != data.get('type_animal'):
+            self.add_error('parent2', _('Animal {} cannot have parent type of {}.').format(
+                data.get('type_animal'),
+                parent2.type_animal,
+            ))
+
+        if parent1 and parent1 == parent2:
+            self.add_error('parent2', _('Animal cannot have one parent two times {}.').format(
+                parent1,
+            ))
         return super().clean()
