@@ -86,6 +86,16 @@
                             slotEventOverlap: true,
                         },
                     },
+                    eventRender(event, element, view) {
+                        var title = element.find('.fc-title');
+                        element.popover({
+                            title: moment(event.start).format("HH:mm - DD.MM.YYYY"),
+                            content: title.text(),
+                            delay: 400,
+                            placement: 'auto',
+                            trigger: 'hover',
+                        });
+                    },
                     eventClick(calEvent, jsEvent, view) {
                         // TODO: toolbar
                     },

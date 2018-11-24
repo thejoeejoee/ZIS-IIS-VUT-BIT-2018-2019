@@ -1,26 +1,27 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from typing import Union, Type
+from datetime import datetime, timedelta
+from typing import Type, Iterable, Tuple
 
 import pytz
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
 from dateutil import parser
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import ExpressionWrapper, Case, When, Value, BooleanField
 from django.db.models.functions import Now
 from django.http import JsonResponse, Http404
-from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext as _
 from django.views import View
 from rest_framework.fields import NullBooleanField
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView, get_object_or_404
 from rest_framework.serializers import ModelSerializer
 
 from ziscz.api.filters import CalendarFilterBackend
 from ziscz.api.serializers.calendar import FeedingCalendarSerializer, CleaningCalendarSerializer
-from ziscz.core.models import Cleaning, Feeding
+from ziscz.core.models import Cleaning, Feeding, Person
 from ziscz.core.models.base import BaseEventModel
 
 
@@ -84,105 +85,82 @@ FeedingCalendarView = _calendar_event_view_factory(
 )
 
 
-def find_event(pk) -> Union[Cleaning, Feeding]:
-    try:
-        return get_object_or_404(Feeding, pk=pk)
-    except Http404:
-        return get_object_or_404(Cleaning, pk=pk)
-
-
 # TODO: cannot move to history
 # TODO: cannot move already done event
-class CalendarEventStartChangeView(CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin, View):
+class BaseCalendarEventChangeView(CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin, View):
     require_json = True
     permission_required = 'core.change_cleaning', 'core.change_feeding'
+    models = [Cleaning, Feeding]  # type: Iterable[Type[BaseEventModel]]
+    object = None  # type: BaseEventModel
 
     def post(self, request: WSGIRequest, *args, **kwargs):
-        data = self.request_json
+        self.object = self.get_object()
 
-        event = find_event(data.get('id'))
-        start = parser.parse(data.get('start')).astimezone(pytz.utc)
+        start, length = self.get_interval()
 
-        if isinstance(event, Cleaning):
-            for executor in event.executors.all():
-                conflict_feeding, conflict_cleaning = executor.find_in_time(
-                    start=start,
-                    length=event.length,
-                )
-                if conflict_feeding.exclude(pk=event.pk).exists() or conflict_cleaning.exclude(pk=event.pk).exists():
-                    return JsonResponse(dict(
-                        success=False,
-                        message=_('Reverted, conflict in time plan of executor {}.').format(executor)
-                    ))
-            event.date = start
-            event.save(update_fields=['date'])
+        try:
+            self.clean(start=start, length=length)
+        except ValidationError as e:
+            return JsonResponse(dict(
+                success=False,
+                message=e.message
+            ))
 
-        elif isinstance(event, Feeding):
-            conflict_feeding, conflict_cleaning = event.executor.find_in_time(
+        self.object.date = start
+        self.object.length = length
+        self.object.save(update_fields=['date', 'length'])
+        return JsonResponse(dict(success=True, message=_('Event successfully replanned.')))
+
+    def get_object(self) -> BaseEventModel:
+        for model in self.models:
+            try:
+                return get_object_or_404(model, pk=self.request_json.get('id'))
+            except Http404:
+                pass
+        raise Http404
+
+    def get_executors(self) -> Iterable[Person]:
+        if isinstance(self.object, Cleaning):
+            return self.object.executors.all()
+        elif isinstance(self.object, Feeding):
+            return self.object.executor,
+        raise NotImplementedError
+
+    def clean(self, start: datetime, length: timedelta):
+        for executor in self.get_executors():
+            conflict_feeding, conflict_cleaning = executor.find_in_time(
                 start=start,
-                length=event.length,
+                length=self.object.length,
             )
-            if conflict_feeding.exclude(pk=event.pk).exists() or conflict_cleaning.exclude(pk=event.pk).exists():
-                return JsonResponse(dict(
-                    success=False,
-                    message=_('Reverted, conflict in time plan of executor {}.').format(event.executor)
+            if conflict_feeding.exclude(
+                    pk=self.object.pk
+            ).exists() or conflict_cleaning.exclude(
+                pk=self.object.pk
+            ).exists():
+                raise ValidationError(_('Reverted, conflict in time plan of executor {}.').format(executor))
+
+    def get_interval(self) -> Tuple[datetime, timedelta]:
+        raise NotImplementedError
+
+
+class CalendarEventStartChangeView(BaseCalendarEventChangeView):
+    def get_interval(self):
+        return parser.parse(self.request_json.get('start')).astimezone(pytz.utc), self.object.length
+
+
+class CalendarEventEndChangeView(BaseCalendarEventChangeView):
+    def get_interval(self):
+        return (
+            self.object.date,
+            parser.parse(self.request_json.get('end')).astimezone(pytz.utc) - self.object.date
+        )
+
+    def clean(self, start: datetime, length: timedelta):
+        super().clean(start=start, length=length)
+
+        if isinstance(self.object, Cleaning):
+            if length < self.object.enclosure.min_cleaning_duration:
+                raise ValidationError(_('Reverted, {} is the minimal duration of cleaning {}.').format(
+                    self.object.enclosure.min_cleaning_duration,
+                    self.object.enclosure
                 ))
-            event.date = start
-            event.save(update_fields=['date'])
-
-        else:
-            return JsonResponse(dict(success=False, message=_('Unknown action to move.')))
-        return JsonResponse(dict(success=True, message=_('Event successfully moved.')))
-
-
-# TODO: "little" bit copypasted...
-class CalendarEventEndChangeView(CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin, View):
-    require_json = True
-    permission_required = 'core.change_cleaning', 'core.change_feeding'
-
-    def post(self, request: WSGIRequest, *args, **kwargs):
-        data = self.request_json
-
-        event = find_event(data.get('id'))
-        end = parser.parse(data.get('end')).astimezone(pytz.utc)
-        length = end - event.date
-
-        if isinstance(event, Cleaning):
-            for executor in event.executors.all():
-                conflict_feeding, conflict_cleaning = executor.find_in_time(
-                    start=event.date,
-                    length=length,
-                )
-                if conflict_feeding.exclude(pk=event.pk).exists() or conflict_cleaning.exclude(pk=event.pk).exists():
-                    return JsonResponse(dict(
-                        success=False,
-                        message=_('Reverted, conflict in time plan of executor {}.').format(executor)
-                    ))
-            if length < event.enclosure.min_cleaning_duration:
-                return JsonResponse(dict(
-                    success=False,
-                    message=_('Reverted, {} is the minimal duration of cleaning {}.').format(
-                        event.enclosure.min_cleaning_duration,
-                        event.enclosure
-                    )
-                ))
-
-            event.length = length
-            event.save(update_fields=['length'])
-
-        elif isinstance(event, Feeding):
-            conflict_feeding, conflict_cleaning = event.executor.find_in_time(
-                start=event.date,
-                length=length,
-            )
-            if conflict_feeding.exclude(pk=event.pk).exists() or conflict_cleaning.exclude(pk=event.pk).exists():
-                return JsonResponse(dict(
-                    success=False,
-                    message=_('Reverted, conflict in time plan of executor {}.').format(event.executor)
-                ))
-            event.length = length
-            event.save(update_fields=['length'])
-
-        else:
-            return JsonResponse(dict(success=False, message=_('Unknown action to move.')))
-        return JsonResponse(dict(success=True, message=_('Length of event successfully changed.')))

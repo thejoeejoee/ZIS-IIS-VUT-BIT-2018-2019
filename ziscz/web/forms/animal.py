@@ -102,7 +102,7 @@ class AnimalForm(BaseModelForm):
         return instance
 
     def clean(self):
-        data = self.cleaned_data
+        data = super().clean()
         parent1 = data.get('parent1')
         if parent1 and parent1.type_animal != data.get('type_animal'):
             self.add_error('parent1', _('Animal {} cannot have parent type of {}.').format(

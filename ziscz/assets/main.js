@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import './scss/styles.js'
+import 'bootstrap/js/dist/popover'
 import 'bootstrap/js/dist/collapse'
 import 'toastr/build/toastr.min.css'
 import 'jquery'
