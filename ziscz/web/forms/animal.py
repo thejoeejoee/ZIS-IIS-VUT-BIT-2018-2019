@@ -121,4 +121,9 @@ class AnimalForm(BaseModelForm):
             self.add_error('parent2', _('Animal cannot have one parent two times {}.').format(
                 parent1,
             ))
+
+        dead_date = data.get('death_date')
+        if dead_date and dead_date > timezone.now().date():
+            self.add_error('dead_date', _('Cannot set death date in future.'))
+
         return super().clean()

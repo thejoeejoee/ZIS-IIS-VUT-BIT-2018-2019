@@ -19,7 +19,6 @@
         </div>
         <div class="card-body">
             {% block body %}
-                {% csrf_token %}
                 {% crispy form %}
             {% endblock %}
         </div>
