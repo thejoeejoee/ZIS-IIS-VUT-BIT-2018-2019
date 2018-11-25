@@ -86,7 +86,6 @@ FeedingCalendarView = _calendar_event_view_factory(
 )
 
 
-# TODO: cannot move to history
 # TODO: cannot move already done event
 class BaseCalendarEventChangeView(CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin, View):
     require_json = True
@@ -133,6 +132,7 @@ class BaseCalendarEventChangeView(CsrfExemptMixin, JsonRequestResponseMixin, Per
                 start=start,
                 length=self.object.length,
             )
+
             if conflict_feeding.exclude(
                     pk=self.object.pk
             ).exists() or conflict_cleaning.exclude(

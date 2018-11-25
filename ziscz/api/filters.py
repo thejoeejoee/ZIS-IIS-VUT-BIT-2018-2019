@@ -29,6 +29,6 @@ class CalendarFilterBackend(BaseFilterBackend):
             q &= Q(date__gte=parser.parse(request.GET.get('start')).replace(tzinfo=tz))
 
         if request.GET.get('end'):
-            q &= Q(end_x__lt=parser.parse(request.GET.get('end')).replace(tzinfo=tz))
+            q &= Q(end__lt=parser.parse(request.GET.get('end')).replace(tzinfo=tz))
 
-        return queryset.annotate(end_x=end_field).filter(q)
+        return queryset.annotate(end=end_field).filter(q)

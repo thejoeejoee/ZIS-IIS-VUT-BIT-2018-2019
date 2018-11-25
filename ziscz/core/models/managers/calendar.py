@@ -16,9 +16,9 @@ class CurrentEventManagerMixin(object):
     def current(self) -> QuerySet:
         end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
         now = timezone.now()
-        return self.get_queryset().annotate(end_x=end_field).filter(
+        return self.get_queryset().annotate(end=end_field).filter(
             date__lte=now,
-            end_x__gte=now
+            end__gte=now
         )
 
 

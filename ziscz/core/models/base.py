@@ -59,3 +59,8 @@ class BaseEventModel(BaseModel):
     @property
     def end(self):
         return self.date + self.length
+
+    @end.setter
+    def end(self, v):
+        # dummy setter to allow annotating querysets with end= attribute
+        pass

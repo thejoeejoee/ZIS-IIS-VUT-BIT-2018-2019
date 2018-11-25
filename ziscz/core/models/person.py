@@ -1,10 +1,11 @@
 # coding=utf-8
 from datetime import timedelta
-from typing import Tuple
+from typing import Tuple, Dict, Callable, Union
 
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.db.models import Q, F, DateTimeField, ExpressionWrapper, QuerySet
+from django.db.models.constants import LOOKUP_SEP
 from django.utils.datetime_safe import datetime
 from django.utils.translation import ugettext as _
 
@@ -67,28 +68,26 @@ class Person(BaseModel):
         """
         # TODO: I'am not 100 % sure.
         end = start + length
-        end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
-        feeding_conflict = self.feeding_executor.annotate(
-            start=F('date'),
-            end=end_field
-        ).filter(
-            Q(end__gt=start, end__lt=end) |
-            Q(start__gt=start, start__lt=end) |
-            Q(start__gt=start, end__lt=end) |
-            Q(start__lt=start, end__gt=end)
+
+        field_factory = lambda prefix: dict(
+            end=ExpressionWrapper(
+                F('{}date'.format(prefix + LOOKUP_SEP if prefix else '')) +
+                F('{}length'.format(prefix + LOOKUP_SEP if prefix else '')),
+                output_field=DateTimeField()
+            ),
+            start=F('{}date'.format(prefix + LOOKUP_SEP if prefix else ''))
+        )  # type: Callable[[str], Dict[str, Union[ExpressionWrapper, F]]]
+
+        q = (
+                Q(end__gt=start, end__lt=end) |
+                Q(start__gt=start, start__lt=end) |
+                Q(start__gt=start, end__lt=end) |
+                Q(start__lt=start, end__gt=end) |
+                Q(start=start, end=end)
         )
 
-        end_field = ExpressionWrapper(F('cleaning__date') + F('cleaning__length'), output_field=DateTimeField())
-
-        cleaning_conflict = self.cleaning_person_person.annotate(
-            start=F('cleaning__date'),
-            end=end_field
-        ).filter(
-            Q(end__gt=start, end__lt=end) |
-            Q(start__gt=start, start__lt=end) |
-            Q(start__gt=start, end__lt=end) |
-            Q(start__lt=start, end__gt=end)
-        )
+        feeding_conflict = self.feeding_executor.annotate(**field_factory(prefix='')).filter(q)
+        cleaning_conflict = self.cleaning_person_person.annotate(**field_factory(prefix='cleaning')).filter(q)
 
         from ziscz.core.models import Cleaning
         return feeding_conflict, Cleaning.objects.filter(pk__in=cleaning_conflict.values_list('cleaning_id'))
