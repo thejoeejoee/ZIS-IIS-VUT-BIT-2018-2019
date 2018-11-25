@@ -1,7 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from typing import Type, Iterable, Tuple
 
 import pytz
@@ -13,6 +13,7 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.db.models import ExpressionWrapper, Case, When, Value, BooleanField
 from django.db.models.functions import Now
 from django.http import JsonResponse, Http404
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.views import View
 from rest_framework.fields import NullBooleanField
@@ -138,6 +139,12 @@ class BaseCalendarEventChangeView(CsrfExemptMixin, JsonRequestResponseMixin, Per
                 pk=self.object.pk
             ).exists():
                 raise ValidationError(_('Reverted, conflict in time plan of executor {}.').format(executor))
+
+        if self.object.date < timezone.now():
+            raise ValidationError(_('Reverted, cannot change historical or already started event.'))
+
+        if start < timezone.now():
+            raise ValidationError(_('Reverted, cannot move event to history.'))
 
     def get_interval(self) -> Tuple[datetime, timedelta]:
         raise NotImplementedError

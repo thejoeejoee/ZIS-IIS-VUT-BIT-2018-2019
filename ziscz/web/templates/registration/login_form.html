@@ -9,6 +9,15 @@
     {% trans "Login" %}
 {% endblock %}
 
+{% block body %}
+    {% if user.is_authenticated %}
+        <div class="alert alert-info text-center">
+            {% trans "Currently loggged as" %} <strong>{{ user }}</strong>.
+        </div>
+    {% endif %}
+    {{ block.super }}
+{% endblock %}
+
 {% block form_card_footer_left %}
     <a class="float-left btn btn-outline-primary" href="{% url 'password_reset' %}">{% trans "Lost password?" %}</a>
 {% endblock %}

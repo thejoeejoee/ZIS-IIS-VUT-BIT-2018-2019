@@ -12,10 +12,10 @@ from ziscz.core.views.forms import SuccessMessageMixin
 from ziscz.web.forms.animal import AnimalForm
 
 
-class AnimalListView(ListView):
+class AnimalListView(PermissionRequiredMixin, ListView):
     template_name = 'web/animal_list.html'
-
     allow_empty = True
+    permission_required = 'core.view_animal'
 
     def get_queryset(self):
         return Animal.objects.prefetch_related(

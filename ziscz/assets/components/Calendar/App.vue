@@ -94,6 +94,7 @@
                             delay: 400,
                             placement: 'auto',
                             trigger: 'hover',
+                            container: false,
                         });
                     },
                     eventClick(calEvent, jsEvent, view) {

@@ -1,6 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.shortcuts import get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
@@ -10,18 +11,20 @@ from ziscz.core.views.forms import SuccessMessageMixin
 from ziscz.web.forms.cleaning import CleaningForm
 
 
-class CleaningDetailView(SuccessMessageMixin, UpdateView):
+class CleaningDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
     template_name = 'web/cleaning_detail.html'
     form_class = CleaningForm
     success_url = reverse_lazy('calendar')
     model = Cleaning
+    permission_required = 'core.change_cleaning'
 
 
-class CleaningCreateView(SuccessMessageMixin, CreateView):
+class CleaningCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
     template_name = 'web/cleaning_detail.html'
     form_class = CleaningForm
     success_url = reverse_lazy('calendar')
     model = Cleaning
+    permission_required = 'core.create_cleaning'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

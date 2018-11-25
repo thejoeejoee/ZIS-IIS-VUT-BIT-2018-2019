@@ -18,8 +18,10 @@
             {% endblock %}
         </div>
         <div class="card-body">
-            {% csrf_token %}
-            {% crispy form %}
+            {% block body %}
+                {% csrf_token %}
+                {% crispy form %}
+            {% endblock %}
         </div>
         <div class="card-footer">
             {% block form_card_footer_left %}

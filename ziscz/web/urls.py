@@ -3,7 +3,6 @@ from django.conf import settings
 from django.urls import path, include
 
 from ziscz.web.views.animal import AnimalListView, AnimalDetailView, AnimalCreateView
-from ziscz.web.views.auth import LoginView
 from ziscz.web.views.calendar import CalendarView
 from ziscz.web.views.cleaning import CleaningDetailView, CleaningCreateView
 from ziscz.web.views.enclosure import EnclosureListView, EnclosureDetailView, EnclosureCreateView
@@ -35,8 +34,6 @@ urlpatterns = [
     path('feeding/<uuid:pk>', FeedingDetailView.as_view(), name='feeding_detail'),
 
     path('calendar', CalendarView.as_view(), name='calendar'),
-
-    path('login', LoginView.as_view(), name='login'),
 ]
 
 if settings.DEBUG:
