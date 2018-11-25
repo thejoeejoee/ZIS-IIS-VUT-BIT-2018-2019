@@ -10,7 +10,7 @@ from django.utils.timezone import localtime
 from django.utils.translation import ugettext as _
 
 from ziscz.core.models.base import BaseEventModel
-from ziscz.core.models.managers.calendar import CleaningManager
+from ziscz.core.models.managers.calendar import CleaningQuerySet
 from .base import BaseModel, BaseTypeModel
 
 
@@ -113,7 +113,7 @@ class Cleaning(BaseEventModel):
     """
     Pravidlo pro úklid výběhu.
     """
-    objects = CleaningManager()
+    objects = CleaningQuerySet.as_manager()
 
     enclosure = models.ForeignKey(
         "core.Enclosure",
@@ -128,8 +128,8 @@ class Cleaning(BaseEventModel):
 
     note = models.TextField(null=True, blank=True)
 
-    class Meta:
-        ordering = 'date',
+    class Meta(BaseEventModel.Meta):
+        pass
 
     def __str__(self):
         return _('Cleaning at {} {}').format(

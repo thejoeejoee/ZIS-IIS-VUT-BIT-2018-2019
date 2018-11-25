@@ -44,13 +44,22 @@ class BaseTypeModel(BaseModel):
         return self.name or self.identifier
 
 
+PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE = 'can_mark_own_event_as_done'
+
+
 class BaseEventModel(BaseModel):
     date = models.DateTimeField(help_text=_('Planned start of cleaning.'))
     length = models.DurationField()
     done = models.BooleanField(default=False)
 
+    PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE = PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE
+
     class Meta:
         abstract = True
+        ordering = 'date',
+        permissions = (
+            (PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE, _('Can mark own event as done')),
+        )
 
     @property
     def start_date(self):

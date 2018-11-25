@@ -109,7 +109,9 @@ class PersonForm(BaseModelForm):
             # remove all type roles groups
             for g in Group.objects.filter(name__in=TypeRole.objects.values_list('name', flat=True)):
                 user.groups.remove(g)
-            user.groups.add(Group.objects.get_or_create(name=self.instance.type_role.name)[0])
+            # assign all roles with higher order than selected
+            for tr in TypeRole.objects.filter(order__gte=self.instance.type_role.order):
+                user.groups.add(Group.objects.get_or_create(name=tr.name)[0])
         return instance
 
     def clean(self):

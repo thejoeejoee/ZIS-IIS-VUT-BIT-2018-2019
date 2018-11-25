@@ -4,8 +4,8 @@ from django.utils.formats import time_format, date_format
 from django.utils.timezone import localtime
 from django.utils.translation import ugettext as _
 
-from ziscz.core.models.managers.calendar import FeedingManager
 from .base import BaseModel, BaseTypeModel, BaseEventModel
+from ..models.managers.calendar import FeedingQuerySet
 
 
 class TypeFeed(BaseTypeModel):
@@ -16,7 +16,7 @@ class Feeding(BaseEventModel):
     """
     Pravidlo pro krmení zvířat.
     """
-    objects = FeedingManager()
+    objects = FeedingQuerySet.as_manager()
 
     type_feed = models.ForeignKey(
         "core.TypeFeed",
@@ -42,8 +42,8 @@ class Feeding(BaseEventModel):
         help_text=_('Amount of feed, etc. 1 kg, 1 l or 20 pieces.')
     )
 
-    class Meta:
-        ordering = 'date',
+    class Meta(BaseEventModel.Meta):
+        pass
 
     def __str__(self):
         return _('Feeding at {} {}').format(

@@ -16,6 +16,9 @@ class HomeView(LoginRequiredMixin, TemplateView):
         data.update(
             actual_cleanings=Cleaning.objects.current(),
             actual_feedings=Feeding.objects.current(),
+
+            today_cleanings=Cleaning.objects.in_date(),
+            today_feedings=Feeding.objects.in_date(),
         )
 
         return data

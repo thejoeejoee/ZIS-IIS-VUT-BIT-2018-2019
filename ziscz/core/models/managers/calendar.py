@@ -3,28 +3,37 @@ from __future__ import unicode_literals
 
 import typing
 
-from django.db.models import Manager, QuerySet, ExpressionWrapper, F, DateTimeField
-from django.db.transaction import atomic
+from django.db import models
+from django.db.models import QuerySet, ExpressionWrapper, F, DateTimeField
 from django.utils import timezone
 
 if typing.TYPE_CHECKING:
-    pass
+    from ziscz.core.models import Person
 
 
-class CurrentEventManagerMixin(object):
-    @atomic
+class BaseEventQuerySet(models.QuerySet):
+    def filter_by_person(self, person: "Person") -> QuerySet:
+        raise NotImplementedError
+
     def current(self) -> QuerySet:
         end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
         now = timezone.now()
-        return self.get_queryset().annotate(end=end_field).filter(
+        return self.annotate(end=end_field).filter(
             date__lte=now,
             end__gte=now
         )
 
+    def in_date(self, date=None) -> QuerySet:
+        end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
+        date = date or timezone.now().date()
+        return self.annotate(end=end_field).filter(end__date=date)
 
-class CleaningManager(CurrentEventManagerMixin, Manager):
-    pass
+
+class CleaningQuerySet(BaseEventQuerySet):
+    def filter_by_person(self, person: "Person") -> QuerySet:
+        pass
 
 
-class FeedingManager(CurrentEventManagerMixin, Manager):
-    pass
+class FeedingQuerySet(BaseEventQuerySet):
+    def filter_by_person(self, person: "Person") -> QuerySet:
+        pass
