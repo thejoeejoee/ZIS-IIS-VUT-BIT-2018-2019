@@ -65,6 +65,12 @@ class PersonForm(BaseModelForm):
             ),
             Row(
                 Col(HTML(': '.join((_('User'), str(self.instance.user))))) if self.instance.user else None,
+                Col(HTML(
+                    ': '.join((
+                        _('Groups'),
+                        ', '.join(map(str, self.instance.user.groups.all()))
+                    ))
+                )) if self.instance.user else None,
             )
         )
 

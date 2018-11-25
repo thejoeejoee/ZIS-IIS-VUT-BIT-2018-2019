@@ -1,5 +1,5 @@
 {% extends "web/base.html" %}
-{% load i18n %}
+{% load i18n event %}
 {% block content %}
 
     <p class="lead font-weight-bold">
@@ -8,15 +8,29 @@
 
     <div class="row">
         <div class="col">
-            {% if today_cleanings.exists or today_feedings.exists %}
+            {% if today_events %}
                 <div class="card">
-                    <div class="card-header"><h5>{% trans "Today's activities" %}</h5></div>
+                    <div class="card-header">
+                        <h5>
+                            {% if perms.core.change_cleaning and perms.core.change_feeding %}
+                                {% trans "Today's activities" %}
+                            {% else %}
+                                {% trans "Your's today activities" %}
+                            {% endif %}
+                        </h5>
+                    </div>
                     <ul class="list-group list-group-flush">
-                        {% for cleaning in today_cleanings %}
-                            <li class="list-group-item">{{ cleaning }}: {{ cleaning.specification }}</li>
-                        {% endfor %}
-                        {% for feeding in today_feedings %}
-                            <li class="list-group-item">{{ feeding }} {{ feeding.specification }}</li>
+                        {% for event in today_events %}
+                            <li class="list-group-item">
+                                {% if event|can_mark_as_done:user %}
+                                    <button class="float-right btn btn-success btn-sm">
+                                        &check; {% trans "Done" %}
+                                    </button>
+                                {% endif %}
+                                {{ event }}
+                                <br>
+                                <small>{{ event.specification }}</small>
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -28,28 +42,19 @@
                     <div class="card-header"><h5>{% trans "Activities right now" %}</h5></div>
                     <ul class="list-group list-group-flush">
                         {% for cleaning in actual_cleanings %}
-                            <li class="list-group-item">{{ cleaning }}: {{ cleaning.specification }}</li>
+                            <li class="list-group-item">
+                                {{ cleaning }}: {{ cleaning.specification }}
+                            </li>
                         {% endfor %}
                         {% for feeding in actual_feedings %}
-                            <li class="list-group-item">{{ feeding }} {{ feeding.specification }}</li>
+                            <li class="list-group-item">
+                                {{ feeding }} {{ feeding.specification }}
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>
             {% endif %}
         </div>
     </div>
-
-
-
-
-    {% comment %}
-
-    <div class="row">
-        <div class="col-6">
-            {% include "core/forms/form.html" with form=form %}
-        </div>
-    </div>
-
-    {% endcomment %}
 
 {% endblock content %}

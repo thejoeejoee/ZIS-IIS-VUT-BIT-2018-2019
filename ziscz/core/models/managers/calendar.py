@@ -12,10 +12,10 @@ if typing.TYPE_CHECKING:
 
 
 class BaseEventQuerySet(models.QuerySet):
-    def filter_by_person(self, person: "Person") -> QuerySet:
+    def filter_by_person(self, person: "Person") -> "BaseEventQuerySet":
         raise NotImplementedError
 
-    def current(self) -> QuerySet:
+    def current(self) -> "BaseEventQuerySet":
         end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
         now = timezone.now()
         return self.annotate(end=end_field).filter(
@@ -23,7 +23,7 @@ class BaseEventQuerySet(models.QuerySet):
             end__gte=now
         )
 
-    def in_date(self, date=None) -> QuerySet:
+    def in_date(self, date=None) -> "BaseEventQuerySet":
         end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
         date = date or timezone.now().date()
         return self.annotate(end=end_field).filter(end__date=date)
@@ -31,9 +31,9 @@ class BaseEventQuerySet(models.QuerySet):
 
 class CleaningQuerySet(BaseEventQuerySet):
     def filter_by_person(self, person: "Person") -> QuerySet:
-        pass
+        return self.filter(cleaning_person_cleaning__person=person)
 
 
 class FeedingQuerySet(BaseEventQuerySet):
     def filter_by_person(self, person: "Person") -> QuerySet:
-        pass
+        return self.filter(executor=person)

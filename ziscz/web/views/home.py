@@ -1,6 +1,8 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from operator import attrgetter
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 
@@ -17,8 +19,15 @@ class HomeView(LoginRequiredMixin, TemplateView):
             actual_cleanings=Cleaning.objects.current(),
             actual_feedings=Feeding.objects.current(),
 
-            today_cleanings=Cleaning.objects.in_date(),
-            today_feedings=Feeding.objects.in_date(),
+            # TODO: with core.change_cleaning you can view all
+            today_events=sorted(
+                tuple(
+                    Cleaning.objects.in_date().filter_by_person(self.request.user.person_user)
+                ) + tuple(
+                    Feeding.objects.in_date().filter_by_person(self.request.user.person_user)
+                ),
+                key=attrgetter('date')
+            ),
         )
 
         return data

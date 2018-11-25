@@ -1,4 +1,7 @@
 # coding=utf-8
+import typing
+from typing import Iterable
+
 from django.db import models
 from django.utils.formats import time_format, date_format
 from django.utils.timezone import localtime
@@ -6,6 +9,9 @@ from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel, BaseEventModel
 from ..models.managers.calendar import FeedingQuerySet
+
+if typing.TYPE_CHECKING:
+    from . import Person
 
 
 class TypeFeed(BaseTypeModel):
@@ -59,6 +65,9 @@ class Feeding(BaseEventModel):
             self.type_feed,
             self.amount,
         )
+
+    def get_executors(self) -> Iterable["Person"]:
+        return self.executor,
 
 
 class FeedingAnimal(BaseModel):

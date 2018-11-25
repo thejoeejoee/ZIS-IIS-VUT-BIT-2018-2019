@@ -1,9 +1,14 @@
 # coding=utf-8
+import typing
+from typing import Iterable
 from uuid import uuid4
 
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
+
+if typing.TYPE_CHECKING:
+    from ziscz.core.models import Person
 
 
 class BaseModel(models.Model):
@@ -73,3 +78,6 @@ class BaseEventModel(BaseModel):
     def end(self, v):
         # dummy setter to allow annotating querysets with end= attribute
         pass
+
+    def get_executors(self) -> Iterable["Person"]:
+        raise NotImplementedError

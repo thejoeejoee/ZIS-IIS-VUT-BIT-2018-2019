@@ -1,5 +1,6 @@
 # coding=utf-8
 import typing
+from typing import Iterable
 
 from colorful.fields import RGBColorField
 from django.db import models
@@ -9,9 +10,12 @@ from django.utils.formats import time_format, date_format
 from django.utils.timezone import localtime
 from django.utils.translation import ugettext as _
 
-from ziscz.core.models.base import BaseEventModel
-from ziscz.core.models.managers.calendar import CleaningQuerySet
 from .base import BaseModel, BaseTypeModel
+from ..models.base import BaseEventModel
+from ..models.managers.calendar import CleaningQuerySet
+
+if typing.TYPE_CHECKING:
+    from . import Person
 
 
 class TypeCleaningAccessory(BaseTypeModel):
@@ -113,6 +117,7 @@ class Cleaning(BaseEventModel):
     """
     Pravidlo pro úklid výběhu.
     """
+
     objects = CleaningQuerySet.as_manager()
 
     enclosure = models.ForeignKey(
@@ -143,6 +148,9 @@ class Cleaning(BaseEventModel):
             self.enclosure,
             ', '.join(map(str, self.executors.all())),
         )
+
+    def get_executors(self) -> Iterable["Person"]:
+        return self.executors.all()
 
 
 class PersonTypeEnclosure(BaseModel):

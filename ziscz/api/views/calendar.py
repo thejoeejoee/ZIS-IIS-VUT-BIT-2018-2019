@@ -22,7 +22,7 @@ from rest_framework.serializers import ModelSerializer
 
 from ziscz.api.filters import CalendarFilterBackend
 from ziscz.api.serializers.calendar import FeedingCalendarSerializer, CleaningCalendarSerializer
-from ziscz.core.models import Cleaning, Feeding, Person
+from ziscz.core.models import Cleaning, Feeding
 from ziscz.core.models.base import BaseEventModel
 
 
@@ -119,15 +119,8 @@ class BaseCalendarEventChangeView(CsrfExemptMixin, JsonRequestResponseMixin, Per
                 pass
         raise Http404
 
-    def get_executors(self) -> Iterable[Person]:
-        if isinstance(self.object, Cleaning):
-            return self.object.executors.all()
-        elif isinstance(self.object, Feeding):
-            return self.object.executor,
-        raise NotImplementedError
-
     def clean(self, start: datetime, length: timedelta):
-        for executor in self.get_executors():
+        for executor in self.object.get_executors():
             conflict_feeding, conflict_cleaning = executor.find_in_time(
                 start=start,
                 length=self.object.length,
