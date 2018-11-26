@@ -29,7 +29,13 @@
                                         </button>
                                     </form>
                                 {% endif %}
-                                {{ event }}
+                                {% if perms.core.change_cleaning and perms.core.change_feeding %}
+                                    <a href="{{ event.get_absolute_url }}">
+                                        {{ event }}
+                                    </a>
+                                {% else %}
+                                    {{ event }}
+                                {% endif %}
                                 <br>
                                 <small>{{ event.specification }}</small>
                             </li>

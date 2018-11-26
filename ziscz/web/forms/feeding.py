@@ -4,13 +4,15 @@ from __future__ import unicode_literals
 from datetime import timedelta
 from typing import Optional
 
-from crispy_forms.layout import Layout, Row, Div
+from crispy_forms.layout import Layout, Row, Div, HTML
 from django.forms import Textarea
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.fields import DateRangeField
+from ziscz.core.forms.widgets.datepicker import DateTimePickerInput
 from ziscz.core.forms.widgets.duration import DurationPickerWidget
 from ziscz.core.forms.widgets.select2 import PersonSelectWidget, AnimalMultipleSelectWidget
 from ziscz.core.models import Feeding, Animal, FeedingAnimal, Person
@@ -29,6 +31,8 @@ class FeedingForm(BaseModelForm):
             'length',
             'note',
             'amount',
+            'date',
+            'done',
         )
 
         widgets = {
@@ -40,6 +44,7 @@ class FeedingForm(BaseModelForm):
             'note': Textarea(attrs=dict(rows=2)),
             'executor': PersonSelectWidget(),
             'length': DurationPickerWidget(),
+            'date': DateTimePickerInput(),
         }
         help_texts = {
             'animals': _('Only animals, that could be feed by selected person, are displayed.')
@@ -47,6 +52,9 @@ class FeedingForm(BaseModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        if not self.updating:
+            self.fields['date'].required = False
+            self.fields['date'].disabled = True
 
         self.fields['animals'].initial = Animal.objects.filter(feeding_animal_animal__feeding=self.instance)
         self.helper.layout = Layout(
@@ -59,8 +67,12 @@ class FeedingForm(BaseModelForm):
             Row(
                 Col('length'),
                 Col('note'),
+                Col('done') if self.updating else None,
             ),
-            Div(css_id='feeding-planning') if not self.updating else Div(),
+            Div(
+                HTML(render_to_string('web/cleaning_planning_note.html')),
+                Div(css_id='cleaning-planning')
+            ) if not self.updating else 'date',
         )
 
     def clean(self):
@@ -69,6 +81,8 @@ class FeedingForm(BaseModelForm):
         date_range = data.get('date_range')
         if date_range:
             self.instance.date = data['date'] = date_range[0]
+        else:
+            date_range = [data.get('date')]
 
         executor = data.get('executor')  # type: Optional[Person]
         length = data.get('length')  # type: Optional[timedelta]

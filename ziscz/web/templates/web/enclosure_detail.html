@@ -86,7 +86,7 @@
                         <li class="list-group-item d-flex align-items-center">
                             <a href="{% url "person_detail" person.pk %}" class="flex-fill">{{ person }}</a>
                             <a href="{% url "cleaning_create" %}?enclosure={{ object.pk }}&executor={{ person.pk }}" class="btn btn-sm btn-outline-info" title="{% trans "Plan new cleaning" %}">
-                                <img src="{% static "img/icons/duster.svg" %}" alt="" width="20">
+                                <img src="{% static "img/icons/duster.svg" %}" alt="{% trans "Cleaning" %}" width="20">
                             </a>
                         </li>
                     {% endfor %}

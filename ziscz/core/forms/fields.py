@@ -18,6 +18,8 @@ class DateRangeField(Field):
     RANGE_KEY = 'range'
 
     def to_python(self, value) -> List[datetime]:
+        if not value:
+            return []
         data = json.loads(value)
         return list(
             map(

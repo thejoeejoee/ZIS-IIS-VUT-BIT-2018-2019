@@ -5,6 +5,7 @@ from typing import Iterable
 from uuid import uuid4
 
 from django.db import models
+from django.urls import reverse
 from django.utils.timezone import localtime
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
@@ -88,3 +89,6 @@ class BaseEventModel(BaseModel):
 
     def get_executors(self) -> Iterable["Person"]:
         raise NotImplementedError
+
+    def get_absolute_url(self):
+        return reverse('{}_detail'.format(self.__class__.__name__.lower()), args=(self.pk, ))

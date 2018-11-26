@@ -1,6 +1,8 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from datetime import timedelta
+from typing import Iterable
 from typing import Optional
 
 from crispy_forms.layout import Layout, Row, Div, HTML
@@ -12,6 +14,7 @@ from django.utils.translation import ugettext as _
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.fields import DateRangeField
+from ziscz.core.forms.widgets.datepicker import DateTimePickerInput
 from ziscz.core.forms.widgets.duration import DurationPickerWidget
 from ziscz.core.forms.widgets.select2 import PersonMultipleSelectWidget, EnclosureSelectWidget
 from ziscz.core.models import Cleaning, CleaningPerson, Person, Enclosure
@@ -29,6 +32,7 @@ class CleaningForm(BaseModelForm):
             'note',
             'executors',
             'date',
+            'done',
         )
 
         widgets = {
@@ -39,6 +43,7 @@ class CleaningForm(BaseModelForm):
             }),
             'note': Textarea(attrs=dict(rows=2)),
             'length': DurationPickerWidget(),
+            'date': DateTimePickerInput(),
         }
 
         help_texts = {
@@ -48,19 +53,25 @@ class CleaningForm(BaseModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         # filled by range
-        self.fields['date'].required = False
+        if not self.updating:
+            self.fields['date'].required = False
+            self.fields['date'].disabled = True
         self.helper.layout = Layout(
             'enclosure',
             'executors',
             Row(
                 Col('length'),
                 Col('note'),
+                Col('done') if self.updating else None,
             ),
-            HTML(render_to_string('web/cleaning_planning_note.html')),
-            Div(css_id='cleaning-planning') if not self.updating else Div(),
+            Div(
+                HTML(render_to_string('web/cleaning_planning_note.html')),
+                Div(css_id='cleaning-planning')
+            ) if not self.updating else 'date',
         )
 
-        enclosure = self.fields['enclosure'].initial or self.initial.get('enclosure')  # type: Optional[Enclosure]
+        enclosure = self.fields['enclosure'].initial or Enclosure.objects.filter(
+            pk=self.initial.get('enclosure')).first()  # type: Optional[Enclosure]
         if enclosure:
             self.initial.update(dict(
                 length=enclosure.min_cleaning_duration.total_seconds(),
@@ -70,8 +81,9 @@ class CleaningForm(BaseModelForm):
         data = super().clean()
 
         enclosure = data.get('enclosure')  # type: Enclosure
+        executors = data.get('executors') # type: Iterable[Person]
         if enclosure:
-            if len(data.get('executors')) < enclosure.min_cleaners_count:
+            if len(executors) < enclosure.min_cleaners_count:
                 self.add_error(
                     'executors',
                     _('Selected enclosure requires {} or more executors for cleaning.').format(
@@ -90,6 +102,38 @@ class CleaningForm(BaseModelForm):
         date_range = data.get('date_range')
         if date_range:
             self.instance.date = data['date'] = date_range[0]
+        else:
+            date_range = [data.get('date')]
+
+        length = data.get('length')  # type: Optional[timedelta]
+
+        if date_range and length:
+            for date in date_range:
+                for executor in executors:
+                    feeding, cleaning = executor.find_in_time(
+                        start=date,
+                        length=length
+                    )
+                    if feeding.exists() or cleaning.exists():
+                        self.add_error(
+                            'executor',
+                            _('Executor {} has not time in filled date and duration - he has {}.').format(
+                                executor,
+                                ', '.join(
+                                    filter(
+                                        None,
+                                        map(
+                                            ','.join,
+                                            (
+                                                map(str, feeding),
+                                                map(str, cleaning),
+                                            )
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                        break
 
         return data
 
@@ -107,7 +151,9 @@ class CleaningForm(BaseModelForm):
     def save(self, commit=True):
         instance = super().save(commit=commit)
 
-        if not self.updating:
+        if self.updating:
+            pass
+        else:
             date_range = self.cleaned_data.get('date_range')
             for date in date_range[1:]:
                 # skip first

@@ -55,7 +55,7 @@ class Person(BaseModel):
     )
 
     def __str__(self):
-        return ' '.join((self.first_name, self.last_name))
+        return ' '.join((self.type_role.name, self.first_name, self.last_name))
 
     class Meta:
         verbose_name = _('Person')

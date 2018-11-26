@@ -11,7 +11,7 @@ from ziscz.web.forms.feeding import FeedingForm
 
 
 class FeedingDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
-    template_name = 'web/form_detail.html'
+    template_name = 'web/feeding_detail.html'
     form_class = FeedingForm
     success_url = reverse_lazy('calendar')
     model = Feeding
