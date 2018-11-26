@@ -7,6 +7,7 @@ from ziscz.core.models import Person, Animal, Enclosure, TypeAnimal, TypeEnclosu
 
 
 class PersonMultipleSelectWidget(ModelSelect2MultipleWidget):
+    # TODO: order by role descendant
     model = Person
     search_fields = (
         'first_name__icontains',

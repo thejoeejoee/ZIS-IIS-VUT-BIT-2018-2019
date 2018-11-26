@@ -94,6 +94,9 @@ class PersonForm(BaseModelForm):
 
     @atomic
     def save(self, commit=True):
+        # TODO: remove all planned cleanings, if person cannot perform them
+        # TODO: remove all planned feedings, if person cannot perform them
+
         instance = super().save(commit=commit)  # type: Person
         if not self.updating:
             user_model = get_user_model()  # type: AbstractUser
