@@ -3,6 +3,7 @@
         <template
             v-for="enclosure in enclosures"
         >
+            <!-- TODO: add break to keep 4 in row -->
             <div
                 :style="{backgroundColor: enclosure.enclosure_color}"
                 class="card"

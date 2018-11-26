@@ -1,9 +1,14 @@
 {% extends "web/form_detail.html" %}
 {% load i18n staticfiles %}
 
+
+{# TODO: add posssible feeding executors #}
+{# TODO: show done feedings #}
+{# TODO: show feeding stats #}
 {% block second_col %}
     <div class="col">
         <div class="card mb-3">
+            {# TODO: show only if exists #}
             <div class="card-header">{% trans "Planned feedings" %}</div>
             <div class="card-body py-2">
                 <ul class="list-unstyled mb-1">
