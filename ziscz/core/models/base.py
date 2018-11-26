@@ -1,9 +1,11 @@
 # coding=utf-8
 import typing
+from datetime import timedelta
 from typing import Iterable
 from uuid import uuid4
 
 from django.db import models
+from django.utils.timezone import localtime
 from django.utils.translation import ugettext_lazy as _
 from django_extensions.db.fields import CreationDateTimeField, ModificationDateTimeField
 
@@ -78,6 +80,11 @@ class BaseEventModel(BaseModel):
     def end(self, v):
         # dummy setter to allow annotating querysets with end= attribute
         pass
+
+    @property
+    def its_too_late_to_apologize(self):
+        "Timbaland"
+        return not self.done and localtime() > (self.end + timedelta(minutes=15))
 
     def get_executors(self) -> Iterable["Person"]:
         raise NotImplementedError

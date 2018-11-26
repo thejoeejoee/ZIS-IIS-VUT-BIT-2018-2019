@@ -87,6 +87,7 @@
                         },
                     },
                     eventRender(event, element, view) {
+                        // TODO: mark done events
                         var title = element.find('.fc-title');
                         element.popover({
                             title: moment(event.start).format("HH:mm - DD.MM.YYYY"),

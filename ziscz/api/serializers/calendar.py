@@ -32,6 +32,7 @@ class CalendarEventSerializer(ModelSerializer):
             'title',
             'start',
             'end',
+            'done',
         )
 
 

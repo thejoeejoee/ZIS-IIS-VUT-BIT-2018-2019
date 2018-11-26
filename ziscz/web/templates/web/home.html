@@ -20,9 +20,9 @@
                     </div>
                     <ul class="list-group list-group-flush">
                         {% for event in today_events %}
-                            <li class="list-group-item">
+                            <li class="list-group-item {% if event.done %}list-group-item-success{% elif event.its_too_late_to_apologize %}list-group-item-warning{% endif %}">
                                 {% if event|can_mark_as_done:user %}
-                                    <form action="" method="POST">
+                                    <form action="{% url "api:mark_as_done_view" event.pk %}?next=/" method="POST">
                                         <input type="hidden" value="{{ event.pk }}">
                                         <button class="float-right btn btn-success btn-sm" name="done" type="submit">
                                             &check; {% trans "Done" %}
