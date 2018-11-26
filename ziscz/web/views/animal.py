@@ -4,9 +4,10 @@ from __future__ import unicode_literals
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Prefetch
 from django.urls import reverse_lazy
+from django.utils import timezone
 from django.views.generic import ListView, UpdateView, CreateView
 
-from ziscz.core.models import Animal, TypeAnimal, AnimalStay
+from ziscz.core.models import Animal, TypeAnimal, AnimalStay, FeedingAnimal
 from ziscz.core.utils.utils import get_object_or_none
 from ziscz.core.views.forms import SuccessMessageMixin
 from ziscz.web.forms.animal import AnimalForm
@@ -54,8 +55,25 @@ class AnimalDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
     template_name = 'web/animal_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')
-    model = Animal
     permission_required = 'core.change_animal'
+
+    def get_queryset(self):
+        today = timezone.localdate()
+        return Animal.objects.prefetch_related(
+            'animal_stay_animal',
+            'animal_stay_animal__enclosure',
+        ).prefetch_related(
+            # planned feedings, overriding property
+            Prefetch(
+                'feeding_animal_animal',
+                queryset=FeedingAnimal.objects.filter(feeding__date__gte=today).select_related(
+                    'feeding',
+                    'feeding__type_feed',
+                    'feeding__executor',
+                ).order_by('-feeding__date'),
+                to_attr='planned_feedings'
+            )
+        )
 
 
 class AnimalCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):

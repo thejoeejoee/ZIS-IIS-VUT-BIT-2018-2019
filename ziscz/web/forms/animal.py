@@ -52,6 +52,15 @@ class AnimalForm(BaseModelForm):
             })
         }
 
+    DISABLED_ON_DEATH = (
+        'name',
+        'type_animal',
+        'birth_date',
+        'occurrence_region',
+        'origin_country',
+        'animal_stay',
+    )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['occurrence_region'].required = False
@@ -79,8 +88,11 @@ class AnimalForm(BaseModelForm):
             self.fields['parent1'].queryset = self.fields['parent2'].queryset = self.fields['parent1'].queryset.filter(
                 type_animal=self.instance.type_animal
             ).exclude(pk=self.instance.pk)
+            if self.instance.death_date and self.instance.death_date <= timezone.localdate():
+                for f in self.DISABLED_ON_DEATH:
+                    self.fields[f].disabled = True
         else:
-            self.fields['birth_date'].initial = timezone.now().date()
+            self.fields['birth_date'].initial = timezone.localdate()
 
     def _save_m2m(self):
         update_m2m(
@@ -122,8 +134,8 @@ class AnimalForm(BaseModelForm):
                 parent1,
             ))
 
-        dead_date = data.get('death_date')
-        if dead_date and dead_date > timezone.now().date():
-            self.add_error('dead_date', _('Cannot set death date in future.'))
+        death_date = data.get('death_date')
+        if death_date and death_date > timezone.localdate():
+            self.add_error('death_date', _('Cannot set death date in future.'))
 
         return super().clean()

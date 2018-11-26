@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 import typing
 
 from django.db import models
-from django.db.models import QuerySet, ExpressionWrapper, F, DateTimeField
+from django.db.models import QuerySet, ExpressionWrapper, F, DateTimeField, Q
 from django.utils import timezone
 
 if typing.TYPE_CHECKING:
@@ -13,11 +13,14 @@ if typing.TYPE_CHECKING:
 
 class BaseEventQuerySet(models.QuerySet):
     def filter_by_person(self, person: "Person") -> "BaseEventQuerySet":
+        return self.filter(self.person_q(person=person))
+
+    def person_q(self, person: "Person") -> Q:
         raise NotImplementedError
 
     def current(self) -> "BaseEventQuerySet":
         end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
-        now = timezone.now()
+        now = timezone.localtime()
         return self.annotate(end=end_field).filter(
             date__lte=now,
             end__gte=now
@@ -25,15 +28,15 @@ class BaseEventQuerySet(models.QuerySet):
 
     def in_date(self, date=None) -> "BaseEventQuerySet":
         end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
-        date = date or timezone.now().date()
+        date = date or timezone.localdate()
         return self.annotate(end=end_field).filter(end__date=date)
 
 
 class CleaningQuerySet(BaseEventQuerySet):
-    def filter_by_person(self, person: "Person") -> QuerySet:
-        return self.filter(cleaning_person_cleaning__person=person)
+    def person_q(self, person: "Person") -> Q:
+        return Q(cleaning_person_cleaning__person=person)
 
 
 class FeedingQuerySet(BaseEventQuerySet):
-    def filter_by_person(self, person: "Person") -> QuerySet:
-        return self.filter(executor=person)
+    def person_q(self, person: "Person") -> QuerySet:
+        return Q(executor=person)

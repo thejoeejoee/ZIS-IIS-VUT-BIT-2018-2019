@@ -1,7 +1,7 @@
 # coding=utf-8
 from django.conf import settings
 from django.db import models
-from django.db.models import Q, Manager
+from django.db.models import Q, Manager, QuerySet
 from django.utils import timezone
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
@@ -103,8 +103,16 @@ class Animal(BaseModel):
 
     @cached_property
     def dead(self) -> bool:
-        today = timezone.now().today().date()
+        today = timezone.now().date()
         return self.death_date and self.death_date <= today
+
+    @cached_property
+    def planned_feedings(self) -> QuerySet:
+        # could be prefetched
+        today = timezone.localdate()
+        return self.feeding_animal_animal.filter(
+            feeding__date__gte=today
+        ).order_by('-feeding__date')
 
 
 class AnimalStay(BaseModel):

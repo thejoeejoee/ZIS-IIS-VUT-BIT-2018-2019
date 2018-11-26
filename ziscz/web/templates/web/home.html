@@ -1,7 +1,6 @@
 {% extends "web/base.html" %}
 {% load i18n event %}
 {% block content %}
-
     <p class="lead font-weight-bold">
         {% trans "You're welcome in ZOO Information System!" %}
     </p>
@@ -23,9 +22,12 @@
                         {% for event in today_events %}
                             <li class="list-group-item">
                                 {% if event|can_mark_as_done:user %}
-                                    <button class="float-right btn btn-success btn-sm">
-                                        &check; {% trans "Done" %}
-                                    </button>
+                                    <form action="" method="POST">
+                                        <input type="hidden" value="{{ event.pk }}">
+                                        <button class="float-right btn btn-success btn-sm" name="done" type="submit">
+                                            &check; {% trans "Done" %}
+                                        </button>
+                                    </form>
                                 {% endif %}
                                 {{ event }}
                                 <br>

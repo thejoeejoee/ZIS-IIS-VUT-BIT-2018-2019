@@ -18,7 +18,7 @@ def can_mark_as_done(event: BaseEventModel, user: User):
     if event.end > timezone.now():
         return False
 
-    if user.has_perms(['core.change_cleaning', 'core.change_feeding']):
+    if user.has_perms(('core.change_cleaning', 'core.change_feeding')):
         return True
 
     if not hasattr(user, 'person_user'):

@@ -4,10 +4,10 @@
 {% block second_col %}
     <div class="col">
         <div class="card mb-3">
-            <div class="card-header">{% trans "Feedings" %}</div>
+            <div class="card-header">{% trans "Planned feedings" %}</div>
             <div class="card-body py-2">
                 <ul class="list-unstyled mb-1">
-                    {% for feeding_rel in object.feeding_animal_animal.all reversed %}
+                    {% for feeding_rel in object.planned_feedings|slice:":5" reversed %}
                         <li
                             class="d-flex align-items-center justify-content-between {% if not forloop.last %}border-bottom border-gray{% endif %}">
                             <span>

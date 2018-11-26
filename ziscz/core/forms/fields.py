@@ -6,7 +6,7 @@ from functools import partial
 from operator import methodcaller
 from typing import List
 
-from django.forms import Field
+from django.forms import Field, ModelForm
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
 
@@ -31,3 +31,4 @@ class DateRangeField(Field):
                 )
             )
         )
+

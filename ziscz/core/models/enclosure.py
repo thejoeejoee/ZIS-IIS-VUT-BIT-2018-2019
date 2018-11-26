@@ -7,7 +7,7 @@ from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
 from django.utils.formats import time_format, date_format
-from django.utils.timezone import localtime
+from django.utils.timezone import localtime, localdate
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
@@ -99,7 +99,7 @@ class Enclosure(BaseModel):
 
     @property
     def last_done_cleanings(self) -> QuerySet:
-        today = timezone.now().date()
+        today = timezone.localdate()
         return self.cleaning_enclosure.filter(
             done=True,
             date__lt=today
@@ -107,7 +107,7 @@ class Enclosure(BaseModel):
 
     @property
     def planned_cleanings(self) -> QuerySet:
-        today = timezone.now().date()
+        today = timezone.localdate()
         return self.cleaning_enclosure.filter(
             date__gte=today
         ).order_by('-date')
@@ -138,15 +138,15 @@ class Cleaning(BaseEventModel):
 
     def __str__(self):
         return _('Cleaning at {} {}').format(
-            time_format(localtime(self.date), use_l10n=True),
-            date_format(self.date),
+            time_format(localtime(self.date)),
+            date_format(localdate(self.date)),
         )
 
     @property
     def specification(self):
         return _('{} by {}').format(
             self.enclosure,
-            ', '.join(map(str, self.executors.all())),
+            ', '.join(map(str, self.get_executors())),
         )
 
     def get_executors(self) -> Iterable["Person"]:

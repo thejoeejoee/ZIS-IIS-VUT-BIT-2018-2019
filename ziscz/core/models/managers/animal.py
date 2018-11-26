@@ -16,7 +16,7 @@ if typing.TYPE_CHECKING:
 class AnimalStayManager(Manager):
     @atomic
     def move_animal(self, animal: "Animal", new_enclosure: Optional["Enclosure"]) -> Optional["AnimalStay"]:
-        today = timezone.now().date()
+        today = timezone.localdate()
         yesterday = today - timedelta(days=1)
 
         self.filter(
@@ -38,7 +38,7 @@ class AnimalStayManager(Manager):
 class LiveAnimalsManager(Manager):
     @staticmethod
     def get_dead_filter() -> Q:
-        today = timezone.now().date()
+        today = timezone.localdate()
         return Q(
             death_date__isnull=False,
             death_date__lte=today,

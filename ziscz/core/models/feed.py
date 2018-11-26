@@ -4,7 +4,7 @@ from typing import Iterable
 
 from django.db import models
 from django.utils.formats import time_format, date_format
-from django.utils.timezone import localtime
+from django.utils.timezone import localtime, localdate
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel, BaseEventModel
@@ -53,8 +53,8 @@ class Feeding(BaseEventModel):
 
     def __str__(self):
         return _('Feeding at {} {}').format(
-            time_format(localtime(self.date), use_l10n=True),
-            date_format(self.date),
+            time_format(localtime(self.date)),
+            date_format(localdate(self.date)),
         )
 
     @property
@@ -87,7 +87,7 @@ class FeedingAnimal(BaseModel):
     )
 
     class Meta:
-        ordering = 'feeding__date',
+        ordering = 'feeding__date', 'animal'
 
 
 __all__ = ["TypeFeed", "Feeding", "FeedingAnimal"]
