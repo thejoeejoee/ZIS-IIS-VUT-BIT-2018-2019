@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-27 12:46+0100\n"
-"PO-Revision-Date: 2018-11-27 13:33+0100\n"
+"POT-Creation-Date: 2018-11-27 15:11+0100\n"
+"PO-Revision-Date: 2018-11-27 15:18+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -32,7 +32,7 @@ msgstr "Vráceno, nelze změnit historickou nebo právě probíhající událost
 
 #: ziscz/api/views/calendar.py:134
 msgid "Reverted, cannot move event to history."
-msgstr "Vráceno, nelze posunout událost v historii."
+msgstr "Vráceno, nelze přeplánovat událost do historie."
 
 #: ziscz/api/views/calendar.py:137
 msgid "Reverted, cannot move already done event."
@@ -144,7 +144,7 @@ msgstr "Popis"
 
 #: ziscz/core/models/base.py:44
 msgid "Order"
-msgstr "Objednávka"
+msgstr "Pořadí"
 
 #: ziscz/core/models/base.py:60
 msgid "Date"
@@ -186,7 +186,7 @@ msgstr "Barva"
 
 #: ziscz/core/models/enclosure.py:68
 msgid "Minimum cleaning duration"
-msgstr "Minimální délka vykonava"
+msgstr "Minimální délka čištění"
 
 #: ziscz/core/models/enclosure.py:69
 msgid "Minimum cleaners count"
@@ -286,7 +286,7 @@ msgstr "Vzdělání"
 
 #: ziscz/core/models/person.py:46
 msgid "Type animals that person is qualified for to feed."
-msgstr "Typy zvířat na které je daná osoba kvalifikována pro krmení."
+msgstr "Typy zvířat, které je daná osoba vyškolena krmit."
 
 #: ziscz/core/models/person.py:48
 msgid "Animal types qualification"
@@ -294,7 +294,7 @@ msgstr "Kvalifikace typů zvířat"
 
 #: ziscz/core/models/person.py:54
 msgid "Type enclosures that is qualified to clean."
-msgstr "Typy výběhů, co jsou kvalifikovány pro čištění."
+msgstr "Typy výběhů, které je osoba kvalifikována čistit."
 
 #: ziscz/core/models/person.py:56
 msgid "Enclosure types qualification"
@@ -355,11 +355,11 @@ msgstr "Zobrazuje pouze osoby, které mohou čistit vybraný výběh."
 
 #: ziscz/web/forms/cleaning.py:93
 msgid "Selected enclosure requires {} or more executors for cleaning."
-msgstr "Vybrané výběhy požadují {} nebo více vykonavatelů čištění."
+msgstr "Vybraný výběh požaduje {} nebo více vykonavatelů čištění."
 
 #: ziscz/web/forms/cleaning.py:101
 msgid "Selected enclosure require longer cleaning duration ({}) than filled."
-msgstr "Vyberte výběh požadující delší trvání čištění ({}) než bylo zadáno."
+msgstr "Vybraný výběh požadujíce delší trvání čištění ({}) než bylo zadáno."
 
 #: ziscz/web/forms/cleaning.py:124 ziscz/web/forms/feeding.py:104
 msgid "Executor {} has not time in filled date and duration - he has {}."
@@ -404,7 +404,7 @@ msgstr "Přihlásit"
 #: ziscz/web/templates/registration/login_form.html:9
 msgctxt "as title on login page"
 msgid "Login"
-msgstr "Přihlašovací jméno"
+msgstr "Přihlášení"
 
 #: ziscz/web/templates/registration/login_form.html:15
 msgid "Currently loggged as"
@@ -481,12 +481,12 @@ msgstr "Nové krmení"
 msgid "Plan new feeding"
 msgstr "Naplánovat nové krmení"
 
-#: ziscz/web/templates/web/animal_list.html:15
+#: ziscz/web/templates/web/animal_list.html:16
 msgid "Add new animal"
 msgstr "Přidat nové zvíře"
 
-#: ziscz/web/templates/web/animal_list.html:40
-#: ziscz/web/templates/web/animal_list.html:41
+#: ziscz/web/templates/web/animal_list.html:42
+#: ziscz/web/templates/web/animal_list.html:43
 msgid "No animals found."
 msgstr "Žádná zvířata nebyla nalezena."
 
@@ -503,7 +503,7 @@ msgstr "Kalendář"
 #: ziscz/web/templates/web/base.html:66 ziscz/web/templates/web/base.html:67
 #: ziscz/web/templates/web/help.html:5 ziscz/web/templates/web/help.html:10
 msgid "Help"
-msgstr "Pomoc"
+msgstr "Nápověda"
 
 #: ziscz/web/templates/web/base.html:70
 msgid "Logout"
@@ -566,7 +566,7 @@ msgstr "Naplánovat nové čistění"
 msgid "Same type enclosures"
 msgstr "Stejné typy výběhů"
 
-#: ziscz/web/templates/web/enclosure_list.html:20
+#: ziscz/web/templates/web/enclosure_list.html:22
 msgid "With drag'n drop you can transfer animals between enclosures."
 msgstr "Pomocí operace táhni a pusť můžete přesouvat zvířata mezi výběhy."
 
@@ -574,39 +574,63 @@ msgstr "Pomocí operace táhni a pusť můžete přesouvat zvířata mezi výbě
 msgid "You're welcome in ZOO Information System!"
 msgstr "Vítejte v zoologickém informačním systému!"
 
-#: ziscz/web/templates/web/home.html:15
+#: ziscz/web/templates/web/home.html:16
 msgid "Today's events"
 msgstr "Dnešní události"
 
-#: ziscz/web/templates/web/home.html:17
+#: ziscz/web/templates/web/home.html:18
 msgid "Your's today events"
 msgstr "Vaše dnešní události"
 
-#: ziscz/web/templates/web/home.html:28
+#: ziscz/web/templates/web/home.html:35
 msgid "Done"
 msgstr "Hotovo"
 
-#: ziscz/web/templates/web/home.html:50
-msgid "Events right now"
-msgstr "Právě probíhající události"
+#: ziscz/web/templates/web/home.html:56
+msgid "Legend"
+msgstr "Legenda"
+
+#: ziscz/web/templates/web/home.html:59
+msgid "Events successfully marked as done."
+msgstr "Hotové události."
+
+#: ziscz/web/templates/web/home.html:62
+msgid "Events not marked as done after threshold to confirm."
+msgstr "Nehotové události po uplynutí času k potvrzení."
+
+#: ziscz/web/templates/web/home.html:65
+msgid "Events not marked as done in interval to confirm."
+msgstr "Události čekající na prohlášení za hotové."
+
+#: ziscz/web/templates/web/home.html:68
+msgid "Currently running events."
+msgstr "Právě běžící události."
+
+#: ziscz/web/templates/web/home.html:71
+msgid "Planned events."
+msgstr "Naplánované události."
 
 #: ziscz/web/templates/web/landing.html:12
 msgid "Zoological information system"
 msgstr "Zoologický informační systém"
 
+#: ziscz/web/templates/web/person_list.html:18
+msgid "Avatar"
+msgstr "Avata"
+
+#: ziscz/web/templates/web/person_list.html:27
 #: ziscz/web/templates/web/person_list.html:28
-#: ziscz/web/templates/web/person_list.html:29
 msgid "Qualified type animals to feed"
-msgstr "Kvalifikovaný typ zvířat ke krmení"
+msgstr "Vyškolené typy zvířat ke krmení"
 
+#: ziscz/web/templates/web/person_list.html:35
 #: ziscz/web/templates/web/person_list.html:36
-#: ziscz/web/templates/web/person_list.html:37
 msgid "Qualified type enclosures to clean"
-msgstr "Kvalifikovaný typ výběhů k čištění"
+msgstr "Vyškolené typy výběhů k čištění"
 
-#: ziscz/web/views/person.py:65
-msgid "User was created, username is {}."
-msgstr "Uživatel byl vytvořen, uživatelské jméno je {}."
+#: ziscz/web/views/person.py:70
+msgid "User was created, login credentials are {} {}."
+msgstr "Uživatel byl vytvořen, přihlašovací údaje jsou {} {}."
 
 #: ziscz/zis/settings_default.py:146
 msgid "Czech"
@@ -615,3 +639,6 @@ msgstr "Čeština"
 #: ziscz/zis/settings_default.py:147
 msgid "English"
 msgstr "Angličtina"
+
+#~ msgid "Events right now"
+#~ msgstr "Právě probíhající události"
