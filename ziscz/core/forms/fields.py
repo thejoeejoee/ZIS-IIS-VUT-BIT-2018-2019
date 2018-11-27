@@ -6,9 +6,10 @@ from functools import partial
 from operator import methodcaller
 from typing import List
 
-from django.forms import Field, ModelForm
+from django.forms import Field, TypedChoiceField, RadioSelect
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
+from django.utils.translation import ugettext as _
 
 
 class DateRangeField(Field):
@@ -34,3 +35,13 @@ class DateRangeField(Field):
             )
         )
 
+
+class BooleanSwitchField(TypedChoiceField):
+    widget = RadioSelect
+
+    def __init__(self, empty_value='', **kwargs):
+        super().__init__(coerce=lambda val: val == str(True), empty_value=empty_value, **kwargs)
+        self.choices = (
+            ("False", _('No')),
+            ("True", _('Yes')),
+        )

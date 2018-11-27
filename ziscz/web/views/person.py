@@ -11,7 +11,7 @@ from django.views.generic import ListView, UpdateView, CreateView
 
 from ziscz.core.models import Person, TypeRole
 from ziscz.core.utils.utils import get_object_or_none
-from ziscz.core.views.forms import SuccessMessageMixin
+from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.person import PersonForm
 
 
@@ -42,7 +42,7 @@ class PersonListView(PermissionRequiredMixin, ListView):
         return data
 
 
-class PersonDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class PersonDetailView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, UpdateView):
     permission_required = 'core.view_person', 'core.edit_person'
     template_name = 'web/person_detail.html'
     form_class = PersonForm
@@ -50,7 +50,7 @@ class PersonDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
     queryset = Person.objects.select_related('user')
 
 
-class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, CreateView):
     permission_required = 'core.view_person', 'core.add_person'
     template_name = 'web/form_detail.html'
     form_class = PersonForm

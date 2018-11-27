@@ -16,6 +16,9 @@
                     {{ form.instance }}
                 {% endif %}
             {% endblock %}
+            <a href="#" onclick="window.history.back()" class="float-right btn btn-outline-primary">
+                {% trans "back" %}
+            </a>
         </div>
         <div class="card-body">
             {% block body %}
@@ -31,9 +34,17 @@
 
                 </small>
             {% endblock form_card_footer_left %}
-            <button type="submit" class="btn btn-success float-right">
-                {% block save_btn_text %}{% trans 'Save' %}{% endblock save_btn_text %}
-            </button>
+            <div class="btn-group float-right">
+                <button type="submit" name="_save_and_continue" class="btn btn-outline-success">
+                    {% block save_btn_continue_text %}
+                        {% trans 'Save and stay' %}{% endblock save_btn_continue_text %}
+                </button>
+                {% if form.save_and_continue_button %}
+                    <button type="submit" class="btn btn-success">
+                        {% block save_btn_text %}{% trans 'Save' %}{% endblock save_btn_text %}
+                    </button>
+                {% endif %}
+            </div>
         </div>
     </div>
 </form>

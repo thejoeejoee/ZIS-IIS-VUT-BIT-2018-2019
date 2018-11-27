@@ -26,53 +26,49 @@ from ziscz.core.models import Cleaning, Feeding
 from ziscz.core.models.base import BaseEventModel
 
 
-def _to_representation_with_editable_remove(serializer: Type[ModelSerializer]):
-    def _(self: ModelSerializer, obj: BaseEventModel):
-        data = super(serializer, self).to_representation(obj)
-        if data.get('editable') is None:
-            del data['editable']
-        return data
-
-    return _
-
-
 def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[ModelSerializer]) -> type:
-    return type(
-        'view',
-        (ListAPIView,),
-        dict(
-            queryset=model.objects.annotate(
-                editable=ExpressionWrapper(
-                    # TODO: check TZ
-                    Case(
-                        When(
-                            date__gte=Now(),
-                            then=Value(None)
-                        ),
-                        default=Value(False),
-                        output_field=BooleanField(),
-                    ),
-                    output_field=BooleanField(),
-                )
-            ),
-            filter_backends=(CalendarFilterBackend,),
-            serializer_class=type(
-                'serializer',
-                (serializer,),
+    class View(ListAPIView):
+        class serializer_class(serializer):
+            editable = NullBooleanField()
+            Meta = type(
+                'meta',
+                (serializer.Meta,),
                 dict(
-                    editable=NullBooleanField(),
-                    to_representation=_to_representation_with_editable_remove(serializer=serializer),
-                    Meta=type(
-                        'meta',
-                        (serializer.Meta,),
-                        dict(
-                            fields=serializer.Meta.fields + ('editable',),
-                        )
-                    )
+                    fields=serializer.Meta.fields + ('editable',),
                 )
             )
+
+            def to_representation(self: ModelSerializer, obj: BaseEventModel):
+                data = super().to_representation(obj)
+                if data.get('editable') is None:
+                    del data['editable']
+                if self.context.get('has_change_perm'):
+                    data['url'] = obj.get_absolute_url()
+                return data
+
+        queryset = model.objects.annotate(
+            editable=ExpressionWrapper(
+                # TODO: check TZ
+                Case(
+                    When(
+                        date__gte=Now(),
+                        then=Value(None)
+                    ),
+                    default=Value(False),
+                    output_field=BooleanField(),
+                ),
+                output_field=BooleanField(),
+            ),
         )
-    )
+        filter_backends = (CalendarFilterBackend,)
+
+        def get_serializer_context(self):
+            ctx = super().get_serializer_context()
+
+            ctx['has_change_perm'] = self.request.user.has_perms(('core.change_cleaning', 'core.change_feeding'))
+            return ctx
+
+    return View
 
 
 CleaningCalendarView = _calendar_event_view_factory(

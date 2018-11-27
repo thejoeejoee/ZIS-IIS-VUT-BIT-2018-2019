@@ -7,7 +7,7 @@ from django.views.generic import ListView, UpdateView, CreateView
 
 from ziscz.core.models import Enclosure
 from ziscz.core.serializers import EnclosureSerializer
-from ziscz.core.views.forms import SuccessMessageMixin
+from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.enclosure import EnclosureForm
 
 
@@ -27,7 +27,7 @@ class EnclosureListView(PermissionRequiredMixin, ListView):
         return context
 
 
-class EnclosureDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class EnclosureDetailView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, UpdateView):
     template_name = 'web/enclosure_detail.html'
     form_class = EnclosureForm
     success_url = reverse_lazy('enclosure_list')
@@ -35,7 +35,7 @@ class EnclosureDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVi
     permission_required = 'core.change_enclosure'
 
 
-class EnclosureCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class EnclosureCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, CreateView):
     template_name = 'web/form_detail.html'
     form_class = EnclosureForm
     success_url = reverse_lazy('enclosure_list')

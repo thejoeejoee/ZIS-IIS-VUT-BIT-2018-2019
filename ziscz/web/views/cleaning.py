@@ -7,11 +7,11 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
 
 from ziscz.core.models import Cleaning, Enclosure, Person
-from ziscz.core.views.forms import SuccessMessageMixin
+from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.cleaning import CleaningForm
 
 
-class CleaningDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class CleaningDetailView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, UpdateView):
     template_name = 'web/cleaning_detail.html'
     form_class = CleaningForm
     success_url = reverse_lazy('calendar')
@@ -19,7 +19,7 @@ class CleaningDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateVie
     permission_required = 'core.change_cleaning'
 
 
-class CleaningCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class CleaningCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, CreateView):
     template_name = 'web/cleaning_detail.html'
     form_class = CleaningForm
     success_url = reverse_lazy('calendar')

@@ -9,7 +9,7 @@ from django.views.generic import ListView, UpdateView, CreateView
 
 from ziscz.core.models import Animal, TypeAnimal, AnimalStay, FeedingAnimal
 from ziscz.core.utils.utils import get_object_or_none
-from ziscz.core.views.forms import SuccessMessageMixin
+from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.animal import AnimalForm
 
 
@@ -51,7 +51,7 @@ class AnimalListView(PermissionRequiredMixin, ListView):
         return data
 
 
-class AnimalDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView):
+class AnimalDetailView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, UpdateView):
     template_name = 'web/animal_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')
@@ -76,7 +76,7 @@ class AnimalDetailView(PermissionRequiredMixin, SuccessMessageMixin, UpdateView)
         )
 
 
-class AnimalCreateView(PermissionRequiredMixin, SuccessMessageMixin, CreateView):
+class AnimalCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, CreateView):
     template_name = 'web/form_detail.html'
     form_class = AnimalForm
     success_url = reverse_lazy('animal_list')

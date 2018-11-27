@@ -11,7 +11,7 @@ from django.utils.translation import ugettext as _
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
-from ziscz.core.forms.fields import DateRangeField
+from ziscz.core.forms.fields import DateRangeField, BooleanSwitchField
 from ziscz.core.forms.widgets.datepicker import DateTimePickerInput
 from ziscz.core.forms.widgets.duration import DurationPickerWidget
 from ziscz.core.forms.widgets.select2 import PersonSelectWidget, AnimalMultipleSelectWidget
@@ -21,6 +21,7 @@ from ziscz.core.utils.m2m import update_m2m
 
 class FeedingForm(BaseModelForm):
     date_range = DateRangeField(required=False)
+    done = BooleanSwitchField()
 
     class Meta:
         model = Feeding
@@ -75,6 +76,10 @@ class FeedingForm(BaseModelForm):
             ) if not self.updating else 'date',
         )
 
+        if self.instance.done:
+            for f in ('executor', 'animals', 'amount', 'type_feed', 'length', 'date'):
+                self.fields[f].disabled = True
+
     def clean(self):
         data = super().clean()
 
@@ -93,7 +98,7 @@ class FeedingForm(BaseModelForm):
                     start=date,
                     length=length
                 )
-                if feeding.exists() or cleaning.exists():
+                if feeding.exclude(pk=self.instance.pk).exists() or cleaning.exclude(pk=self.instance.pk).exists():
                     self.add_error(
                         'executor',
                         _('Executor {} has not time in filled date and duration - he has {}.').format(

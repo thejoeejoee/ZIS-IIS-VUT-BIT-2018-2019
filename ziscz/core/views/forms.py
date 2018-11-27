@@ -14,3 +14,12 @@ class SuccessMessageMixin(DjangoSuccessMessageMixin):
             instance=self.object,
             **cleaned_data
         )
+
+
+class SaveAndContinueMixin(object):
+    KEY = '_save_and_continue'
+
+    def get_success_url(self):
+        if self.KEY in self.request.POST:
+            return self.request.path
+        return super().get_success_url()

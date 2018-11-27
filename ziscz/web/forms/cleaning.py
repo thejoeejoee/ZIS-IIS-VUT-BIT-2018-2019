@@ -13,7 +13,7 @@ from django.utils.translation import ugettext as _
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
-from ziscz.core.forms.fields import DateRangeField
+from ziscz.core.forms.fields import DateRangeField, BooleanSwitchField
 from ziscz.core.forms.widgets.datepicker import DateTimePickerInput
 from ziscz.core.forms.widgets.duration import DurationPickerWidget
 from ziscz.core.forms.widgets.select2 import PersonMultipleSelectWidget, EnclosureSelectWidget
@@ -23,6 +23,7 @@ from ziscz.core.utils.m2m import update_m2m
 
 class CleaningForm(BaseModelForm):
     date_range = DateRangeField(required=False)
+    done = BooleanSwitchField()
 
     class Meta:
         model = Cleaning
@@ -69,6 +70,9 @@ class CleaningForm(BaseModelForm):
                 Div(css_id='cleaning-planning')
             ) if not self.updating else 'date',
         )
+        if self.instance.done:
+            for f in ('date', 'length', 'executors', 'enclosure'):
+                self.fields[f].disabled = True
 
         enclosure = self.fields['enclosure'].initial or Enclosure.objects.filter(
             pk=self.initial.get('enclosure')).first()  # type: Optional[Enclosure]
@@ -114,9 +118,9 @@ class CleaningForm(BaseModelForm):
                         start=date,
                         length=length
                     )
-                    if feeding.exists() or cleaning.exists():
+                    if feeding.exclude(pk=self.instance.pk).exists() or cleaning.exclude(pk=self.instance.pk).exists():
                         self.add_error(
-                            'executor',
+                            'executors',
                             _('Executor {} has not time in filled date and duration - he has {}.').format(
                                 executor,
                                 ', '.join(
