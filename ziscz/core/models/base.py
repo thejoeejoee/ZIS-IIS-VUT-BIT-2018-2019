@@ -88,7 +88,7 @@ class BaseEventModel(BaseModel):
     @property
     def its_too_late_to_apologize(self):
         "Timbaland"
-        return not self.done and localtime() > (self.end + timedelta(minutes=15))
+        return not self.done and localtime() > (self.end + timedelta(minutes=60))
 
     def get_executors(self) -> Iterable["Person"]:
         raise NotImplementedError

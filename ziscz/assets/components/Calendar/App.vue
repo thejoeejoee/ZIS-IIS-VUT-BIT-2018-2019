@@ -98,6 +98,13 @@
                             trigger: 'hover',
                             container: false,
                         });
+                        if (event.done) {
+                            element.find('.fc-time').append('<span class="float-right font-weight-bold">&check;</span>');
+                            element.css({color: '#d7d7d7'});
+                        } else if (event.its_too_late_to_apologize) {
+                            element.find('.fc-time').append('<span class="float-right font-weight-bold">&cross;</span>');
+                            element.css({color: '#721c24', backgroundColor: '#f5c6cb', borderColor: '#721c24'});
+                        }
                     },
                     eventDrop(event, delta, revertFunc, jsEvent, ui, view) {
                         Axios.post(reverse('api:calendar_event_start_change'), {
@@ -136,7 +143,6 @@
                                     callback(response.data)
                                 })
                             },
-                            color: '#17a2b8',
                             textColor: 'white',
                         },
                         {

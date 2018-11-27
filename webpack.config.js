@@ -50,6 +50,9 @@ module.exports = (env, argv) => {
                     test: /\.js$/,
                     loader: 'babel-loader',
                     // exclude: /node_modules/,
+                    options: {
+                        presets: ["@babel/preset-env"]  //Preset used for env setup
+                    }
                 },
                 {
                     test: /\.(s?css)$/,

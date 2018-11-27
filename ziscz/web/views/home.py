@@ -2,9 +2,11 @@
 from __future__ import unicode_literals
 
 from operator import attrgetter
+from time import localtime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.utils import timezone
 from django.views.generic import TemplateView
 
 from ziscz.core.models import Cleaning, Feeding
@@ -24,8 +26,8 @@ class HomeView(LoginRequiredMixin, TemplateView):
             q_feeding = Feeding.objects.person_q(person=person)
 
         data.update(
-            actual_cleanings=Cleaning.objects.current(),
-            actual_feedings=Feeding.objects.current(),
+            # actual_cleanings=Cleaning.objects.current(),
+            # actual_feedings=Feeding.objects.current(),
             today_events=sorted(
                 tuple(
                     Cleaning.objects.in_date().filter(q_cleaning)
@@ -34,6 +36,7 @@ class HomeView(LoginRequiredMixin, TemplateView):
                 ),
                 key=attrgetter('date')
             ),
+            now=timezone.now(),
         )
 
         return data

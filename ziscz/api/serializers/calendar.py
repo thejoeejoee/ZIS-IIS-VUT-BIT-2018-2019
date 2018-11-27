@@ -26,7 +26,6 @@ class BaseCalendarEventSerializer(ModelSerializer):
     end = DateTimeFieldWihTZ()
 
     class Meta:
-        model = Feeding
         fields = (
             'id',
             'title',
@@ -34,6 +33,7 @@ class BaseCalendarEventSerializer(ModelSerializer):
             'end',
             'done',
             'color',
+            'its_too_late_to_apologize',
         )
 
 

@@ -1,27 +1,34 @@
 {% extends "web/base.html" %}
 {% load i18n event %}
 {% block content %}
-    <p class="lead font-weight-bold">
+    <h1 class="font-weight-bold">
         {% trans "You're welcome in ZOO Information System!" %}
-    </p>
+    </h1>
+    <hr>
 
-    <div class="row">
-        <div class="col">
+    <div class="row justify-content-between">
+        <div class="col-8">
             {% if today_events %}
                 <div class="card">
                     <div class="card-header">
                         <h5>
                             {% if perms.core.change_cleaning and perms.core.change_feeding %}
-                                {% trans "Today's activities" %}
+                                {% trans "Today's events" %}
                             {% else %}
-                                {% trans "Your's today activities" %}
+                                {% trans "Your's today events" %}
                             {% endif %}
                         </h5>
                     </div>
                     <ul class="list-group list-group-flush">
                         {% for event in today_events %}
-                            <li class="list-group-item {% if event.done %}list-group-item-success{% elif event.its_too_late_to_apologize %}list-group-item-warning{% endif %}">
-                                {% if event|can_mark_as_done:user %}
+                            <li class="list-group-item
+                                       {% if event.end > now and event.date > now %}
+                                       {% elif event.done %}list-group-item-success
+                                       {% elif event.its_too_late_to_apologize %}list-group-item-danger
+                                       {% elif event.end > now and now > event.date %}list-group-item-info
+                                       {% else %}list-group-item-warning
+                                {% endif %}">
+                                {% if event|can_mark_as_done:user and not event.its_too_late_to_apologize and not event.date > now %}
                                     <form action="{% url "api:mark_as_done_view" event.pk %}?next=/" method="POST">
                                         <input type="hidden" value="{{ event.pk }}">
                                         <button class="float-right btn btn-success btn-sm" name="done" type="submit">
@@ -44,24 +51,27 @@
                 </div>
             {% endif %}
         </div>
-        <div class="col">
-            {% if actual_cleanings.exists or actual_feedings.exists %}
-                <div class="card">
-                    <div class="card-header"><h5>{% trans "Activities right now" %}</h5></div>
-                    <ul class="list-group list-group-flush">
-                        {% for cleaning in actual_cleanings %}
-                            <li class="list-group-item">
-                                {{ cleaning }}: {{ cleaning.specification }}
-                            </li>
-                        {% endfor %}
-                        {% for feeding in actual_feedings %}
-                            <li class="list-group-item">
-                                {{ feeding }} {{ feeding.specification }}
-                            </li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            {% endif %}
+        <div class="col-4">
+            <div class="card small">
+                <div class="card-header"><h5>{% trans "Legend" %}</h5></div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item list-group-item-success">
+                        {% trans "Events successfully marked as done." %}
+                    </li>
+                    <li class="list-group-item list-group-item-danger">
+                        {% trans "Events not marked as done after threshold to confirm." %}
+                    </li>
+                    <li class="list-group-item list-group-item-warning">
+                        {% trans "Events not marked as done in interval to confirm." %}
+                    </li>
+                    <li class="list-group-item list-group-item-info">
+                        {% trans "Currently running events." %}
+                    </li>
+                    <li class="list-group-item">
+                        {% trans "Planned events." %}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
