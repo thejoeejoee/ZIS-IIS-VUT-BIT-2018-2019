@@ -55,6 +55,7 @@
                     maxTime: '22:00:00',
                     timeFormat: 'H(:mm)', // uppercase H for 24-hour clock
                     slotLabelFormat: 'HH(:mm)',
+                    columnHeaderFormat: 'ddd D.M.',
                     nowIndicator: true,
                     eventLimit: 3, // for all non-agenda views
                     themeButtonIcons: {
