@@ -13,9 +13,11 @@
     <h3>Zadání</h3>
     <p class="text-justify">
         Navrhněte jednoduchý informační systém pro ZOO, v které pracují vyškolení ošetřovatelé, kteří se starají o
-        zvířata v ZOO. Informační systém umožňuje <a href="{% url 'calendar' %}">plánovat krmení a čištění klecí/výběhů</a> pro konkrétní zvířátka. Každý
+        zvířata v ZOO. Informační systém umožňuje <a href="{% url 'calendar' %}">plánovat krmení a čištění
+        klecí/výběhů</a> pro konkrétní zvířátka. Každý
         ošetřovatel je vyškolen pro krmení jednoho či více druhů zvěře a pro určité typy klecí/výběhů. Systém uchovává
-        <a href="{% url 'animal_list' %}">informace o zvířatech</a> (datum narození, země původu, rodiče oblast výskytu ve volné přírodě atd.) i o samotných
+        <a href="{% url 'animal_list' %}">informace o zvířatech</a> (datum narození, země původu, rodiče oblast výskytu
+        ve volné přírodě atd.) i o samotných
         ošetřovatelích (jméno, příjmení, datum narození, vzdělání, titul, atd.).
 
     </p>
@@ -32,4 +34,54 @@
         žrádla, čas krmení, ošetřovatel, zvíře. Při úmrtí zvířete se zaznamená datum úmrtí a další krmení se pro zvíře
         již neplánuje, ale záznam v systému zůstává.
     </p>
+    <p>
+        Implementovaný systém by měl být prakticky použitelný pro účel daný zadáním. Mimo jiné to znamená:
+    </p>
+    <ul>
+        <li>Musí umožňovat vložení odpovídajících vstupů.</li>
+        <li>Musí poskytovat výstupy ve formě, která je v dané oblasti
+            využitelná. Tedy nezobrazovat obsah tabulek databáze, ale prezentovat
+            uložená data tak, aby byla pro danou roli uživatele a danou činnost
+            užitečná (např. spojit data z více tabulek, je-li to vhodné, poskytnout
+            odkazy na související data, apod).
+        </li>
+        <li>Uživatelské rozhraní musí umožňovat snadno realizovat operace pro
+            každou roli vyplývající z diagramu případů použití (use-case). Je-li
+            cílem např. prodej zboží, musí systém implementovat odpovídající
+            operaci, aby uživatel nemusel při každém prodeji ručně upravovat počty
+            zboží na skladě, pamatovat si identifikátory položek a přepisovat je do
+            objednávky a podobně.
+        </li>
+    </ul><p>Kromě vlastní funkcionality musí být implementovány následující funkce:</p>
+    <ul>
+        <li>Správa uživatelů a jejich rolí (podle povahy aplikace, např.
+            obchodník, zákazník, administrátor). Tím se rozumí přidávání nových
+            uživatelů u jednotlivých rolí, stejně tak možnost editace a mazání nebo
+            deaktivace účtů. Musí být k dispozici alespoň dvě různé role uživatelů.
+        </li>
+        <li>Ošetření všech uživatelských vstupů tak, aby nebylo možno zadat nesmyslná nebo nekonzistentní data.
+            <ul>
+                <li>Povinná pole formulářů musí být odlišena od nepovinných.</li>
+                <li>Hodnoty ve formulářích, které nejsou pro fungování aplikace
+                    nezbytné, neoznačujte jako povinné (např. adresy, telefonní čísla apod.)
+                    Nenuťte uživatele (opravujícího) vyplňovat desítky zbytečných řádků.
+                </li>
+                <li>Při odeslání formuláře s chybou by správně vyplněná pole měla
+                    zůstat zachována (uživatel by neměl být nucen vyplňovat vše znovu).
+                </li>
+                <li>Pokud je vyžadován konkrétní formát vstupu (např. datum), měl by být u daného pole naznačen.</li>
+                <li>Pokud to v daném případě dává smysl, pole obsahující datum by měla být předvyplněna aktuálním
+                    datem.
+                </li>
+                <li>Nemělo by být vyžadováno zapamatování a zadávání generovaných
+                    identifikátorů (cizích klíčů), jako např. ID položky na skladě. To je
+                    lépe nahradit výběrem ze seznamu. Výjimku tvoří případy, kdy se zadáním
+                    ID simuluje např. čtečka čipových karet v knihovně. V takovém případě
+                    prosím ušetřete opravujícímu práci nápovědou několika ID, která lze
+                    použít pro testování.
+                </li>
+                <li>Žádné zadání nesmí způsobit nekonzistentní stav databáze (např. přiřazení objednávky neexistujícímu
+                    uživateli).
+                </li>
+            </ul>
 {% endblock content %}

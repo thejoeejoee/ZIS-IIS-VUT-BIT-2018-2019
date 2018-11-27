@@ -11,6 +11,7 @@ from django.utils.translation import ugettext as _
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
+from ziscz.core.forms.fields import BooleanSwitchField
 from ziscz.core.forms.widgets.datepicker import DatePickerInput
 from ziscz.core.forms.widgets.select2 import TypeAnimalMultipleSelectWidget, TypeEnclosureMultipleSelectWidget
 from ziscz.core.models import Person, PersonTypeEnclosure, TypeEnclosure, TypeAnimal, PersonTypeAnimal, TypeRole
@@ -18,6 +19,8 @@ from ziscz.core.utils.m2m import update_m2m
 
 
 class PersonForm(BaseModelForm):
+    is_active = BooleanSwitchField(label=_('Is active'), help_text=_('Can user log in?'), required=False, initial=True)
+
     class Meta:
         model = Person
         fields = (
@@ -50,13 +53,18 @@ class PersonForm(BaseModelForm):
             person_type_animal_type_animal__person=self.instance
         )
 
+        self.fields['is_active'].initial = self.instance.user.is_active if self.instance.user else True
+
         self.helper.layout = Layout(
             Row(
                 Col('first_name'),
                 Col('last_name'),
             ),
             'type_role',
-            'birth_date',
+            Row(
+                Col('birth_date'),
+                Col('is_active'),
+            ),
             'trained_type_animals',
             'trained_type_enclosures',
             Row(
@@ -127,6 +135,9 @@ class PersonForm(BaseModelForm):
             # assign all roles with higher order than selected
             for tr in TypeRole.objects.filter(order__gte=self.instance.type_role.order):
                 user.groups.add(Group.objects.get_or_create(name=tr.name)[0])
+
+            user.is_active = self.cleaned_data.get('is_active')
+            user.save(update_fields=['is_active'])
         return instance
 
     def clean(self):
