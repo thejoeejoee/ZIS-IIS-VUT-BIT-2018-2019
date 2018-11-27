@@ -16,9 +16,11 @@
                     {{ form.instance }}
                 {% endif %}
             {% endblock %}
-            <a href="#" onclick="window.history.back()" class="float-right btn btn-outline-primary">
-                {% trans "back" %}
-            </a>
+            {% if form.back_button %}
+                <a href="#" onclick="window.history.back()" class="float-right btn btn-outline-primary">
+                    {% trans "back" %}
+                </a>
+            {% endif %}
         </div>
         <div class="card-body">
             {% block body %}

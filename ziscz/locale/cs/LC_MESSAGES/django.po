@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-27 03:51+0100\n"
-"PO-Revision-Date: 2018-11-08 18:01+0100\n"
+"POT-Creation-Date: 2018-11-27 11:35+0100\n"
+"PO-Revision-Date: 2018-11-27 11:35+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -20,567 +20,598 @@ msgstr ""
 
 #: ziscz/api/views/calendar.py:106
 msgid "Event successfully replanned."
-msgstr ""
+msgstr "Událost byl úspěšně naplánována."
 
 #: ziscz/api/views/calendar.py:128
 msgid "Reverted, conflict in time plan of executor {}."
-msgstr ""
+msgstr "Vráceno, konflikt v časovém plánu vykonavatele {}."
 
 #: ziscz/api/views/calendar.py:131
 msgid "Reverted, cannot change historical or already started event."
-msgstr ""
+msgstr "Vráceno, nelze změnit historickou nebo právě probíhající událost."
 
 #: ziscz/api/views/calendar.py:134
 msgid "Reverted, cannot move event to history."
-msgstr ""
+msgstr "Vráceno, nelze posunout událost v historii."
 
 #: ziscz/api/views/calendar.py:137
 msgid "Reverted, cannot move already done event."
-msgstr ""
+msgstr "Vráceno, nelze posunout právě proběhlou událost."
 
 #: ziscz/api/views/calendar.py:160
 msgid "Reverted, {} is the minimal duration of cleaning {}."
-msgstr ""
+msgstr "Vráceno, {} je minimální doba čistění {}."
 
 #: ziscz/api/views/enclosure.py:40
 msgid "Animal {} was moved."
 msgid_plural "Animals {} were moved."
-msgstr[0] ""
-msgstr[1] ""
-msgstr[2] ""
+msgstr[0] "Zvíře {} bylo přesunuto."
+msgstr[1] "Zvířata  {} byla přesunuta."
+msgstr[2] "Zvířata  {} byla přesunuta."
 
 #: ziscz/api/views/event.py:27
 msgid "Event successfully marked as done."
-msgstr ""
+msgstr "Událost byla označena jako hotová."
 
 #: ziscz/api/views/event.py:29
 msgid "Event could not be marked as done."
-msgstr ""
+msgstr "Událost nemůže být označena jako hotová."
 
 #: ziscz/core/forms/fields.py:45
 msgid "No"
-msgstr ""
+msgstr "Ne"
 
 #: ziscz/core/forms/fields.py:46
 msgid "Yes"
-msgstr ""
+msgstr "Ano"
 
 #: ziscz/core/models/animal.py:27
 msgid "Type animal"
-msgstr ""
+msgstr "Typ zvířete"
 
 #: ziscz/core/models/animal.py:28
 msgid "Types animal"
-msgstr ""
+msgstr "Typy zvířat"
 
 #: ziscz/core/models/animal.py:38 ziscz/core/models/base.py:35
 #: ziscz/core/models/enclosure.py:53
 msgid "Name"
-msgstr ""
+msgstr "Název"
 
 #: ziscz/core/models/animal.py:44 ziscz/core/models/enclosure.py:59
 msgid "Type"
-msgstr ""
+msgstr "Typ"
 
 #: ziscz/core/models/animal.py:47 ziscz/core/models/person.py:39
 #: ziscz/web/templates/web/animal_card.html:31
 msgid "Birth date"
-msgstr ""
+msgstr "Datum narození"
 
 #: ziscz/core/models/animal.py:55
 msgid "Origin country"
-msgstr ""
+msgstr "Země původu"
 
 #: ziscz/core/models/animal.py:61
 msgid "Occurrence regions"
-msgstr ""
+msgstr "Oblasti výskytu"
 
 #: ziscz/core/models/animal.py:70 ziscz/core/models/animal.py:79
 msgid "Parent"
-msgstr ""
+msgstr "Rodič"
 
 #: ziscz/core/models/animal.py:82 ziscz/web/templates/web/animal_card.html:36
 msgid "Death date"
-msgstr ""
+msgstr "Datum úmrtí"
 
 #: ziscz/core/models/animal.py:86
 msgid "Animal"
-msgstr ""
+msgstr "Zvíře"
 
 #: ziscz/core/models/animal.py:87 ziscz/core/models/feed.py:37
 #: ziscz/web/templates/web/animal_list.html:5
 #: ziscz/web/templates/web/animal_list.html:11
 #: ziscz/web/templates/web/base.html:29 ziscz/web/templates/web/base.html:30
 msgid "Animals"
-msgstr ""
+msgstr "Zvířata"
 
 #: ziscz/core/models/animal.py:155
 msgid "Animal stay"
-msgstr ""
+msgstr "Pobyt zvířete"
 
 #: ziscz/core/models/animal.py:156
 msgid "Animal stays"
-msgstr ""
+msgstr "Pobyty zvířete"
 
 #: ziscz/core/models/animal.py:179
 msgid "Person trained on animal"
-msgstr ""
+msgstr "Osoba vyškolená na zvíře"
 
 #: ziscz/core/models/animal.py:199
 msgid "Animal region"
-msgstr ""
+msgstr "Oblast zvířete"
 
 #: ziscz/core/models/animal.py:200
 msgid "Animal regions"
-msgstr ""
+msgstr "Oblasti zvířete"
 
 #: ziscz/core/models/base.py:28
 msgid "Identifier"
-msgstr ""
+msgstr "Identifikátor"
 
 #: ziscz/core/models/base.py:39
 msgid "Description"
-msgstr ""
+msgstr "Popis"
 
 #: ziscz/core/models/base.py:44
 msgid "Order"
-msgstr ""
+msgstr "Objednávka"
 
 #: ziscz/core/models/base.py:60
 msgid "Date"
-msgstr ""
+msgstr "Datum"
 
 #: ziscz/core/models/base.py:61
 msgid "Planned start of cleaning."
-msgstr ""
+msgstr "Plánovaný začátek čištění."
 
 #: ziscz/core/models/base.py:63
 msgid "Length"
-msgstr ""
+msgstr "Trvání"
 
 #: ziscz/core/models/base.py:64
 msgid "Is done?"
-msgstr ""
+msgstr "Hotovo?"
 
 #: ziscz/core/models/base.py:72
 msgid "Can mark own event as done"
-msgstr ""
+msgstr "Může označit vlastní událost jako hotovou"
 
 #: ziscz/core/models/enclosure.py:39
 msgid ""
 "Describing color used for type of enclosure in system UI as helper, black is "
 "default."
 msgstr ""
+"Popisuje barvu použitou pro typ výběhu v systému UI jako pomocnou, černá je "
+"ve výchozím nastavení."
 
 #: ziscz/core/models/enclosure.py:64
 msgid "Describing color used in system UI as helper, black is default."
 msgstr ""
+"Popisuje barvu použitou v systémovém UI jako pomocnou, černá je ve výchozím "
+"nastavení."
 
 #: ziscz/core/models/enclosure.py:65
 msgid "Color"
-msgstr ""
+msgstr "Barva"
 
 #: ziscz/core/models/enclosure.py:68
 msgid "Minimum cleaning duration"
-msgstr ""
+msgstr "Minimální délka vykonava"
 
 #: ziscz/core/models/enclosure.py:69
 msgid "Minimum cleaners count"
-msgstr ""
+msgstr "Minimální počet vykonavatelů čištění"
 
 #: ziscz/core/models/enclosure.py:71 ziscz/core/models/enclosure.py:136
 #: ziscz/core/models/feed.py:47 ziscz/core/models/person.py:41
 msgid "Note"
-msgstr ""
+msgstr "Poznámka"
 
 #: ziscz/core/models/enclosure.py:74 ziscz/core/models/enclosure.py:127
 msgid "Enclosure"
-msgstr ""
+msgstr "Výběh"
 
 #: ziscz/core/models/enclosure.py:75 ziscz/web/templates/web/base.html:43
 #: ziscz/web/templates/web/base.html:44
 #: ziscz/web/templates/web/enclosure_list.html:6
 #: ziscz/web/templates/web/enclosure_list.html:12
 msgid "Enclosures"
-msgstr ""
+msgstr "Výběhy"
 
 #: ziscz/core/models/enclosure.py:133
 msgid "Executors"
-msgstr ""
+msgstr "Vykonavatelé"
 
-#: ziscz/core/models/enclosure.py:142
+#: ziscz/core/models/enclosure.py:139 ziscz/web/templates/web/calendar.html:16
+#: ziscz/web/templates/web/cleaning_detail.html:6
+#: ziscz/web/templates/web/enclosure_detail.html:89
+msgid "Cleaning"
+msgstr "Čištění"
+
+#: ziscz/core/models/enclosure.py:140
+msgid "Cleanings"
+msgstr "Čištění"
+
+#: ziscz/core/models/enclosure.py:143
 msgid "Cleaning at {} {}"
-msgstr ""
+msgstr "Čištění ve {} {}"
 
-#: ziscz/core/models/enclosure.py:149
+#: ziscz/core/models/enclosure.py:150
 msgid "{} by {}"
-msgstr ""
+msgstr "{} od {}"
 
 #: ziscz/core/models/feed.py:31
 msgid "Type of feed"
-msgstr ""
+msgstr "Typy krmení"
 
 #: ziscz/core/models/feed.py:44
 msgid "Executor"
-msgstr ""
+msgstr "Vykonavatel"
 
 #: ziscz/core/models/feed.py:51
 msgid "Amount of feed, etc. 1 kg, 1 l or 20 pieces."
-msgstr ""
+msgstr "Množství krmení, například 1 kg, 1 l nebo 20 kusů."
 
 #: ziscz/core/models/feed.py:52
 msgid "Amount"
-msgstr ""
+msgstr "Množství"
 
-#: ziscz/core/models/feed.py:59
+#: ziscz/core/models/feed.py:56 ziscz/web/templates/web/animal_detail.html:60
+#: ziscz/web/templates/web/calendar.html:22
+#: ziscz/web/templates/web/feeding_detail.html:6
+msgid "Feeding"
+msgstr "Krmení"
+
+#: ziscz/core/models/feed.py:57
+msgid "Feedings"
+msgstr "Krmení"
+
+#: ziscz/core/models/feed.py:60
 msgid "Feeding at {} {}"
-msgstr ""
+msgstr "Krmení ve {} {}"
 
-#: ziscz/core/models/feed.py:66
+#: ziscz/core/models/feed.py:67
 msgid "{} by {} ({} {})"
-msgstr ""
+msgstr "{} od {} ({} {})"
 
 #: ziscz/core/models/person.py:24
 msgid "Type role"
-msgstr ""
+msgstr "Typ role"
 
 #: ziscz/core/models/person.py:31 ziscz/web/forms/person.py:67
 msgid "User"
-msgstr ""
+msgstr "Uživatel"
 
 #: ziscz/core/models/person.py:36
 msgid "First name"
-msgstr ""
+msgstr "Jméno"
 
 #: ziscz/core/models/person.py:37
 msgid "Last name"
-msgstr ""
+msgstr "Přijmení"
 
 #: ziscz/core/models/person.py:40
 msgid "Education"
-msgstr ""
+msgstr "Vzdělání"
 
 #: ziscz/core/models/person.py:46
 msgid "Type animals that person is qualified for to feed."
-msgstr ""
+msgstr "Typy zvířat na které je daná osoba kvalifikována pro krmení."
 
 #: ziscz/core/models/person.py:48
 msgid "Animal types qualification"
-msgstr ""
+msgstr "Kvalifikace typů zvířat"
 
 #: ziscz/core/models/person.py:54
 msgid "Type enclosures that is qualified to clean."
-msgstr ""
+msgstr "Typy výběhů, co jsou kvalifikovány pro čištění."
 
 #: ziscz/core/models/person.py:56
 msgid "Enclosure types qualification"
-msgstr ""
+msgstr "Kvalifikace typů výběhů"
 
 #: ziscz/core/models/person.py:63
 msgid "Person"
-msgstr ""
+msgstr "Osoba"
 
 #: ziscz/core/models/person.py:64 ziscz/web/templates/web/base.html:36
 #: ziscz/web/templates/web/base.html:37
 #: ziscz/web/templates/web/person_list.html:5
 #: ziscz/web/templates/web/person_list.html:10
 msgid "Persons"
-msgstr ""
+msgstr "Osoby"
 
 #: ziscz/core/templates/core/forms/form.html:10
 #: ziscz/web/templates/web/form_detail.html:9
 msgid "New"
-msgstr ""
+msgstr "Nový"
 
 #: ziscz/core/templates/core/forms/form.html:20
 msgid "back"
-msgstr ""
+msgstr "zpět"
 
 #: ziscz/core/templates/core/forms/form.html:32
 msgid "Last modified at"
-msgstr ""
+msgstr "Naposledy upraveno"
 
 #: ziscz/core/templates/core/forms/form.html:41
 msgid "Save and stay"
-msgstr ""
+msgstr "Uložit a zůstat"
 
 #: ziscz/core/templates/core/forms/form.html:45
 msgid "Save"
-msgstr ""
+msgstr "Uložit"
 
 #: ziscz/core/views/forms.py:9
 #, python-brace-format
 msgid "{instance} was successfully saved."
-msgstr ""
+msgstr "{instance} byl úspěšně uložen."
 
 #: ziscz/web/forms/animal.py:120 ziscz/web/forms/animal.py:127
 msgid "Animal {} cannot have parent type of {}."
-msgstr ""
+msgstr "Zvíře {} nemůže mít rodiče typu {}."
 
 #: ziscz/web/forms/animal.py:133
 msgid "Animal cannot have one parent two times {}."
-msgstr ""
+msgstr "Zvíře nemůže mít jednoho rodiče dvakrát {}."
 
 #: ziscz/web/forms/animal.py:139
 msgid "Cannot set death date in future."
-msgstr ""
+msgstr "Nemůže nastavit datum úmrtí v budoucnu."
 
 #: ziscz/web/forms/cleaning.py:51
 msgid "Displayed are only persons that are able to clean selected enclosure."
-msgstr ""
+msgstr "Zobrazuje pouze osoby, které mohou čistit vybraný výběh."
 
 #: ziscz/web/forms/cleaning.py:93
 msgid "Selected enclosure requires {} or more executors for cleaning."
-msgstr ""
+msgstr "Vybrané výběhy požadují {} nebo více vykonavatelů čištění."
 
 #: ziscz/web/forms/cleaning.py:101
 msgid "Selected enclosure require longer cleaning duration ({}) than filled."
-msgstr ""
+msgstr "Vyberte výběh požadující delší trvání čištění ({}) než bylo zadáno."
 
 #: ziscz/web/forms/cleaning.py:124 ziscz/web/forms/feeding.py:104
 msgid "Executor {} has not time in filled date and duration - he has {}."
-msgstr ""
+msgstr "Vykonavatel {} nemá čas v zadaném datumu a trvání - má {}."
 
 #: ziscz/web/forms/feeding.py:51
 msgid "Only animals, that could be feed by selected person, are displayed."
 msgstr ""
+"Jsou zobrazena pouze zvířata, která mohou být nakrmena vybranou osobou."
 
 #: ziscz/web/forms/person.py:70
 msgid "Groups"
-msgstr ""
+msgstr "Skupiny"
 
 #: ziscz/web/templates/403.html:6 ziscz/web/templates/403.html:7
 msgid "Access denied."
-msgstr ""
+msgstr "Přístup zamítnut."
 
 #: ziscz/web/templates/404.html:6
 msgid "Page not found"
-msgstr ""
+msgstr "Stránka nebyla nalezena"
 
 #: ziscz/web/templates/404.html:7
 msgid "Page not found."
-msgstr ""
+msgstr "Stránka nebyla nalezena."
 
 #: ziscz/web/templates/registration/logged_out.html:7
 #: ziscz/web/templates/registration/logged_out.html:8
 #: ziscz/web/templates/registration/logged_out.html:19
 msgid "Bye bye!"
-msgstr ""
+msgstr "Na shledanou!"
 
 #: ziscz/web/templates/registration/login.html:5
-#: ziscz/web/templates/registration/login_form.html:5
-#: ziscz/web/templates/registration/login_form.html:9
 msgid "Login"
-msgstr ""
+msgstr "Přihlašovací jméno"
+
+#: ziscz/web/templates/registration/login_form.html:5
+msgctxt "as title on login button"
+msgid "Login"
+msgstr "Přihlásit"
+
+#: ziscz/web/templates/registration/login_form.html:9
+msgctxt "as title on login page"
+msgid "Login"
+msgstr "Přihlašovací jméno"
 
 #: ziscz/web/templates/registration/login_form.html:15
 msgid "Currently loggged as"
-msgstr ""
+msgstr "Aktuálně jste přihlášen jako"
 
 #: ziscz/web/templates/registration/login_form.html:22
 msgid "Lost password?"
-msgstr ""
+msgstr "Zapomenuté heslo?"
 
 #: ziscz/web/templates/registration/password_reset_done.html:7
 msgid "Email was sent!"
-msgstr ""
+msgstr "Email byl poslán!"
 
 #: ziscz/web/templates/registration/password_reset_done.html:11
 msgid ""
 "We've emailed you instructions for setting your password, if an account "
 "exists with the email you entered. You should receive them shortly."
 msgstr ""
+"Zaslali jsme vám email s instrukcemi pro nastavení hesla, pokud však "
+"existuje vámi zadaný email. Měli byste jej po chvíli obdržet."
 
 #: ziscz/web/templates/registration/password_reset_done.html:14
 msgid ""
 "If you don't receive an email, please make sure you've entered the address "
 "you registered with, and check your spam folder."
 msgstr ""
+"Pokud Vám nepřišel email, zkontrolujte s jakou adresou jste se "
+"zaregistrovali a zkontrolujte složku se spamy."
 
 #: ziscz/web/templates/registration/password_reset_done.html:27
 #: ziscz/web/templates/registration/password_reset_form.html:9
 msgid "Lost password"
-msgstr ""
+msgstr "Zapomenuté heslo"
 
 #: ziscz/web/templates/registration/password_reset_form_form.html:5
+msgctxt "as button title on reset password form"
 msgid "Reset"
-msgstr ""
+msgstr "Obnovit"
 
 #: ziscz/web/templates/registration/password_reset_form_form.html:9
+msgctxt "as page title on reset password page"
 msgid "Password reset"
-msgstr ""
+msgstr "Obnovení hesla"
 
 #: ziscz/web/templates/web/animal_card.html:18
 msgid "Parents"
-msgstr ""
+msgstr "Rodiče"
 
 #: ziscz/web/templates/web/animal_card.html:24
 msgid "Children"
-msgstr ""
+msgstr "Potomci"
 
 #: ziscz/web/templates/web/animal_card.html:44
 msgid "Enclosure detail"
-msgstr ""
+msgstr "Detaily výběhu"
 
 #: ziscz/web/templates/web/animal_detail.html:11
 msgid "Planned feedings"
-msgstr ""
+msgstr "Plánovaná krmení"
 
 #: ziscz/web/templates/web/animal_detail.html:33
 msgid "Enclosure history"
-msgstr ""
+msgstr "Historie výběhu"
 
 #: ziscz/web/templates/web/animal_detail.html:52
 msgid "Qualified feeders"
-msgstr ""
+msgstr "Kvalifikovaní krmiči"
 
 #: ziscz/web/templates/web/animal_detail.html:53
 msgid "New feeding"
-msgstr ""
+msgstr "Nové krmení"
 
 #: ziscz/web/templates/web/animal_detail.html:59
-#: ziscz/web/templates/web/calendar.html:20
 msgid "Plan new feeding"
-msgstr ""
-
-#: ziscz/web/templates/web/animal_detail.html:60
-#: ziscz/web/templates/web/feeding_detail.html:6
-msgid "Feeding"
-msgstr ""
+msgstr "Naplánovat nové krmení"
 
 #: ziscz/web/templates/web/animal_list.html:15
 msgid "Add new animal"
-msgstr ""
+msgstr "Přidat nové zvíře"
 
 #: ziscz/web/templates/web/animal_list.html:40
 #: ziscz/web/templates/web/animal_list.html:41
 msgid "No animals found."
-msgstr ""
+msgstr "Žádná zvířata nebyla nalezena."
 
 #: ziscz/web/templates/web/base.html:21 ziscz/web/templates/web/landing.html:10
 msgid "ZIS"
-msgstr ""
+msgstr "ZIS"
 
 #: ziscz/web/templates/web/base.html:50 ziscz/web/templates/web/base.html:51
 #: ziscz/web/templates/web/calendar.html:5
 #: ziscz/web/templates/web/calendar.html:10
 msgid "Calendar"
-msgstr ""
+msgstr "Kalendář"
 
 #: ziscz/web/templates/web/base.html:56 ziscz/web/templates/web/base.html:57
 #: ziscz/web/templates/web/help.html:5 ziscz/web/templates/web/help.html:10
 msgid "Help"
-msgstr ""
+msgstr "Pomoc"
 
 #: ziscz/web/templates/web/base.html:60
 msgid "Logout"
-msgstr ""
+msgstr "Odhlásit"
 
 #: ziscz/web/templates/web/base.html:90
 msgid "administration"
-msgstr ""
+msgstr "administrace"
 
-#: ziscz/web/templates/web/calendar.html:15
-#: ziscz/web/templates/web/enclosure_detail.html:88
-msgid "Plan new cleaning"
-msgstr ""
-
-#: ziscz/web/templates/web/calendar.html:45
+#: ziscz/web/templates/web/calendar.html:47
 msgid ""
 "In standard calendar view (week/month) you can move actions in time or "
 "beetween days. TODO"
 msgstr ""
-
-#: ziscz/web/templates/web/cleaning_detail.html:6
-#: ziscz/web/templates/web/enclosure_detail.html:89
-msgid "Cleaning"
-msgstr ""
+"Ve standardní zobrazení kalendáře (týden/měsíc) můžete posouvat akce v čas "
+"nebo mezi dny. TODO"
 
 #: ziscz/web/templates/web/cleaning_planning_note.html:4
 msgid ""
 "\n"
 "    TODO: describe planning\n"
 msgstr ""
+"\n"
+"    TODO: popsat čištění\n"
 
 #: ziscz/web/templates/web/credits.html:6
 #: ziscz/web/templates/web/credits.html:12
 msgid "Credits"
-msgstr ""
+msgstr "Kredity"
 
 #: ziscz/web/templates/web/enclosure_detail.html:8
 msgid "Current animals"
-msgstr ""
+msgstr "Aktuální zvířata"
 
 #: ziscz/web/templates/web/enclosure_detail.html:26
 msgid "Closest planned cleanings"
-msgstr ""
+msgstr "Nejbližší plánovaná čištění"
 
 #: ziscz/web/templates/web/enclosure_detail.html:48
 msgid "Last cleanings"
-msgstr ""
+msgstr "Poslední čistění"
 
 #: ziscz/web/templates/web/enclosure_detail.html:70
 msgid "Cleaning accessory"
-msgstr ""
+msgstr "Čistící doplňky"
 
 #: ziscz/web/templates/web/enclosure_detail.html:81
 msgid "Qualified cleaners"
-msgstr ""
+msgstr "Kvalifikovaní čističi"
 
 #: ziscz/web/templates/web/enclosure_detail.html:82
 msgid "New cleaning"
-msgstr ""
+msgstr "Nové čištění"
+
+#: ziscz/web/templates/web/enclosure_detail.html:88
+msgid "Plan new cleaning"
+msgstr "Naplánovat nové čistění"
 
 #: ziscz/web/templates/web/enclosure_detail.html:98
 msgid "Same type enclosures"
-msgstr ""
+msgstr "Stejné typy výběhů"
 
 #: ziscz/web/templates/web/enclosure_list.html:20
 msgid "With drag'n drop you can transfer animals between enclosures."
-msgstr ""
+msgstr "Můžete přesouvat zvířatamezi výběhy pomocí operace táhni a pusť."
 
 #: ziscz/web/templates/web/home.html:5
 msgid "You're welcome in ZOO Information System!"
-msgstr ""
+msgstr "Vítejte v zoologickém informačním systému!"
 
 #: ziscz/web/templates/web/home.html:15
 msgid "Today's activities"
-msgstr ""
+msgstr "Dnešní aktivity"
 
 #: ziscz/web/templates/web/home.html:17
 msgid "Your's today activities"
-msgstr ""
+msgstr "Vaše dnešní aktivity"
 
 #: ziscz/web/templates/web/home.html:28
 msgid "Done"
-msgstr ""
+msgstr "Hotovo"
 
 #: ziscz/web/templates/web/home.html:50
 msgid "Activities right now"
-msgstr ""
+msgstr "Právě probíhající aktivity"
 
 #: ziscz/web/templates/web/landing.html:12
 msgid "Zoological information system"
-msgstr ""
+msgstr "Zoologický informační systém"
 
 #: ziscz/web/templates/web/person_list.html:28
 #: ziscz/web/templates/web/person_list.html:29
 msgid "Qualified type animals to feed"
-msgstr ""
+msgstr "Kvalifikovaný typ zvířat ke krmení"
 
 #: ziscz/web/templates/web/person_list.html:36
 #: ziscz/web/templates/web/person_list.html:37
 msgid "Qualified type enclosures to clean"
-msgstr ""
+msgstr "Kvalifikovaný typ výběhů k čištění"
 
 #: ziscz/web/views/person.py:65
 msgid "User was created, username is {}."
-msgstr ""
+msgstr "Uživatel byl vytvořen, uživatelské jméno je {}."
 
 #: ziscz/zis/settings_default.py:146
 msgid "Czech"
-msgstr ""
+msgstr "Čeština"
 
 #: ziscz/zis/settings_default.py:147
 msgid "English"
-msgstr ""
+msgstr "Angličtina"

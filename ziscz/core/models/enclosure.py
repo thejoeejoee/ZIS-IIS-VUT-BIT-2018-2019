@@ -136,7 +136,8 @@ class Cleaning(BaseEventModel):
     note = models.TextField(null=True, blank=True, verbose_name=_('Note'), )
 
     class Meta(BaseEventModel.Meta):
-        pass
+        verbose_name = _('Cleaning')
+        verbose_name_plural = _('Cleanings')
 
     def __str__(self):
         return _('Cleaning at {} {}').format(

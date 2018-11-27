@@ -10,6 +10,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Josef Kolář (xkolar71), Iva Kavánková (xkavan05), Son Hai Nguyen (xnguye16)">
 
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static "img/favicon/apple-touch-icon.png" %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static "img/favicon/favicon-32x32.png" %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static "img/favicon/favicon-16x16.png" %}">
+    <link rel="manifest" href="{% static "img/favicon/site.webmanifest" %}">
+    <link rel="mask-icon" href="{% static "img/favicon/safari-pinned-tab.svg" %}" color="#a965d1">
+    <link rel="shortcut icon" href="{% static "img/favicon/favicon.ico" %}">
+    <meta name="msapplication-TileColor" content="#9f00a7">
+    <meta name="msapplication-config" content="{% static "img/favicon/browserconfig.xml" %}">
+    <meta name="theme-color" content="#ffffff">
+
     <script src="{% url 'js_reverse' %}" type="text/javascript"></script>
     {% render_bundle 'main' %}
 </head>

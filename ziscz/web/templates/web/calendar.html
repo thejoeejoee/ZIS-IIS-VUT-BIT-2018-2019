@@ -12,12 +12,14 @@
             <div class="btn-group d-inline-block">
                 {% if perms.core.add_cleaning %}
                     <a href="{% url "cleaning_create" %}" class="btn btn-info">
-                        {% trans "Plan new cleaning" %}
+                        &plus;
+                        {% trans "Cleaning" %}
                     </a>
                 {% endif %}
                 {% if perms.core.add_feeding %}
                     <a href="{% url "feeding_create" %}" class="btn btn-warning">
-                        {% trans "Plan new feeding" %}
+                        &plus;
+                        {% trans "Feeding" %}
                     </a>
                 {% endif %}
             </div>

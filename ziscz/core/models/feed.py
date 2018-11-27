@@ -53,7 +53,8 @@ class Feeding(BaseEventModel):
     )
 
     class Meta(BaseEventModel.Meta):
-        pass
+        verbose_name = _('Feeding')
+        verbose_name_plural = _('Feedings')
 
     def __str__(self):
         return _('Feeding at {} {}').format(
