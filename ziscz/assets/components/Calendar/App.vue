@@ -98,9 +98,6 @@
                             container: false,
                         });
                     },
-                    eventClick(calEvent, jsEvent, view) {
-                        // TODO: toolbar
-                    },
                     eventDrop(event, delta, revertFunc, jsEvent, ui, view) {
                         Axios.post(reverse('api:calendar_event_start_change'), {
                             id: event.id,

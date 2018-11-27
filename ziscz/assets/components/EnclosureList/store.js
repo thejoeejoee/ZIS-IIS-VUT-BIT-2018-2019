@@ -5,7 +5,7 @@ import _ from 'lodash'
 import Toastr from 'toastr'
 
 
-const saveAnimals = _.debounce((state) => {
+const saveAnimals = _.debounce((state, undo) => {
     axios.post(reverse('api:enclosure_animals_setup'), {
         enclosures: _.map(
             state.enclosures,
@@ -14,12 +14,15 @@ const saveAnimals = _.debounce((state) => {
                 animals: _.map(enc.animals, _.property('id'))
             })
         )
-    }).then(({data}) => {
-        if (data.success) {
-            Toastr.success(data.msg);
+    }).then((resp) => {
+        if (resp.data.success) {
+            Toastr.success(resp.data.msg);
         } else {
-            Toastr.warning(data.msg);
+            Toastr.warning(resp.data.msg);
+            undo();
         }
+    }, () => {
+        undo();
     })
 }, 200);
 
@@ -28,18 +31,28 @@ export default function create(initial) {
         state: {
             ...{
                 enclosures: [],
+                can_change_animal: false,
             },
             ...initial,
         },
         mutations: {
             setAnimals(state, {enclosure, animals}) {
                 enclosure.animals = animals;
+            },
+            emptyState(state) {
+                this.replaceState({
+                    ...{
+                        enclosures: [],
+                        can_change_animal: false,
+                    },
+                    ...initial,
+                });
             }
         },
         actions: {
-            updateAnimals({commit, state}, {enclosure, animals}) {
+            updateAnimals({commit, state}, {enclosure, animals, undo}) {
                 commit('setAnimals', {enclosure, animals});
-                saveAnimals(state);
+                saveAnimals(state, undo);
             }
         }
     });

@@ -1,23 +1,25 @@
 <template>
-    <div class="card-deck">
+    <div class="row">
         <template
-            v-for="enclosure in enclosures"
+            v-for="(enclosure, i) in enclosures"
         >
-            <!-- TODO: add break to keep 4 in row -->
-            <div
-                :style="{backgroundColor: enclosure.enclosure_color}"
-                class="card"
-            >
-                <a class="card-header text-light" :href="url(enclosure)">
-                    {{ enclosure.name }}
-                    <small class="float-right">{{ enclosure.type_enclosure }}</small>
-                </a>
-                <animal-list :enclosure="enclosure"/>
-                <div class="card-footer small" v-if="enclosure.last_cleaning_date" title="Last cleaning">
-                    <img src="../../../web/static/img/icons/duster.svg" alt="" width="20" class="mr-1">
-                    {{ enclosure.last_cleaning_date | moment("HH:mm DD.MM.YYYY") }}
+            <div class="col-3">
+                <div
+                    :style="{backgroundColor: enclosure.enclosure_color}"
+                    class="card"
+                >
+                    <a class="card-header text-light" :href="url(enclosure)">
+                        {{ enclosure.name }}
+                        <small class="float-right">{{ enclosure.type_enclosure }}</small>
+                    </a>
+                    <animal-list :enclosure="enclosure"/>
+                    <div class="card-footer small" v-if="enclosure.last_cleaning_date" title="Last cleaning">
+                        <img src="../../../web/static/img/icons/duster.svg" alt="" width="20" class="mr-1">
+                        {{ enclosure.last_cleaning_date | moment("HH:mm DD.MM.YYYY") }}
+                    </div>
                 </div>
             </div>
+            <div class="clearfix w-100" v-if="i % 4 === 3">&nbsp;</div>
         </template>
     </div>
 </template>

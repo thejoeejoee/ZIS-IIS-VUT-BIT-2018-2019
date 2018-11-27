@@ -48,7 +48,6 @@ def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[M
 
         queryset = model.objects.annotate(
             editable=ExpressionWrapper(
-                # TODO: check TZ
                 Case(
                     When(
                         date__gte=Now(),
@@ -82,7 +81,6 @@ FeedingCalendarView = _calendar_event_view_factory(
 )
 
 
-# TODO: cannot move already done event
 class BaseCalendarEventChangeView(CsrfExemptMixin, JsonRequestResponseMixin, PermissionRequiredMixin, View):
     require_json = True
     permission_required = 'core.change_cleaning', 'core.change_feeding'
@@ -134,6 +132,9 @@ class BaseCalendarEventChangeView(CsrfExemptMixin, JsonRequestResponseMixin, Per
 
         if start < timezone.now():
             raise ValidationError(_('Reverted, cannot move event to history.'))
+
+        if self.object.done:
+            raise ValidationError(_('Reverted, cannot move already done event.'))
 
     def get_interval(self) -> Tuple[datetime, timedelta]:
         raise NotImplementedError

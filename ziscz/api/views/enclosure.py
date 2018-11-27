@@ -12,7 +12,7 @@ from rest_framework.generics import get_object_or_404
 from ziscz.core.models import Enclosure, Animal, AnimalStay
 
 
-class EnclosureAnimalsSetup(PermissionRequiredMixin, CsrfExemptMixin, JsonRequestResponseMixin, View):
+class EnclosureAnimalsSetup(CsrfExemptMixin, PermissionRequiredMixin, JsonRequestResponseMixin, View):
     require_json = True
     permission_required = 'core.change_animal'
 

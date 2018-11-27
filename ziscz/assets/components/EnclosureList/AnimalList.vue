@@ -1,10 +1,11 @@
 <template>
     <div class="card-body">
-        <draggable v-model="animals" :options="{group: 'animals'}" element="ul" class="list-unstyled small">
+        <draggable v-model="animals" :options="{group: 'animals', handle: '.handle'}" element="ul" class="list-unstyled small">
             <li v-for="animal in enclosure.animals">
                 <img :src="'/static/img/icons/animals/' + animal.type_animal_icon" :alt="animal.type_animal" width="25">
                 {{ animal.type_animal }}
                 <strong>{{ animal.name }}</strong>
+                <span class="float-right handle" v-if="true" style="cursor: grab">&leftrightarrows;</span>
             </li>
             <div slot="footer" style="height: 1em;"></div>
         </draggable>
@@ -12,7 +13,7 @@
     </div>
 </template>
 <script>
-    import {mapActions} from 'vuex'
+    import {mapActions, mapState} from 'vuex'
     import Draggable from 'vuedraggable'
 
     export default {
@@ -23,12 +24,21 @@
         },
         methods: mapActions(['updateAnimals']),
         computed: {
+            ...mapState(['can_change_animal']),
             animals: {
                 get() {
                     return this.enclosure.animals
                 },
                 set(animals) {
-                    this.updateAnimals({enclosure: this.enclosure, animals});
+                    this.updateAnimals({
+                        enclosure: this.enclosure,
+                        animals,
+                        undo: () => {
+                            // TODO: nope :-/
+                            this.undo();
+                            this.$forceUpdate();
+                        }
+                    });
                 }
             }
         }
