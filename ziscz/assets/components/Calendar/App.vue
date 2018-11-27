@@ -145,7 +145,6 @@
                                     callback(response.data)
                                 })
                             },
-                            color: '#ffc107',
                         },
                     ]
                 }

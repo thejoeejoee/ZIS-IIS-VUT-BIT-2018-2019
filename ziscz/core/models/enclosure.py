@@ -154,6 +154,10 @@ class Cleaning(BaseEventModel):
     def get_executors(self) -> Iterable["Person"]:
         return self.executors.all()
 
+    @property
+    def color(self):
+        return '#107180' if self.done else '#17a2b8'
+
 
 class PersonTypeEnclosure(BaseModel):
     """

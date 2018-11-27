@@ -20,7 +20,7 @@ class DateTimeFieldWihTZ(serializers.DateTimeField):
         return super(DateTimeFieldWihTZ, self).to_representation(value)
 
 
-class CalendarEventSerializer(ModelSerializer):
+class BaseCalendarEventSerializer(ModelSerializer):
     title = CharField(source='specification')
     start = DateTimeFieldWihTZ(source='date')
     end = DateTimeFieldWihTZ()
@@ -33,14 +33,15 @@ class CalendarEventSerializer(ModelSerializer):
             'start',
             'end',
             'done',
+            'color',
         )
 
 
-class FeedingCalendarSerializer(CalendarEventSerializer):
-    class Meta(CalendarEventSerializer.Meta):
+class FeedingCalendarSerializer(BaseCalendarEventSerializer):
+    class Meta(BaseCalendarEventSerializer.Meta):
         model = Feeding
 
 
-class CleaningCalendarSerializer(CalendarEventSerializer):
-    class Meta(CalendarEventSerializer.Meta):
+class CleaningCalendarSerializer(BaseCalendarEventSerializer):
+    class Meta(BaseCalendarEventSerializer.Meta):
         model = Cleaning

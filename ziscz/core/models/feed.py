@@ -73,6 +73,10 @@ class Feeding(BaseEventModel):
     def get_executors(self) -> Iterable["Person"]:
         return self.executor,
 
+    @property
+    def color(self):
+        return '#b28704' if self.done else '#ffc107'
+
 
 class FeedingAnimal(BaseModel):
     """
