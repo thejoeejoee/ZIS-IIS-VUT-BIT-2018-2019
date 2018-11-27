@@ -7,6 +7,7 @@
     height: 75px;
     display: inline-block;
     position: relative;
+
     &:after {
       content: '';
       position: absolute;
@@ -15,16 +16,20 @@
       right: 0;
       bottom: 0;
       transition: $transition-fade;
-      border-radius: 100%;
+      @if ($border-radius > 0) {
+        border-radius: 100%;
+      }
       border: $primary $border-width*3 solid;
       opacity: 0;
     }
+
     &.active,
     &:hover {
       &:after {
         opacity: 1;
       }
     }
+
     &:hover {
       text-decoration: none;
     }
@@ -33,6 +38,7 @@
 
 .link-keep-color {
   color: unset;
+
   &:hover {
     color: unset;
   }
@@ -40,6 +46,7 @@
 
 .text-decoration-none {
   text-decoration: none;
+
   &:hover {
     text-decoration: none;
   }
@@ -109,15 +116,19 @@
 /** duration widget */
 .bdp-input {
   display: flex;
+
   .bdp-block {
     flex: 1 1 auto;
+
     &:not(:last-child) {
       @extend .mr-2;
     }
   }
+
   .hidden {
     display: none;
   }
+
   .input-sm {
     @extend .form-control-sm;
   }
@@ -125,6 +136,7 @@
 
 .requiredField {
   font-weight: $font-weight-bold;
+
   &:after {
     // content: '(povinné)';
     // color: $text-muted;

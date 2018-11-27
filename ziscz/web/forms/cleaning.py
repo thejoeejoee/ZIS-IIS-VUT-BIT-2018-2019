@@ -23,7 +23,7 @@ from ziscz.core.utils.m2m import update_m2m
 
 class CleaningForm(BaseModelForm):
     date_range = DateRangeField(required=False)
-    done = BooleanSwitchField()
+    done = BooleanSwitchField(required=False)
 
     class Meta:
         model = Cleaning

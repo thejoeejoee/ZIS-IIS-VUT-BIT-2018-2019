@@ -61,7 +61,7 @@ class BaseEventModel(BaseModel):
         help_text=_('Planned start of cleaning.')
     )
     length = models.DurationField(verbose_name=_('Length'), )
-    done = models.BooleanField(default=False, verbose_name=_('Is done?'), )
+    done = models.BooleanField(default=False, verbose_name=_('Is done?'))
 
     PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE = PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE
 

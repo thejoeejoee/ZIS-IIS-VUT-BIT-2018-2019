@@ -21,7 +21,7 @@ from ziscz.core.utils.m2m import update_m2m
 
 class FeedingForm(BaseModelForm):
     date_range = DateRangeField(required=False)
-    done = BooleanSwitchField()
+    done = BooleanSwitchField(required=False)
 
     class Meta:
         model = Feeding

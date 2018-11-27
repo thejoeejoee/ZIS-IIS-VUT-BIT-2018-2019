@@ -9,6 +9,7 @@ from django.views.generic import ListView, UpdateView, CreateView
 
 from ziscz.core.models import Animal, TypeAnimal, AnimalStay, FeedingAnimal
 from ziscz.core.utils.utils import get_object_or_none
+from ziscz.core.views.delete import DeleteView
 from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.animal import AnimalForm
 
@@ -82,3 +83,10 @@ class AnimalCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCont
     success_url = reverse_lazy('animal_list')
     model = Animal
     permission_required = 'core.add_animal'
+
+
+class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
+    template_name = 'web/object_delete.html'
+    success_url = reverse_lazy('animal_list')
+    model = Animal
+    permission_required = 'core.delete_animal'

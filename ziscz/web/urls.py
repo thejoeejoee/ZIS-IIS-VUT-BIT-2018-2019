@@ -2,7 +2,7 @@
 from django.conf import settings
 from django.urls import path, include
 
-from ziscz.web.views.animal import AnimalListView, AnimalDetailView, AnimalCreateView
+from ziscz.web.views.animal import AnimalListView, AnimalDetailView, AnimalCreateView, AnimalDeleteView
 from ziscz.web.views.calendar import CalendarView
 from ziscz.web.views.cleaning import CleaningDetailView, CleaningCreateView
 from ziscz.web.views.enclosure import EnclosureListView, EnclosureDetailView, EnclosureCreateView
@@ -22,6 +22,7 @@ urlpatterns = [
     path('animal', AnimalListView.as_view(), name='animal_list'),
     path('animal/create', AnimalCreateView.as_view(), name='animal_create'),
     path('animal/<uuid:pk>', AnimalDetailView.as_view(), name='animal_detail'),
+    path('animal/delete/<uuid:pk>', AnimalDeleteView.as_view(), name='animal_delete'),
 
     path('enclosure', EnclosureListView.as_view(), name='enclosure_list'),
     path('enclosure/create', EnclosureCreateView.as_view(), name='enclosure_create'),

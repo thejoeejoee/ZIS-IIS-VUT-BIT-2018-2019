@@ -85,13 +85,13 @@ class FeedingAnimal(BaseModel):
     """
     feeding = models.ForeignKey(
         "core.Feeding",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="feeding_animal_feeding"
     )
 
     animal = models.ForeignKey(
         "core.Animal",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="feeding_animal_animal"
     )
 

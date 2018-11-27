@@ -125,13 +125,13 @@ class AnimalStay(BaseModel):
 
     animal = models.ForeignKey(
         "core.Animal",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="animal_stay_animal"
     )
 
     enclosure = models.ForeignKey(
         "core.Enclosure",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="animal_stay_enclosure"
     )
 
@@ -185,13 +185,13 @@ class AnimalRegion(BaseModel):
     """
     animal = models.ForeignKey(
         "core.Animal",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="animal_region_animal"
     )
 
     region = models.ForeignKey(
         "core.TypeRegion",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="animal_region_region"
     )
 
