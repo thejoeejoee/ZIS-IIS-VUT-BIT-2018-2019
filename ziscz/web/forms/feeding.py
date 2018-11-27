@@ -72,7 +72,7 @@ class FeedingForm(BaseModelForm):
             ),
             Div(
                 HTML(render_to_string('web/cleaning_planning_note.html')),
-                Div(css_id='cleaning-planning')
+                Div(css_id='feeding-planning')
             ) if not self.updating else 'date',
         )
 

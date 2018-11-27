@@ -56,9 +56,12 @@ PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE = 'can_mark_own_event_as_done'
 
 
 class BaseEventModel(BaseModel):
-    date = models.DateTimeField(help_text=_('Planned start of cleaning.'))
-    length = models.DurationField()
-    done = models.BooleanField(default=False)
+    date = models.DateTimeField(
+        verbose_name=_('Date'),
+        help_text=_('Planned start of cleaning.')
+    )
+    length = models.DurationField(verbose_name=_('Length'), )
+    done = models.BooleanField(default=False, verbose_name=_('Is done?'), )
 
     PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE = PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE
 
@@ -91,4 +94,4 @@ class BaseEventModel(BaseModel):
         raise NotImplementedError
 
     def get_absolute_url(self):
-        return reverse('{}_detail'.format(self.__class__.__name__.lower()), args=(self.pk, ))
+        return reverse('{}_detail'.format(self.__class__.__name__.lower()), args=(self.pk,))

@@ -97,7 +97,6 @@
 
 {% if messages %}
     <script>
-        {# TODO: better way? #}
         {% for message in messages %}
             (window.toastr['{{ message.tags }}'] || (function () {
                 console.warn('Undefined flash message with type: {{ message.tags }}.')

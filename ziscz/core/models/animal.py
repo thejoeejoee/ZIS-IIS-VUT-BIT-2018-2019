@@ -24,8 +24,8 @@ class TypeAnimal(BaseTypeModel):
     )
 
     class Meta(BaseTypeModel.Meta):
-        verbose_name = _("Animal type")
-        verbose_name_plural = _("Animal types")
+        verbose_name = _("Type animal")
+        verbose_name_plural = _("Types animal")
 
 
 class Animal(BaseModel):
@@ -44,7 +44,7 @@ class Animal(BaseModel):
         verbose_name=_("Type")
     )
 
-    birth_date = models.DateField(null=True, blank=True)
+    birth_date = models.DateField(null=True, blank=True, verbose_name=_('Birth date'))
 
     origin_country = models.ForeignKey(
         "core.TypeCountry",
@@ -57,7 +57,8 @@ class Animal(BaseModel):
 
     occurrence_region = models.ManyToManyField(
         "core.TypeRegion",
-        through="core.AnimalRegion"
+        through="core.AnimalRegion",
+        verbose_name=_('Occurrence regions')
     )
 
     parent1 = models.ForeignKey(

@@ -106,9 +106,12 @@
             ...mapState([]),
             range() {
                 if (!(this.dateFrom && this.dateTo && this.rangeUnit)) return [];
+                const from_ = new Date(this.dateFrom);
+                const to_ = new Date(this.dateTo);
+                if (from_.getUTCDate() === to_.getUTCDate()) return [];
                 return PR.create(
-                    new Date(this.dateFrom),
-                    new Date(this.dateTo),
+                    from_,
+                    to_,
                     {unit: this.rangeUnit}
                 )
             },

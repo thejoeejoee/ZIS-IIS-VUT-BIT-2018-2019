@@ -20,13 +20,15 @@ class Person(BaseModel):
     type_role = models.ForeignKey(
         "core.TypeRole",
         on_delete=models.PROTECT,
-        related_name="person_type_role"
+        related_name="person_type_role",
+        verbose_name=_('Type role'),
     )
 
     user = models.OneToOneField(
         get_user_model(),
         related_name='person_user',
         on_delete=models.SET_NULL,
+        verbose_name=_('User'),
         null=True,
         blank=True,
     )
@@ -66,7 +68,6 @@ class Person(BaseModel):
         """
         Finds some activities in given time range - (QS(Feeding), QS(Cleaning)).
         """
-        # TODO: I'am not 100 % sure.
         end = start + length
 
         field_factory = lambda prefix: dict(

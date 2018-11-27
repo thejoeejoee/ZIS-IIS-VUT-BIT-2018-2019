@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django.shortcuts import get_object_or_404, get_list_or_404
 from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
 
-from ziscz.core.models import Feeding
+from ziscz.core.models import Feeding, Animal, Person
 from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.feeding import FeedingForm
 
@@ -24,3 +25,15 @@ class FeedingCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCon
     success_url = reverse_lazy('calendar')
     model = Feeding
     permission_required = 'core.create_feeding'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if self.request.GET.get('animal'):
+            kwargs.setdefault('initial', dict()).update(dict(
+                animals=get_list_or_404(Animal, pk=self.request.GET.get('animal'))
+            ))
+        if self.request.GET.get('executor'):
+            kwargs.setdefault('initial', dict()).update(dict(
+                executor=get_object_or_404(Person, pk=self.request.GET.get('executor'))
+            ))
+        return kwargs

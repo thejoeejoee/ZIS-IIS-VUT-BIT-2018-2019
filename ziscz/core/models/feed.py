@@ -27,25 +27,29 @@ class Feeding(BaseEventModel):
     type_feed = models.ForeignKey(
         "core.TypeFeed",
         on_delete=models.PROTECT,
-        related_name="feeding_feed_type"
+        related_name="feeding_feed_type",
+        verbose_name=_('Type of feed'),
     )
 
     animals = models.ManyToManyField(
         "core.Animal",
-        through="core.FeedingAnimal"
+        through="core.FeedingAnimal",
+        verbose_name=_('Animals'),
     )
 
     executor = models.ForeignKey(
         "core.Person",
         on_delete=models.PROTECT,
-        related_name="feeding_executor"
+        related_name="feeding_executor",
+        verbose_name=_('Executor'),
     )
 
-    note = models.TextField(null=True, blank=True)
+    note = models.TextField(null=True, blank=True, verbose_name=_('Note'), )
 
     amount = models.CharField(
         max_length=128,
-        help_text=_('Amount of feed, etc. 1 kg, 1 l or 20 pieces.')
+        help_text=_('Amount of feed, etc. 1 kg, 1 l or 20 pieces.'),
+        verbose_name=_('Amount'),
     )
 
     class Meta(BaseEventModel.Meta):

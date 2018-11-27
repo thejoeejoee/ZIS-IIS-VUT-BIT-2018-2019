@@ -6,7 +6,6 @@ from django.utils.translation import ugettext_lazy as _
 
 
 class SuccessMessageMixin(DjangoSuccessMessageMixin):
-    # TODO: create/update, use different messages
     success_message = _('{instance} was successfully saved.')
 
     def get_success_message(self, cleaned_data):

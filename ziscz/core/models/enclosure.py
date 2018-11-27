@@ -123,15 +123,17 @@ class Cleaning(BaseEventModel):
     enclosure = models.ForeignKey(
         "core.Enclosure",
         on_delete=models.PROTECT,
-        related_name="cleaning_enclosure"
+        related_name="cleaning_enclosure",
+        verbose_name=_('Enclosure'),
     )
 
     executors = models.ManyToManyField(
         "core.Person",
-        through="core.CleaningPerson"
+        through="core.CleaningPerson",
+        verbose_name=_('Executors'),
     )
 
-    note = models.TextField(null=True, blank=True)
+    note = models.TextField(null=True, blank=True, verbose_name=_('Note'), )
 
     class Meta(BaseEventModel.Meta):
         pass
