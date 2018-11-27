@@ -108,9 +108,17 @@
 {% if messages %}
     <script>
         {% for message in messages %}
-            (window.toastr['{{ message.tags }}'] || (function () {
-                console.warn('Undefined flash message with type: {{ message.tags }}.')
-            }))('{{ message }}');
+            var tags = JSON.parse('{{ message.extra_tags|default:'{}'|escapejs }}' || {});
+            var options = {};
+            if (tags.timeout !== undefined) {
+                options.timeOut = options.extendedTimeOut = tags.timeout;
+            }
+            if (tags.infinite !== undefined) {
+                options.tapToDismiss = !tags.infinite;
+            }
+            (window.toastr['{{ message.level_tag }}'] || (function () {
+                console.warn('Undefined flash message with type: {{ message.level_tag }}.')
+            }))('{{ message }}', undefined, options);
         {% endfor %}
     </script>
 {% endif %}

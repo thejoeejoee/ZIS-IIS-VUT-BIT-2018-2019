@@ -24,6 +24,7 @@ class EnclosureListView(PermissionRequiredMixin, ListView):
         context['data'] = dict(
             enclosures=EnclosureSerializer(context.get('object_list'), many=True).data,
             can_change_animal=self.request.user.has_perm('core.change_animal'),
+            can_change_enclosure=self.request.user.has_perm('core.change_enclosure'),
         )
         return context
 

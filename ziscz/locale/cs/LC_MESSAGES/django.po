@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-11-27 11:35+0100\n"
-"PO-Revision-Date: 2018-11-27 11:35+0100\n"
+"POT-Creation-Date: 2018-11-27 12:46+0100\n"
+"PO-Revision-Date: 2018-11-27 13:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: ziscz/api/views/calendar.py:106
 msgid "Event successfully replanned."
-msgstr "Událost byl úspěšně naplánována."
+msgstr "Událost byla úspěšně přeplánována."
 
 #: ziscz/api/views/calendar.py:128
 msgid "Reverted, conflict in time plan of executor {}."
@@ -36,7 +36,7 @@ msgstr "Vráceno, nelze posunout událost v historii."
 
 #: ziscz/api/views/calendar.py:137
 msgid "Reverted, cannot move already done event."
-msgstr "Vráceno, nelze posunout právě proběhlou událost."
+msgstr "Vráceno, nelze přeplánovat již potvrzenou událost."
 
 #: ziscz/api/views/calendar.py:160
 msgid "Reverted, {} is the minimal duration of cleaning {}."
@@ -110,7 +110,7 @@ msgstr "Zvíře"
 #: ziscz/core/models/animal.py:87 ziscz/core/models/feed.py:37
 #: ziscz/web/templates/web/animal_list.html:5
 #: ziscz/web/templates/web/animal_list.html:11
-#: ziscz/web/templates/web/base.html:29 ziscz/web/templates/web/base.html:30
+#: ziscz/web/templates/web/base.html:39 ziscz/web/templates/web/base.html:40
 msgid "Animals"
 msgstr "Zvířata"
 
@@ -201,8 +201,8 @@ msgstr "Poznámka"
 msgid "Enclosure"
 msgstr "Výběh"
 
-#: ziscz/core/models/enclosure.py:75 ziscz/web/templates/web/base.html:43
-#: ziscz/web/templates/web/base.html:44
+#: ziscz/core/models/enclosure.py:75 ziscz/web/templates/web/base.html:53
+#: ziscz/web/templates/web/base.html:54
 #: ziscz/web/templates/web/enclosure_list.html:6
 #: ziscz/web/templates/web/enclosure_list.html:12
 msgid "Enclosures"
@@ -304,8 +304,8 @@ msgstr "Kvalifikace typů výběhů"
 msgid "Person"
 msgstr "Osoba"
 
-#: ziscz/core/models/person.py:64 ziscz/web/templates/web/base.html:36
-#: ziscz/web/templates/web/base.html:37
+#: ziscz/core/models/person.py:64 ziscz/web/templates/web/base.html:46
+#: ziscz/web/templates/web/base.html:47
 #: ziscz/web/templates/web/person_list.html:5
 #: ziscz/web/templates/web/person_list.html:10
 msgid "Persons"
@@ -316,19 +316,19 @@ msgstr "Osoby"
 msgid "New"
 msgstr "Nový"
 
-#: ziscz/core/templates/core/forms/form.html:20
+#: ziscz/core/templates/core/forms/form.html:21
 msgid "back"
 msgstr "zpět"
 
-#: ziscz/core/templates/core/forms/form.html:32
+#: ziscz/core/templates/core/forms/form.html:34
 msgid "Last modified at"
 msgstr "Naposledy upraveno"
 
-#: ziscz/core/templates/core/forms/form.html:41
+#: ziscz/core/templates/core/forms/form.html:43
 msgid "Save and stay"
 msgstr "Uložit a zůstat"
 
-#: ziscz/core/templates/core/forms/form.html:45
+#: ziscz/core/templates/core/forms/form.html:47
 msgid "Save"
 msgstr "Uložit"
 
@@ -490,26 +490,26 @@ msgstr "Přidat nové zvíře"
 msgid "No animals found."
 msgstr "Žádná zvířata nebyla nalezena."
 
-#: ziscz/web/templates/web/base.html:21 ziscz/web/templates/web/landing.html:10
+#: ziscz/web/templates/web/base.html:31 ziscz/web/templates/web/landing.html:10
 msgid "ZIS"
 msgstr "ZIS"
 
-#: ziscz/web/templates/web/base.html:50 ziscz/web/templates/web/base.html:51
+#: ziscz/web/templates/web/base.html:60 ziscz/web/templates/web/base.html:61
 #: ziscz/web/templates/web/calendar.html:5
 #: ziscz/web/templates/web/calendar.html:10
 msgid "Calendar"
 msgstr "Kalendář"
 
-#: ziscz/web/templates/web/base.html:56 ziscz/web/templates/web/base.html:57
+#: ziscz/web/templates/web/base.html:66 ziscz/web/templates/web/base.html:67
 #: ziscz/web/templates/web/help.html:5 ziscz/web/templates/web/help.html:10
 msgid "Help"
 msgstr "Pomoc"
 
-#: ziscz/web/templates/web/base.html:60
+#: ziscz/web/templates/web/base.html:70
 msgid "Logout"
 msgstr "Odhlásit"
 
-#: ziscz/web/templates/web/base.html:90
+#: ziscz/web/templates/web/base.html:100
 msgid "administration"
 msgstr "administrace"
 
@@ -568,27 +568,27 @@ msgstr "Stejné typy výběhů"
 
 #: ziscz/web/templates/web/enclosure_list.html:20
 msgid "With drag'n drop you can transfer animals between enclosures."
-msgstr "Můžete přesouvat zvířatamezi výběhy pomocí operace táhni a pusť."
+msgstr "Pomocí operace táhni a pusť můžete přesouvat zvířata mezi výběhy."
 
 #: ziscz/web/templates/web/home.html:5
 msgid "You're welcome in ZOO Information System!"
 msgstr "Vítejte v zoologickém informačním systému!"
 
 #: ziscz/web/templates/web/home.html:15
-msgid "Today's activities"
-msgstr "Dnešní aktivity"
+msgid "Today's events"
+msgstr "Dnešní události"
 
 #: ziscz/web/templates/web/home.html:17
-msgid "Your's today activities"
-msgstr "Vaše dnešní aktivity"
+msgid "Your's today events"
+msgstr "Vaše dnešní události"
 
 #: ziscz/web/templates/web/home.html:28
 msgid "Done"
 msgstr "Hotovo"
 
 #: ziscz/web/templates/web/home.html:50
-msgid "Activities right now"
-msgstr "Právě probíhající aktivity"
+msgid "Events right now"
+msgstr "Právě probíhající události"
 
 #: ziscz/web/templates/web/landing.html:12
 msgid "Zoological information system"

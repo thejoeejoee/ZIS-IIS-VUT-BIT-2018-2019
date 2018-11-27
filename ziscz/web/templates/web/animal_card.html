@@ -1,7 +1,7 @@
 {% load i18n staticfiles %}
 
 <div class="card mx-2">
-    <a href="{% url "animal_detail" animal.pk %}" class="card-header">
+    <a {% if perms.core.change_animal %}href="{% url "animal_detail" animal.pk %}"{% endif %} class="card-header">
         {{ animal.name }}
         <small class="float-right">
             {% if animal.type_animal.icon %}
@@ -43,7 +43,7 @@
         {# style="color: {{ animal.actual_enclosure.enclosure_color }}" #}>
         <img src="{% static "img/icons/location-pointer.svg" %}" alt="{% trans "Enclosure detail" %}" width="20" class="svg">
         {% if animal.actual_enclosure %}
-            <a href="{% url 'enclosure_detail' animal.actual_enclosure.pk %}" class="link-keep-color">{{ animal.actual_enclosure }}</a>
+            <a {% if perms.core.change_enclosure %}href="{% url 'enclosure_detail' animal.actual_enclosure.pk %}" {% endif %} class="link-keep-color">{{ animal.actual_enclosure }}</a>
         {% else %}
             -
         {% endif %}

@@ -33,11 +33,11 @@
         name: "App",
         components: {AnimalList},
         computed: {
-            ...mapState(['enclosures']),
+            ...mapState(['enclosures', 'can_change_enclosure']),
         },
         methods: {
             url(enclosure) {
-                return reverse('enclosure_detail', enclosure.id);
+                return this.can_change_enclosure ? reverse('enclosure_detail', enclosure.id) : undefined;
             },
         }
     }

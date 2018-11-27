@@ -1,6 +1,8 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+import json
+
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -58,8 +60,14 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCont
     model = Person
 
     def form_valid(self, form):
-        super(PersonCreateView, self).form_valid(form=form)
-        password = get_user_model().make_random_password()
+        resp = super(PersonCreateView, self).form_valid(form=form)
+        password = get_user_model().objects.make_random_password()
         user = form.instance.user  # type: AbstractUser
         user.set_password(raw_password=password)
-        messages.success(self.request, _('User was created, username is {}.').format(user.username))
+        user.save()
+        messages.success(
+            self.request,
+            _('User was created, login credentials are {} {}.').format(user.username, password),
+            extra_tags=json.dumps(dict(timeout=0, infinite=True))
+        )
+        return resp

@@ -32,6 +32,7 @@ export default function create(initial) {
             ...{
                 enclosures: [],
                 can_change_animal: false,
+                can_change_enclosure: false,
             },
             ...initial,
         },
@@ -44,6 +45,7 @@ export default function create(initial) {
                     ...{
                         enclosures: [],
                         can_change_animal: false,
+                        can_change_enclosure: false,
                     },
                     ...initial,
                 });

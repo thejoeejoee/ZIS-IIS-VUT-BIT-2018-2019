@@ -5,7 +5,7 @@
                 <img :src="'/static/img/icons/animals/' + animal.type_animal_icon" :alt="animal.type_animal" width="25">
                 {{ animal.type_animal }}
                 <strong>{{ animal.name }}</strong>
-                <span class="float-right handle" v-if="true" style="cursor: grab">&leftrightarrows;</span>
+                <span class="float-right handle" v-if="can_change_animal" style="cursor: grab">&leftrightarrows;</span>
             </li>
             <div slot="footer" style="height: 1em;"></div>
         </draggable>

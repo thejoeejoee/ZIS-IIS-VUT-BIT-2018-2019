@@ -12,7 +12,9 @@
             {% if type_animal %}
                 <span class="small text-gray">({{ type_animal }})</span>
             {% endif %}
-            <a href="{% url 'animal_create' %}" class="btn btn-success" title="{% trans "Add new animal" %}">+</a>
+            {% if perms.core.add_animal %}
+                <a href="{% url 'animal_create' %}" class="btn btn-success" title="{% trans "Add new animal" %}">+</a>
+            {% endif %}
         </span>
         <span class="flex-fill image-filter text-right">
             {% for tp in type_animal_list %}

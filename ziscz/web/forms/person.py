@@ -100,12 +100,18 @@ class PersonForm(BaseModelForm):
         instance = super().save(commit=commit)  # type: Person
         if not self.updating:
             user_model = get_user_model()  # type: AbstractUser
+            base_username = slugify('.'.join(map(str, (
+                instance.last_name,
+                instance.first_name,
+            ))))
+            username = base_username
+            i = 1
+            while user_model.objects.filter(username=username).exists():
+                username = '{}.{}'.format(base_username, i)
+                i += 1
+
             user = user_model.objects.create_user(
-                username=slugify(''.join(map(str, (
-                    instance.last_name,
-                    instance.first_name,
-                    instance.birth_date.year,
-                )))),
+                username=username,
                 last_name=instance.last_name,
                 first_name=instance.first_name,
             )

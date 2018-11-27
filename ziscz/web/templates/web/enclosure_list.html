@@ -10,7 +10,9 @@
 {% block content %}
     <h1>
         {% trans "Enclosures" %}
-        <a class="btn btn-success" href="{% url "enclosure_create" %}">+</a>
+        {% if perms.core.add_enclosure %}
+            <a class="btn btn-success" href="{% url "enclosure_create" %}">+</a>
+        {% endif %}
     </h1>
     <hr>
     <div id="enclosure-list"></div>
