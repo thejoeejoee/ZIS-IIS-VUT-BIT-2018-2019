@@ -5,6 +5,7 @@ from datetime import timedelta
 from typing import Optional
 
 from crispy_forms.layout import Layout, Row, Div, HTML
+from django.db.models import QuerySet
 from django.forms import Textarea
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
@@ -14,7 +15,8 @@ from ziscz.core.forms.crispy import Col
 from ziscz.core.forms.fields import DateRangeField, BooleanSwitchField
 from ziscz.core.forms.widgets.datepicker import DateTimePickerInput
 from ziscz.core.forms.widgets.duration import DurationPickerWidget
-from ziscz.core.forms.widgets.select2 import PersonSelectWidget, AnimalMultipleSelectWidget
+from ziscz.core.forms.widgets.select2 import AnimalMultipleSelectWidget, \
+    PersonWithQualificationSelectWidget
 from ziscz.core.models import Feeding, Animal, FeedingAnimal, Person
 from ziscz.core.utils.m2m import update_m2m
 
@@ -43,12 +45,13 @@ class FeedingForm(BaseModelForm):
                 }
             ),
             'note': Textarea(attrs=dict(rows=2)),
-            'executor': PersonSelectWidget(),
+            'executor': PersonWithQualificationSelectWidget(),
             'length': DurationPickerWidget(),
             'date': DateTimePickerInput(),
         }
         help_texts = {
-            'animals': _('Only live animals, that could be feed by selected person, are displayed.')
+            'animals': _('Only live animals, that could be feed by selected person, are displayed.'),
+            'executor': _('Only persons with qualification to feed some animals are shown.'),
         }
 
     def __init__(self, *args, **kwargs):
@@ -120,6 +123,10 @@ class FeedingForm(BaseModelForm):
                         )
                     )
                     break
+        animals = data.get('animals')  # type: Optional[QuerySet]
+        if executor and animals:
+            if animals.exclude(type_animal__person_type_animal_type_animal__person=executor).exists():
+                self.add_error('animals', _('Selected some animals, that is selected executor not qualified to feed.'))
 
         return data
 

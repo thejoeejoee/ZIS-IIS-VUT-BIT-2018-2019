@@ -23,6 +23,10 @@ class PersonSelectWidget(ModelSelect2Widget):
     )
 
 
+class PersonWithQualificationSelectWidget(PersonSelectWidget):
+    queryset = PersonSelectWidget.model.objects.filter(person_type_animal_person__isnull=False)
+
+
 class EnclosureSelectWidget(ModelSelect2Widget):
     model = Enclosure
     search_fields = (
