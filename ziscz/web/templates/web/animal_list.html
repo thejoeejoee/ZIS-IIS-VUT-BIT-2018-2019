@@ -28,22 +28,26 @@
             {% endfor %}
         </span>
     </h1>
-    <hr>
-    <div class="row no-gutters justify-content-around">
-        {% for animal in object_list %}
-            <div class="col-12 col-md-6 col-md-4 col-xl-3 mb-3">
-                {% include "web/animal_card.html" with animal=animal %}
-                {% if forloop.counter|divisibleby:3 %}
-                    <div class="clearfix d-block w-100"></div>
+    {% if object_list %}
+        <hr>
+        <div class="row no-gutters justify-content-around">
+            {% for animal in object_list %}
+                <div class="col-12 col-md-6 col-md-4 col-xl-3 mb-3">
+                    {% include "web/animal_card.html" with animal=animal %}
+                    {% if forloop.counter|divisibleby:3 %}
+                        <div class="clearfix d-block w-100"></div>
+                    {% endif %}
+                </div>
+            {% empty %}
+                {% if not dead_animals.exists %}
+                    <div class="col-3 text-center">
+                        <img src="{% static "img/icons/animals/081-moon-sad.svg" %}" alt="{% trans "No animals found." %}" class="svg w-100">
+                        <h2 class="d-inline-block pt-3">{% trans "No animals found." %}</h2>
+                    </div>
                 {% endif %}
-            </div>
-        {% empty %}
-            <div class="col-3 text-center">
-                <img src="{% static "img/icons/animals/081-moon-sad.svg" %}" alt="{% trans "No animals found." %}" class="svg w-100">
-                <h2 class="d-inline-block pt-3">{% trans "No animals found." %}</h2>
-            </div>
-        {% endfor %}
-    </div>
+            {% endfor %}
+        </div>
+    {% endif %}
     {% if dead_animals.exists %}
         <hr>
         <div class="row no-gutters justify-content-around bg-gray-light pt-3">
