@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from datetime import timedelta
 from typing import Iterable, Optional
+from uuid import uuid4, UUID
 
 from crispy_forms.layout import Layout, Row, Div, HTML
 from django.db.transaction import atomic
@@ -76,16 +77,14 @@ class CleaningForm(BaseModelForm):
 
         enclosure = self.fields['enclosure'].initial or (
             Enclosure.objects.filter(
-                pk=self.initial.get('enclosure').pk
+                pk=self.initial.get('enclosure')
             ).first()
-            if self.initial.get('enclosure')
-            else None
+            if isinstance(self.initial.get('enclosure'), UUID)
+            else self.initial.get('enclosure')
         )  # type: Optional[Enclosure]
 
         if enclosure:
-            self.initial.update(dict(
-                length=enclosure.min_cleaning_duration.total_seconds(),
-            ))
+            self.fields['length'].initial = enclosure.min_cleaning_duration.total_seconds()
 
     def clean(self):
         data = super().clean()
