@@ -74,8 +74,14 @@ class CleaningForm(BaseModelForm):
             for f in ('date', 'length', 'executors', 'enclosure'):
                 self.fields[f].disabled = True
 
-        enclosure = self.fields['enclosure'].initial or Enclosure.objects.filter(
-            pk=self.initial.get('enclosure')).first()  # type: Optional[Enclosure]
+        enclosure = self.fields['enclosure'].initial or (
+            Enclosure.objects.filter(
+                pk=self.initial.get('enclosure').pk
+            ).first()
+            if self.initial.get('enclosure')
+            else None
+        )  # type: Optional[Enclosure]
+
         if enclosure:
             self.initial.update(dict(
                 length=enclosure.min_cleaning_duration.total_seconds(),
