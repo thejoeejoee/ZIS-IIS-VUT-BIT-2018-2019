@@ -5,5 +5,46 @@
 {# TODO: show done events #}
 {# TODO: show work stats #}
 {# TODO: show favourite animals? #}
-{% load i18n utils %}
+{% load i18n utils staticfiles %}
 
+{% block second_col %}
+    <div class="col small">
+        {% if object.possible_enclosures_to_clean.exists %}
+            <div class="card mb-3">
+                <div class="card-header d-flex align-items-center">
+                    <span class="flex-fill">{% trans "Possible enclosures to clean" %}</span>
+                    <span class="">{% trans "New cleaning" %}</span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for enclosure in object.possible_enclosures_to_clean.all %}
+                        <li class="list-group-item d-flex align-items-center">
+                            <a href="{% url "enclosure_detail" enclosure.pk %}" class="flex-fill">{{ enclosure }}</a>
+                            <a href="{% url "cleaning_create" %}?enclosure={{ enclosure.pk }}&executor={{ object.pk }}" class="btn btn-sm btn-outline-info" title="{% trans "Plan new cleaning" %}">
+                                <img src="{% static "img/icons/duster.svg" %}" alt="{% trans "Cleaning" %}" width="20">
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        {% if object.possible_animals_to_feed.exists %}
+            <div class="card mb-3">
+                <div class="card-header d-flex align-items-center">
+                    <span class="flex-fill">{% trans "Possible animals to feed" %}</span>
+                    <span class="">{% trans "New feeding" %}</span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    {% for animal in object.possible_animals_to_feed.all %}
+                        <li class="list-group-item d-flex align-items-center">
+                            <a href="{% url "animal_detail" animal.pk %}" class="flex-fill">{{ animal }}</a>
+                            <a href="{% url "feeding_create" %}?animal={{ animal.pk }}&executor={{ object.pk }}" class="btn btn-sm btn-outline-warning" title="{% trans "Plan new feeding" %}">
+                                <img src="{% static "img/icons/apple.svg" %}" alt="{% trans "Feeding" %}" width="20">
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}

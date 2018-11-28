@@ -7,11 +7,14 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.contrib.auth.models import AbstractUser
+from django.db.models import Count, F
+from django.db.transaction import atomic
 from django.urls import reverse_lazy
-from django.utils.translation import ugettext as _
+from django.utils import timezone
+from django.utils.translation import ugettext as _, ungettext
 from django.views.generic import ListView, UpdateView, CreateView
 
-from ziscz.core.models import Person, TypeRole
+from ziscz.core.models import Person, TypeRole, Cleaning
 from ziscz.core.utils.utils import get_object_or_none
 from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.person import PersonForm
@@ -50,6 +53,66 @@ class PersonDetailView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCont
     form_class = PersonForm
     success_url = reverse_lazy('person_list')
     queryset = Person.objects.select_related('user')
+
+    @atomic
+    def form_valid(self, form):
+        resp = super().form_valid(form)
+
+        person = self.get_object()  # type: Person
+
+        feedings_to_remove = person.feeding_executor.filter(
+            date__gt=timezone.now(),
+            done=False,
+        ).exclude(
+            feeding_animal_feeding__animal__type_animal__in=person.trained_type_animals.all(),
+        )
+        if feedings_to_remove.exists():
+            messages.warning(
+                self.request,
+                ungettext(
+                    'Following feeding was deleted due to person qualification lost: {}.',
+                    'Following feedings were deleted due to person qualification lost: {}.',
+                    feedings_to_remove.count(),
+                ).format(', '.join(map(str, feedings_to_remove))),
+            )
+            feedings_to_remove.delete()
+
+        person_cleanings_to_remove = person.cleaning_person_person.filter(
+            cleaning__date__gt=timezone.now(),
+            cleaning__done=False,
+        ).exclude(
+            cleaning__enclosure__type_enclosure__in=person.trained_type_enclosures.all(),
+        )
+        if person_cleanings_to_remove.exists():
+            corresponding_cleanings = Cleaning.objects.filter(
+                pk__in=person_cleanings_to_remove.values_list('cleaning__pk', flat=True)
+            )
+            messages.warning(
+                self.request,
+                ungettext(
+                    'From following cleaning was deleted person assignment due to person qualification lost: {}.',
+                    'From following cleanings were deleted person assignment due to person qualification lost: {}.',
+                    corresponding_cleanings.count(),
+                ).format(', '.join(map(str, corresponding_cleanings))),
+            )
+            person_cleanings_to_remove.delete()
+
+            cleanings_to_remove = Cleaning.objects.annotate(
+                cleaners_count=Count('cleaning_person_cleaning__person')
+            ).filter(
+                cleaners_count__lt=F('enclosure__min_cleaners_count')
+            )
+            if cleanings_to_remove.exists():
+                messages.warning(
+                    self.request,
+                    ungettext(
+                        'Following cleaning was deleted due to small executors count: {}.',
+                        'Following cleanings were deleted due to small executors count: {}.',
+                        cleanings_to_remove.count(),
+                    ).format(', '.join(map(str, cleanings_to_remove))),
+                )
+                cleanings_to_remove.delete()
+        return resp
 
 
 class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, CreateView):

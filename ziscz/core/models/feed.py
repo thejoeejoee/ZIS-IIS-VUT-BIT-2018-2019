@@ -46,9 +46,8 @@ class Feeding(BaseEventModel):
 
     note = models.TextField(null=True, blank=True, verbose_name=_('Note'), )
 
-    amount = models.CharField(
-        max_length=128,
-        help_text=_('Amount of feed, etc. 1 kg, 1 l or 20 pieces.'),
+    amount = models.FloatField(
+        help_text=_('Amount of feed.'),
         verbose_name=_('Amount'),
     )
 

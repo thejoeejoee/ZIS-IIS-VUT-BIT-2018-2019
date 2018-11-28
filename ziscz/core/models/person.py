@@ -7,6 +7,7 @@ from django.db import models
 from django.db.models import Q, F, DateTimeField, ExpressionWrapper, QuerySet
 from django.db.models.constants import LOOKUP_SEP
 from django.utils.datetime_safe import datetime
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext as _
 
 from .base import BaseModel, BaseTypeModel
@@ -93,5 +94,18 @@ class Person(BaseModel):
         from ziscz.core.models import Cleaning
         return feeding_conflict, Cleaning.objects.filter(pk__in=cleaning_conflict.values_list('cleaning_id'))
 
+    @cached_property
+    def possible_enclosures_to_clean(self):
+        from ziscz.core.models import Enclosure
+        return Enclosure.objects.filter(
+            type_enclosure__id__in=self.trained_type_enclosures.all().values_list('pk', flat=True)
+        )
+
+    @cached_property
+    def possible_animals_to_feed(self):
+        from ziscz.core.models import Animal
+        return Animal.objects.filter(
+            type_animal__id__in=self.trained_type_animals.all().values_list('pk', flat=True)
+        )
 
 __all__ = ["TypeRole", "Person"]
