@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-11-28 03:50+0100\n"
-"PO-Revision-Date: 2018-11-27 15:18+0100\n"
+"PO-Revision-Date: 2018-11-28 13:14+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -313,7 +313,7 @@ msgstr "Osoby"
 
 #: ziscz/core/templates/core/forms/form.html:10
 msgid "New record"
-msgstr ""
+msgstr "Nový záznam"
 
 #: ziscz/core/templates/core/forms/form.html:21
 msgid "back"
@@ -333,7 +333,7 @@ msgstr "Uložit"
 
 #: ziscz/core/views/delete.py:11
 msgid "Object {} was deleted."
-msgstr ""
+msgstr "Objekt {} byl smazán."
 
 #: ziscz/core/views/forms.py:9
 #, python-brace-format
@@ -369,40 +369,34 @@ msgid "Executor {} has not time in filled date and duration - he has {}."
 msgstr "Vykonavatel {} nemá čas v zadaném datumu a trvání - má {}."
 
 #: ziscz/web/forms/feeding.py:53
-#, fuzzy
-#| msgid "Only animals, that could be feed by selected person, are displayed."
 msgid ""
 "Only live animals, that could be feed by selected person, are displayed."
 msgstr ""
-"Jsou zobrazena pouze zvířata, která mohou být nakrmena vybranou osobou."
+"Jsou zobrazena pouze živá zvířata, která mohou být nakrmena vybranou osobou."
 
 #: ziscz/web/forms/feeding.py:54
 msgid "Only persons with qualification to feed some animals are shown."
-msgstr ""
+msgstr "Pouze osoby se školením mohou krmit zobrazená zvířata."
 
 #: ziscz/web/forms/feeding.py:129
-#, fuzzy
-#| msgid "Type animals that person is qualified for to feed."
 msgid "Selected some animals, that is selected executor not qualified to feed."
-msgstr "Typy zvířat, které je daná osoba vyškolena krmit."
+msgstr "Vybrána zvířata, pro která vykonavatel není vyškolen na krmení."
 
 #: ziscz/web/forms/person.py:23
 msgid "Is active"
-msgstr ""
+msgstr "Je aktivní"
 
 #: ziscz/web/forms/person.py:23
 msgid "Can user log in?"
-msgstr ""
+msgstr "Může se uživatel přihlásit?"
 
 #: ziscz/web/forms/person.py:79
 msgid "Groups"
 msgstr "Skupiny"
 
 #: ziscz/web/forms/person.py:149
-#, fuzzy
-#| msgid "Cannot set death date in future."
 msgid "Cannot set birth date to future."
-msgstr "Nemůže nastavit datum úmrtí v budoucnu."
+msgstr "Nelze nastavit datum narození v budoucnu."
 
 #: ziscz/web/templates/403.html:6 ziscz/web/templates/403.html:7
 msgid "Access denied."
@@ -480,14 +474,12 @@ msgid "Password reset"
 msgstr "Obnovení hesla"
 
 #: ziscz/web/templates/web/animal_card.html:14
-#, fuzzy
-#| msgid "Type animal"
 msgid "Delete anima"
-msgstr "Typ zvířete"
+msgstr "Smazat zvíře"
 
 #: ziscz/web/templates/web/animal_card.html:15
 msgid "delete"
-msgstr ""
+msgstr "smazat"
 
 #: ziscz/web/templates/web/animal_card.html:22
 msgid "Parents"
@@ -554,22 +546,20 @@ msgid "administration"
 msgstr "administrace"
 
 #: ziscz/web/templates/web/calendar.html:47
-#, fuzzy
-#| msgid ""
-#| "In standard calendar view (week/month) you can move actions in time or "
-#| "beetween days. TODO"
 msgid ""
 "In standard calendar view (week/month) you can move actions in time or "
 "beetween days."
 msgstr ""
-"Ve standardní zobrazení kalendáře (týden/měsíc) můžete posouvat akce v čas "
-"nebo mezi dny. TODO"
+"Ve standardní zobrazení kalendáře (týden/měsíc) můžete posouvat akce v čase "
+"nebo mezi dny."
 
 #: ziscz/web/templates/web/calendar.html:48
 msgid ""
 "For week view are displayed only times between 6:00 and 21:00 for better "
 "understanding."
 msgstr ""
+"Pro týdenní zobrazení jsou zobrazeny pouze časy mezi 6:00 a 21:00 pro větší "
+"přehlednost."
 
 #: ziscz/web/templates/web/cleaning_planning_note.html:4
 msgid ""
@@ -670,19 +660,19 @@ msgstr "Zoologický informační systém"
 
 #: ziscz/web/templates/web/object_delete.html:9
 msgid "Delete confirm"
-msgstr ""
+msgstr "Potvrdit smazání"
 
 #: ziscz/web/templates/web/object_delete.html:10
 msgid "Are you sure to delete "
-msgstr ""
+msgstr "Opravdu chcete smazat"
 
 #: ziscz/web/templates/web/object_delete.html:11
 msgid "This action cannot be undone."
-msgstr ""
+msgstr "Tato akce nemůže být nehotová."
 
 #: ziscz/web/templates/web/object_delete.html:15
 msgid "Yes, I am sure."
-msgstr ""
+msgstr "Ano, chci."
 
 #: ziscz/web/templates/web/person_list.html:18
 msgid "Avatar"

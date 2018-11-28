@@ -1,0 +1,170 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
+    <title>Projekt IIS</title>
+    <style type="text/css">
+        html {
+            font-family: "BryantProRegular", 'Helvetica Neue', helvetica, arial, sans-serif, "Helvetica Neue";
+        }
+
+        body {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        table {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            border: 1px solid black;
+            padding: 0.3em 0.5em;
+            text-align: left;
+        }
+
+        dt {
+            font-weight: bold;
+            margin-top: 0.5em;
+        }
+
+        img {
+            max-width: 100%;
+            padding: 5px;
+            border: 2px solid gray;
+        }
+
+        code {
+            color: #a965d1;
+            background-color: #a965d110;
+            font-weight: bold;
+            padding: 2px;
+            display: inline-block;
+        }
+
+        pre {
+            color: #a965d1;
+        }
+
+        p {
+            text-align: justify;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Zkontrolujte prosím nastavení kódování v hlavičce dokumentu 
+     podle použitého editoru -->
+
+<h1>Správa ZOO</h1>
+
+<dl>
+    <dt>Autoři</dt>
+    <dd>Josef Kolář
+        <a href="mailto:xkolar71@stud.fit.vutbr.cz">xkolar71@stud.fit.vutbr.cz</a> -
+        architektura, modelová vrstva, dynamické komponenty, produkční nasazení
+    </dd>
+    <dd>Iva Kavánková
+        <a href="mailto:xkavan05@stud.fit.vutbr.cz">xkavan05@stud.fit.vutbr.cz</a> -
+        textace, uživatelské formuláře, testování
+    </dd>
+    <dd>Son Hai Nguyen
+        <a href="mailto:xnguye16@stud.fit.vutbr.cz">xnguye16@stud.fit.vutbr.cz</a> -
+        vizuál, řídící vrstva, testování
+    </dd>
+    <dt>URL aplikace</dt>
+    <dd><a href="https://zis.josefkolar.cz/">https://zis.josefkolar.cz/</a></dd>
+</dl>
+
+<h2>Uživatelé systému pro testování</h2>
+<p>Uveďte prosím existující zástupce <strong>všech rolí uživatelů</strong>.</p>
+<table>
+    <tr>
+        <th>Login</th>
+        <th>Heslo</th>
+        <th>Role</th>
+    </tr>
+    <tr>
+        <td>admin</td>
+        <td>Zadmin</td>
+        <td>Administrátor</td>
+    </tr>
+</table>
+<h2>Diagram případů užití</h2>
+<div>
+    <a href="./use-case.png"><img src="./use-case.png" alt="Use case"></a>
+</div>
+<h2>Implementace</h2>
+<p>
+    Vzhledem k implementaci v frameworku <i>Django</i> je struktura a architektura projektu navrhnuta dle doporučovaných
+    konvencí v tomto nástroji. S využitím návrhového vzoru MVC jsou v projektu odděleny zodpovědnosti jednotlivých
+    vrstev.
+    Dále budou popsány jednotlivé vrstvy a jejich funkce v rámci jednotlivých případů užití plynoucích ze zadání.
+</p>
+<h3>Modelová vrstva</h3>
+<p>
+    Modelová vrstva obsahuje kompletní definici datové struktury systému, tedy třídy jako potomky
+    <code>django.db.models.Model</code> reprezentující entitiní množinu z pohledu ER <i>(dále jen Modely)</i>
+    - existují tedy základní modely jako <code>Animals</code>, <code>Person</code>,
+    <code>Enclosure</code> či <code>Feeding</code>, resp. <code>Cleaning</code>. Mezi těmito základními modely jsou
+    poté navázané různé relační modely, například přiřazení osoby k čištění <code>CleaningPerson</code> či <code>AnimalStay</code>,
+    jakožto model reprezentující zařazení zvířete ve výběhu. Definice všech modelů, jakožto tříd, jsou umístěny
+    strukturovaně v balíčku <code>ziscz/core/models/</code>.
+</p>
+<p>
+    Jednotlivé atributy modelů (entitních množin) jsou nejčastěji definovány společně se svými datovými omezeními, tedy
+    např. pro délku čištění/krmení je definován atribut <code>length</code> přímo s validátorem na minimální délku
+    trvání 15 minut, stejně jako se svou výchozí hodnotou a přeloženým popiskem pro další použití:
+</p>
+<pre>
+length = models.<strong>DurationField</strong>(
+    verbose_name=<strong>_('Length')</strong>,
+    validators=[<strong>MinValueValidator(timedelta(minutes=15))</strong>],
+    default=<strong>timedelta(minutes=15)</strong>,
+)
+</pre>
+<p>
+    Takto definované atributy díky frameworku Django zajištují i validace na úrovni formulářů, o kterých bude zmínka
+    dále.
+</p>
+<p>
+    Taktéž tento framework zajištuje verzování databázového schématu pomocí migrací, tedy i multiplatformost z hlediska
+    SŘBD včetně generování skriptů v jazyce SQL pro úpravu schématu - to vše pro konzistentní chování objektově
+    relačního mapováním nad definovanými modely. Níže jejich struktura: <i>(pro přehlednost nejsou zahrnuty číselníkové
+    modely, jako je typ role osoby, zvířete či výběhu)</i>.
+</p>
+
+<div>
+    <a href="./models.png"><img src="./models.png" alt="Modely"></a>
+</div>
+
+
+<h3>Prezentační vrstva</h3>
+<p>
+    Prezentační vrstva se z pohledu použitého frameworku zúžuje především na šablony v šablonovacím jazyce <i>Django
+    Templates</i> - v zásadě není tento jazyk omezený na generování konkrétního jazyka, v případě tohoto projektu je
+    ovšem generováno standardní HTML. V projektu jsou šablony umístěny ve složkách s příznačným názvem
+    <code>templates/</code>.
+</p>
+<p>
+    S prezentační vrstou jsou spjaty veškeré formuláře pro vytváření a úpravu jednotlivých entit v systému. Díky frameworku je
+    s pomocí třídy <code>django.forms.ModelForm</code> možno tyto formuláře přímo generovat z definice jednotlivých modelů.
+    Z pohledu případů užití jsou pomocí těchto formulářů splněny případy užití
+</p>
+
+
+<h2>Instalace</h2>
+<ul>
+    <li>Stručně popište postup instalace na server</li>
+    <li>Softwarové požadavky (verze PHP apod.)</li>
+    <li>Jak rozbalit, konfigurovat, inicializovat databází, ...</li>
+</ul>
+
+<h2>Známé problémy</h2>
+<p>Zde popište, které body zadání (IDS a IIS) nejsou implementovány a z jakého důvodu. Např. &bdquo;Z časových důvodů
+    nebyla implementována správa uživatelů.&rdquo; Pomůžete tím zrychlit opravování, když neimplementované funkce
+    nebudeme muset dlouze hledat.</p>
+
+</body>
+</html>
