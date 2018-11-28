@@ -2,8 +2,7 @@
 from __future__ import unicode_literals
 
 from datetime import timedelta
-from typing import Iterable
-from typing import Optional
+from typing import Iterable, Optional
 
 from crispy_forms.layout import Layout, Row, Div, HTML
 from django.db.transaction import atomic
@@ -57,6 +56,7 @@ class CleaningForm(BaseModelForm):
         if not self.updating:
             self.fields['date'].required = False
             self.fields['date'].disabled = True
+
         self.helper.layout = Layout(
             'enclosure',
             'executors',
@@ -85,7 +85,7 @@ class CleaningForm(BaseModelForm):
         data = super().clean()
 
         enclosure = data.get('enclosure')  # type: Enclosure
-        executors = data.get('executors') # type: Iterable[Person]
+        executors = data.get('executors')  # type: Iterable[Person]
         if enclosure:
             if len(executors) < enclosure.min_cleaners_count:
                 self.add_error(

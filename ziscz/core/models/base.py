@@ -4,6 +4,7 @@ from datetime import timedelta
 from typing import Iterable
 from uuid import uuid4
 
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.urls import reverse
 from django.utils.timezone import localtime
@@ -60,7 +61,11 @@ class BaseEventModel(BaseModel):
         verbose_name=_('Date'),
         help_text=_('Planned start of cleaning.')
     )
-    length = models.DurationField(verbose_name=_('Length'), )
+    length = models.DurationField(
+        verbose_name=_('Length'),
+        validators=[MinValueValidator(timedelta(minutes=15))],
+        default=timedelta(minutes=15),
+    )
     done = models.BooleanField(default=False, verbose_name=_('Is done?'))
 
     PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE = PERMISSION_CAN_MARK_OWN_EVENT_AS_DONE
