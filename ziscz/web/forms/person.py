@@ -7,6 +7,7 @@ from django.contrib.auth.models import AbstractUser, Group
 from django.db.transaction import atomic
 from django.forms import Textarea
 from django.utils.text import slugify
+from django.utils.timezone import localdate
 from django.utils.translation import ugettext as _
 
 from ziscz.core.forms.base import BaseModelForm
@@ -141,4 +142,10 @@ class PersonForm(BaseModelForm):
         return instance
 
     def clean(self):
-        return super().clean()
+        data = super().clean()
+
+        birth = data.get('birth_date')
+        if birth and birth > localdate():
+            self.add_error('birth_date', _('Cannot set birth date to future.'))
+
+        return data
