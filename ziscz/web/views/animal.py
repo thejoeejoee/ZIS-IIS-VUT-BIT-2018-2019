@@ -3,11 +3,12 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.db.models import Prefetch
+from django.db.transaction import atomic
 from django.urls import reverse_lazy
 from django.utils import timezone
 from django.views.generic import ListView, UpdateView, CreateView
 
-from ziscz.core.models import Animal, TypeAnimal, AnimalStay, FeedingAnimal
+from ziscz.core.models import Animal, TypeAnimal, AnimalStay, FeedingAnimal, Feeding
 from ziscz.core.utils.utils import get_object_or_none
 from ziscz.core.views.delete import DeleteView
 from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
@@ -90,3 +91,11 @@ class AnimalDeleteView(PermissionRequiredMixin, DeleteView):
     success_url = reverse_lazy('animal_list')
     model = Animal
     permission_required = 'core.delete_animal'
+
+    @atomic
+    def delete(self, request, *args, **kwargs):
+        feedings = tuple(Feeding.objects.filter(feeding_animal_feeding__animal=self.get_object()).values_list('id', flat=True))
+        resp = super().delete(request, *args, **kwargs)
+        Feeding.objects.filter(pk__in=feedings).filter(feeding_animal_feeding__isnull=True).delete()
+
+        return resp

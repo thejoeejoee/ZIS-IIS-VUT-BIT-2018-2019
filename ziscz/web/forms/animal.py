@@ -16,7 +16,11 @@ from ziscz.core.utils.m2m import update_m2m
 
 
 class AnimalForm(BaseModelForm):
-    animal_stay = ModelChoiceField(queryset=Enclosure.objects.all(), required=False)
+    animal_stay = ModelChoiceField(
+        queryset=Enclosure.objects.all(),
+        required=False,
+        label=_('Animal stay'),
+    )
 
     class Meta:
         model = Animal

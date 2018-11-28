@@ -37,7 +37,7 @@
                 </small>
             {% endblock form_card_footer_left %}
             <div class="btn-group float-right">
-                {% if form.save_and_continue_button %}
+                {% if form.save_and_continue_button and form.updating %}
                     <button type="submit" name="_save_and_continue" class="btn btn-outline-success">
                         {% block save_btn_continue_text %}
                             {% trans 'Save and stay' %}{% endblock save_btn_continue_text %}
