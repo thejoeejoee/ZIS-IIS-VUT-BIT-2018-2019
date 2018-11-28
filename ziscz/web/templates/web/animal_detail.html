@@ -46,7 +46,7 @@
                 </div>
             </div>
         {% endif %}
-        {% if object.type_animal.trained_persons.exists %}
+        {% if object.type_animal.trained_persons.exists and not animal.dead %}
             <div class="card mb-3">
                 <div class="card-header d-flex align-items-center">
                     <span class="flex-fill">{% trans "Qualified feeders" %}</span>

@@ -30,7 +30,7 @@ class FeedingCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCon
         kwargs = super().get_form_kwargs()
         if self.request.GET.get('animal'):
             kwargs.setdefault('initial', dict()).update(dict(
-                animals=get_list_or_404(Animal, pk=self.request.GET.get('animal'))
+                animals=get_list_or_404(Animal.live_animals, pk=self.request.GET.get('animal'))
             ))
         if self.request.GET.get('executor'):
             kwargs.setdefault('initial', dict()).update(dict(

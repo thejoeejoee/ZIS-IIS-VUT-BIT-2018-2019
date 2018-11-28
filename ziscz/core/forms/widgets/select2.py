@@ -38,6 +38,9 @@ class AnimalMultipleSelectWidget(ModelSelect2MultipleWidget):
         'type_animal__name__icontains',
     )
 
+    def get_queryset(self):
+        return self.model.live_animals.all()
+
 
 class AnimalSelectWidget(ModelSelect2Widget):
     model = Animal

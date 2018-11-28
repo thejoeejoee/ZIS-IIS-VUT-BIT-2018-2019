@@ -48,7 +48,7 @@ class FeedingForm(BaseModelForm):
             'date': DateTimePickerInput(),
         }
         help_texts = {
-            'animals': _('Only animals, that could be feed by selected person, are displayed.')
+            'animals': _('Only live animals, that could be feed by selected person, are displayed.')
         }
 
     def __init__(self, *args, **kwargs):
@@ -79,6 +79,8 @@ class FeedingForm(BaseModelForm):
         if self.instance.done:
             for f in ('executor', 'animals', 'amount', 'type_feed', 'length', 'date'):
                 self.fields[f].disabled = True
+
+        self.fields['animals'].queryset = Animal.live_animals.all()
 
     def clean(self):
         data = super().clean()
