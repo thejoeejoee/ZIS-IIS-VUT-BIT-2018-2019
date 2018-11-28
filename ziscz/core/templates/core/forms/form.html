@@ -7,10 +7,10 @@
         <div class="card-header">
             {% block title %}
                 {% if not form.updating %}
-                    {% trans "New" %}
-                {% endif %}
-                {% if form.instance %}
-                    {{ form.instance|get_verbose_name }}
+                    {% trans "New record" %} -
+                    {% if form.instance %}
+                        {{ form.instance|get_verbose_name }}
+                    {% endif %}
                 {% endif %}
                 {% if form.updating %}
                     {{ form.instance }}
