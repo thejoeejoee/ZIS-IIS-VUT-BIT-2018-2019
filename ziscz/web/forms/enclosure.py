@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from crispy_forms.layout import Layout, Row
-from django.forms import Textarea
+from django.forms import Textarea, NumberInput, IntegerField
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
@@ -11,6 +11,8 @@ from ziscz.core.models import Enclosure
 
 
 class EnclosureForm(BaseModelForm):
+    min_cleaners_count = IntegerField(widget=NumberInput(attrs=dict(min=1)))
+
     class Meta:
         model = Enclosure
         fields = (
@@ -24,7 +26,7 @@ class EnclosureForm(BaseModelForm):
 
         widgets = {
             'note': Textarea(attrs=dict(rows=3)),
-            'min_cleaning_duration': DurationPickerWidget()
+            'min_cleaning_duration': DurationPickerWidget(),
         }
 
     def __init__(self, *args, **kwargs):
@@ -41,6 +43,8 @@ class EnclosureForm(BaseModelForm):
                 Col('note'),
             ),
         )
+        if not self.updating:
+            self.fields['min_cleaners_count'].initial = 1
 
     def _save_m2m(self):
         pass

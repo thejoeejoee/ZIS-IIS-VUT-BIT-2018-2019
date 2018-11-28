@@ -3,6 +3,7 @@ import typing
 from typing import Iterable
 
 from colorful.fields import RGBColorField
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import QuerySet
 from django.utils import timezone
@@ -65,8 +66,13 @@ class Enclosure(BaseModel):
         verbose_name=_("Color")
     )
 
-    min_cleaning_duration = models.DurationField(verbose_name=_("Minimum cleaning duration"))
-    min_cleaners_count = models.PositiveIntegerField(verbose_name=_("Minimum cleaners count"))
+    min_cleaning_duration = models.DurationField(
+        verbose_name=_("Minimum cleaning duration")
+    )
+    min_cleaners_count = models.PositiveIntegerField(
+        verbose_name=_("Minimum cleaners count"),
+        validators=[MinValueValidator(1)]
+    )
 
     note = models.TextField(blank=True, null=True, verbose_name=_("Note"))
 
