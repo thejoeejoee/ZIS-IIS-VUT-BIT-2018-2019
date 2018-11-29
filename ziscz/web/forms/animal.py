@@ -68,7 +68,7 @@ class AnimalForm(BaseModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['occurrence_region'].required = False
-        self.fields['animal_stay'].initial = self.instance.actual_enclosure
+        self.fields['animal_stay'].initial = self.instance.actual_enclosure.pk if self.instance.actual_enclosure else None
 
         self.helper.layout = Layout(
             'name',
@@ -92,7 +92,7 @@ class AnimalForm(BaseModelForm):
             self.fields['parent1'].queryset = self.fields['parent2'].queryset = self.fields['parent1'].queryset.filter(
                 type_animal=self.instance.type_animal
             ).exclude(pk=self.instance.pk)
-            if self.instance.death_date and self.instance.death_date <= timezone.localdate():
+            if self.instance.death_date and self.instance.death_date <= timezone.now().date():
                 for f in self.DISABLED_ON_DEATH:
                     self.fields[f].disabled = True
         else:

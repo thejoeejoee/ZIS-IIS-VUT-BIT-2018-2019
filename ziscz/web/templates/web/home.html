@@ -49,6 +49,10 @@
                         {% endfor %}
                     </ul>
                 </div>
+            {% else %}
+                <div class="alert alert-block alert-info">
+                    {% trans "No events today - free day!" %}
+                </div>
             {% endif %}
         </div>
         <div class="col-4">

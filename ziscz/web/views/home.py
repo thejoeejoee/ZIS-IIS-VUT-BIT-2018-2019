@@ -1,9 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from datetime import time
 from operator import attrgetter
-from time import localtime
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
@@ -19,12 +17,15 @@ class HomeView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         data = super().get_context_data(**kwargs)
 
-        # TODO: fix users without person
-        q_cleaning, q_feeding = Q(), Q()
-        person = self.request.user.person_user
-        if not self.request.user.has_perms(('core.change_cleaning', 'core.change_feeding')):
+        person = None
+        if hasattr(self.request.user, 'person_user'):
+            person = self.request.user.person_user
+
+        if person and self.request.user.has_perms(('core.change_cleaning', 'core.change_feeding')):
             q_cleaning = Cleaning.objects.person_q(person=person)
             q_feeding = Feeding.objects.person_q(person=person)
+        else:
+            q_cleaning, q_feeding = Q(), Q()
 
         data.update(
             # actual_cleanings=Cleaning.objects.current(),

@@ -45,7 +45,7 @@ class AnimalListView(PermissionRequiredMixin, ListView):
 
         dead_q = Animal.live_animals.get_dead_filter()
         data.update(dict(
-            type_animal_list=TypeAnimal.objects.all(),
+            type_animal_list=TypeAnimal.objects.filter(animal_type_animal__isnull=False).distinct(),
             type_animal=type_animal,
             object_list=object_list.filter(~dead_q),
             dead_animals=object_list.filter(dead_q),
