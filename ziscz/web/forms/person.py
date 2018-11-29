@@ -140,6 +140,7 @@ class PersonForm(BaseModelForm):
             user.is_active = self.cleaned_data.get('is_active')
             user.save(update_fields=['is_active'])
 
+
         return instance
 
     def clean(self):

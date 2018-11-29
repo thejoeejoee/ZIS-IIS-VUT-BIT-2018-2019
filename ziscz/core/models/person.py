@@ -108,4 +108,5 @@ class Person(BaseModel):
             type_animal__id__in=self.trained_type_animals.all().values_list('pk', flat=True)
         )
 
+
 __all__ = ["TypeRole", "Person"]

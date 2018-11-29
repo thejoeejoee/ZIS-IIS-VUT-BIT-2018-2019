@@ -2,6 +2,7 @@
 from __future__ import unicode_literals
 
 import typing
+from datetime import time
 
 from django.db import models
 from django.db.models import QuerySet, ExpressionWrapper, F, DateTimeField, Q
@@ -29,7 +30,10 @@ class BaseEventQuerySet(models.QuerySet):
     def in_date(self, date=None) -> "BaseEventQuerySet":
         end_field = ExpressionWrapper(F('date') + F('length'), output_field=DateTimeField())
         date = date or timezone.localdate()
-        return self.annotate(end=end_field).filter(end__date=date)
+        return self.annotate(end=end_field).filter(
+            Q(date__date=date) |  # starts today
+            (Q(end__date=date) & ~Q(end__time=time())) # ends today, but not at 00:00
+        )
 
 
 class CleaningQuerySet(BaseEventQuerySet):
@@ -38,5 +42,5 @@ class CleaningQuerySet(BaseEventQuerySet):
 
 
 class FeedingQuerySet(BaseEventQuerySet):
-    def person_q(self, person: "Person") -> QuerySet:
+    def person_q(self, person: "Person") -> Q:
         return Q(executor=person)

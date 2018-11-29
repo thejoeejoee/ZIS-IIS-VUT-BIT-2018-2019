@@ -203,13 +203,13 @@ class TypeEnclosureTypeCleaningAccessory(BaseModel):
 class CleaningPerson(BaseModel):
     cleaning = models.ForeignKey(
         "core.Cleaning",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="cleaning_person_cleaning"
     )
 
     person = models.ForeignKey(
         "core.Person",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="cleaning_person_person"
     )
 

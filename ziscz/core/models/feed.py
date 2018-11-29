@@ -66,8 +66,8 @@ class Feeding(BaseEventModel):
         return _('{} by {} ({} {})').format(
             ', '.join(map(str, self.animals.all())),
             self.executor,
-            self.type_feed,
             self.amount,
+            self.type_feed,
         )
 
     def get_executors(self) -> Iterable["Person"]:

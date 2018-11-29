@@ -1,6 +1,7 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
+from datetime import time
 from operator import attrgetter
 from time import localtime
 
