@@ -1,0 +1,14 @@
+{% load i18n %}
+{% if form.errors %}
+    <div class="alert alert-block alert-danger">
+        {% trans "Please, check value in fields with errors below." %}
+    </div>
+{% endif %}
+{% if form.non_field_errors %}
+    <div class="alert alert-block alert-danger">
+        {% if form_error_title %}<h4 class="alert-heading">{{ form_error_title }}</h4>{% endif %}
+        <ul>
+            {{ form.non_field_errors|unordered_list }}
+        </ul>
+    </div>
+{% endif %}

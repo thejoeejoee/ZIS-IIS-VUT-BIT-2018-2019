@@ -6,7 +6,7 @@
     {% if form.updating %}
         {{ object }} |
     {% else %}
-        {% trans "New" %} {{ form.instance|get_verbose_name }} |
+        {% trans "New record" %} - {{ form.instance|get_verbose_name }} |
     {% endif %}
 {% endblock %}
 

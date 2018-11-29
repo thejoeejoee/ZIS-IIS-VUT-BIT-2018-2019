@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import json
 
+from braces.views import UserFormKwargsMixin
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import PermissionRequiredMixin
@@ -47,7 +48,8 @@ class PersonListView(PermissionRequiredMixin, ListView):
         return data
 
 
-class PersonDetailView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, UpdateView):
+class PersonDetailView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin,
+                       UserFormKwargsMixin, UpdateView):
     permission_required = 'core.view_person', 'core.edit_person'
     template_name = 'web/person_detail.html'
     form_class = PersonForm
@@ -115,7 +117,8 @@ class PersonDetailView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCont
         return resp
 
 
-class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin, CreateView):
+class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndContinueMixin,
+                       UserFormKwargsMixin, CreateView):
     permission_required = 'core.view_person', 'core.add_person'
     template_name = 'web/form_detail.html'
     form_class = PersonForm

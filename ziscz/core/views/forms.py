@@ -19,6 +19,6 @@ class SaveAndContinueMixin(object):
     KEY = '_save_and_continue'
 
     def get_success_url(self):
-        if self.KEY in self.request.POST:
+        if self.request.POST.get(self.KEY):
             return self.request.path
         return super().get_success_url()

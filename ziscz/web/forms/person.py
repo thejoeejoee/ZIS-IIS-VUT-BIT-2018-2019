@@ -1,11 +1,11 @@
 # coding=utf-8
 from __future__ import unicode_literals
 
-from crispy_forms.layout import Layout, Row, HTML
+from crispy_forms.layout import Layout, Row, HTML, Fieldset
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractUser, Group
+from django.contrib.auth.models import AbstractUser, Group, User
 from django.db.transaction import atomic
-from django.forms import Textarea
+from django.forms import Textarea, CharField, PasswordInput
 from django.utils.text import slugify
 from django.utils.timezone import localdate
 from django.utils.translation import ugettext as _
@@ -21,6 +21,17 @@ from ziscz.core.utils.m2m import update_m2m
 
 class PersonForm(BaseModelForm):
     is_active = BooleanSwitchField(label=_('Is active'), help_text=_('Can user log in?'), required=False, initial=True)
+
+    password1 = CharField(
+        label=_('Password'),
+        widget=PasswordInput,
+        required=False
+    )
+    password2 = CharField(
+        label=_('Password second'),
+        widget=PasswordInput,
+        required=False
+    )
 
     class Meta:
         model = Person
@@ -43,7 +54,8 @@ class PersonForm(BaseModelForm):
             'note': Textarea(attrs=dict(rows=3)),
         }
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user=None, *args, **kwargs):
+        self._user = user  # type: User
         super().__init__(*args, **kwargs)
 
         self.fields['trained_type_enclosures'].initial = TypeEnclosure.objects.filter(
@@ -72,6 +84,13 @@ class PersonForm(BaseModelForm):
                 Col('education'),
                 Col('note'),
             ),
+            Fieldset(
+                _('Password change'),
+                Row(
+                    Col('password1'),
+                    Col('password2'),
+                )
+            ) if self._user.has_perm('auth.change_user') and not self.updating else None,
             Row(
                 Col(HTML(': '.join((_('User'), str(self.instance.user))))) if self.instance.user else None,
                 Col(HTML(
@@ -80,7 +99,8 @@ class PersonForm(BaseModelForm):
                         ', '.join(map(str, self.instance.user.groups.all()))
                     ))
                 )) if self.instance.user else None,
-            )
+            ),
+
         )
 
     def _save_m2m(self):
@@ -103,9 +123,6 @@ class PersonForm(BaseModelForm):
 
     @atomic
     def save(self, commit=True):
-        # TODO: remove all planned cleanings, if person cannot perform them
-        # TODO: remove all planned feedings, if person cannot perform them
-
         instance = super().save(commit=commit)  # type: Person
         if not self.updating:
             user_model = get_user_model()  # type: AbstractUser
@@ -140,6 +157,10 @@ class PersonForm(BaseModelForm):
             user.is_active = self.cleaned_data.get('is_active')
             user.save(update_fields=['is_active'])
 
+        password = self.cleaned_data.get('password1')
+        if self._user.has_perm('auth.change_user') and password:
+            user.set_password(password)
+            user.save(update_fields=['password'])
 
         return instance
 
@@ -149,5 +170,11 @@ class PersonForm(BaseModelForm):
         birth = data.get('birth_date')
         if birth and birth > localdate():
             self.add_error('birth_date', _('Cannot set birth date to future.'))
+
+        password1 = data.get('password1')
+        password2 = data.get('password2')
+
+        if password1 and password1 != password2:
+            self.add_error('password2', _('Password does not match the first one.'))
 
         return data

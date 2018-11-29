@@ -22,21 +22,40 @@
                         </a>
                     </div>
                     <div class="card-body p-2 px-4">
-                        <div class="row small">
+                        <div class="row small no-gutters">
                             {% if person.trained_type_animals.exists %}
-                                <div class="col-12 {% if person.trained_type_enclosures.exists %}border-bottom border-gray{% endif %}" title="{% trans "Qualified type animals to feed" %}">
-                                    <img src="{% static "img/icons/apple.svg" %}" alt="{% trans "Qualified type animals to feed" %}" width="20" class="svg fill-primary m-2">
-                                    {% for ta in person.trained_type_animals.all %}
-                                        {{ ta }}{% if not forloop.last %}, {% endif %}
-                                    {% endfor %}
+                                <div class="col-12 no-gutters row {% if person.trained_type_enclosures.exists %}border-bottom border-gray{% endif %}" title="{% trans "Qualified type animals to feed" %}">
+                                    <div class="col-2">
+                                        <img
+                                            src="{% static "img/icons/apple.svg" %}"
+                                            alt="{% trans "Qualified type animals to feed" %}"
+                                            width="20"
+                                            class="svg fill-primary m-1"
+                                        >
+                                    </div>
+                                    <div class="col">
+
+                                        {% for ta in person.trained_type_animals.all %}
+                                            {{ ta }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             {% endif %}
                             {% if person.trained_type_enclosures.exists %}
-                                <div class="col-12" title="{% trans "Qualified type enclosures to clean" %}">
-                                    <img src="{% static "img/icons/duster.svg" %}" alt="{% trans "Qualified type enclosures to clean" %}" width="20" class="svg fill-primary m-2">
-                                    {% for te in person.trained_type_enclosures.all %}
-                                        {{ te }}{% if not forloop.last %}, {% endif %}
-                                    {% endfor %}
+                                <div class="col-12 no-gutters row" title="{% trans "Qualified type enclosures to clean" %}">
+                                    <div class="col-2">
+                                        <img
+                                            src="{% static "img/icons/duster.svg" %}"
+                                            alt="{% trans "Qualified type enclosures to clean" %}"
+                                            width="20"
+                                            class="svg fill-primary m-1"
+                                        >
+                                    </div>
+                                    <div class="col">
+                                        {% for te in person.trained_type_enclosures.all %}
+                                            {{ te }}{% if not forloop.last %}, {% endif %}
+                                        {% endfor %}
+                                    </div>
                                 </div>
                             {% endif %}
                         </div>
