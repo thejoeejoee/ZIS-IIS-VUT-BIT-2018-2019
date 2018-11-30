@@ -24,3 +24,7 @@ deploy-app:
 restart:
 	ssh josefkolar.cz systemctl restart ziscz.gunicorn.service;
 	ssh josefkolar.cz service nginx restart;
+
+
+pack:
+	zip -r xkavan05.zip ziscz/ doc/ webpack.config.js package.py setup.py

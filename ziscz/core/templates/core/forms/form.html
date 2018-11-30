@@ -29,11 +29,15 @@
         </div>
         <div class="card-footer">
             {% block form_card_footer_left %}
-                <small class="float-left font-italic" title="{{ form.instance.x_modified }}">
+                <small class="float-left font-italic small">
                     {% if form.updating %}
-                        {% trans "Last modified at" %} {{ form.instance.x_modified|naturaltime }}.
+                        <span title="{{ form.instance.x_created }}">
+                            {% trans "Created at" %} {{ form.instance.x_created|naturaltime }},
+                        </span>
+                        <span title="{{ form.instance.x_modified }}">
+                            {% trans "Last modified at"|lower %} {{ form.instance.x_modified|naturaltime }}.
+                        </span>
                     {% endif %}
-
                 </small>
             {% endblock form_card_footer_left %}
             <button type="submit" class="d-none"></button>

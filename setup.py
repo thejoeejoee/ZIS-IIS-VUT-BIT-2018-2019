@@ -7,7 +7,7 @@ from os.path import abspath, dirname
 
 from setuptools import find_packages
 
-__author__ = "Josef Kolář"
+__author__ = "Josef Kolář, Iva Kavánková, Son Hai Nguyen"
 
 if sys.version_info < (3, 5):
     print('Run in python >= 3.5 please.', file=sys.stderr)
@@ -20,8 +20,8 @@ def setup():
     core.setup(
         name='ziscz',
         version='1.0.0',
-        description='Package with website for local company.',
-        author='Josef Kolář',
+        description='Package with ZOO IS for VUT FIT.',
+        author=__author__,
         author_email='thejoeejoee@gmail.com',
         packages=find_packages(),
         install_requires=[
