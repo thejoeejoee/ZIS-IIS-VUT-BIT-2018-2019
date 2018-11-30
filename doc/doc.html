@@ -164,11 +164,16 @@ length = models.<strong>DurationField</strong>(
 </p>
 <p>
     S prezentaèní vrstou jsou spjaty ve¹keré formuláøe pro vytváøení a úpravu jednotlivıch entit v systému. Díky
-    frameworku je
-    s pomocí tøídy <code>django.forms.ModelForm</code> mo¾no tyto formuláøe pøímo generovat z definice jednotlivıch
-    modelù.
-    Z pohledu pøípadù u¾ití jsou pomocí tìchto formuláøù splnìny pøípady u¾ití tıkající se jednoduché úpravy
-    zvíøat/vıbìhù/osob, stejnì tak jako plánování èi¹tìní a krmení.
+    frameworku je s pomocí tøídy <code>django.forms.ModelForm</code> mo¾no tyto formuláøe pøímo generovat z definice
+    jednotlivıch modelù. Z pohledu pøípadù u¾ití jsou pomocí tìchto formuláøù splnìny pøípady u¾ití tıkající se
+    jednoduché úpravy zvíøat/vıbìhù/osob, stejnì tak jako plánování èi¹tìní a krmení.
+</p>
+<p>
+    Pro zjednodu¹ení u¾ivatelského rozhraní jsou pro nìkteré pøípady pou¾ití vyu¾ity komponenty v jazyce Javascript.
+    Pøedev¹ím se jedná o kalendáø (JS komonenta <code>FullCalendar</code>), kterı je díky této technologii schopen
+    zobrazovat dynamicky pøehledy jednotlivıch dnù, tıdnù i mìsícù a takté¾ pro u¾ivatele s dostateènımi právy umo¾nit
+    pøímé plánování jednotlivıch událostí - tedy editovat zaèátky a délky. Pro dynamické plánování opakovanıch událostí
+    a pøemístování zvíøat mezi vıbìhy jsou poté pou¾ity komponenty ve frameworku <code>Vue.js</code>.
 </p>
 
 
