@@ -163,22 +163,59 @@ length = models.<strong>DurationField</strong>(
     <code>templates/</code>.
 </p>
 <p>
-    S prezentaèní vrstou jsou spjaty ve¹keré formuláøe pro vytváøení a úpravu jednotlivých entit v systému. Díky frameworku je
-    s pomocí tøídy <code>django.forms.ModelForm</code> mo¾no tyto formuláøe pøímo generovat z definice jednotlivých modelù.
-    Z pohledu pøípadù u¾ití jsou pomocí tìchto formuláøù splnìny pøípady u¾ití
+    S prezentaèní vrstou jsou spjaty ve¹keré formuláøe pro vytváøení a úpravu jednotlivých entit v systému. Díky
+    frameworku je
+    s pomocí tøídy <code>django.forms.ModelForm</code> mo¾no tyto formuláøe pøímo generovat z definice jednotlivých
+    modelù.
+    Z pohledu pøípadù u¾ití jsou pomocí tìchto formuláøù splnìny pøípady u¾ití týkající se jednoduché úpravy
+    zvíøat/výbìhù/osob, stejnì tak jako plánování èi¹tìní a krmení.
 </p>
 
 
 <h2>Instalace</h2>
 <ul>
-    <li>Vzhledem k implementaci v jazyce Python 3 je doporuèeno vytvoøit virtuální prostøedí: <code>$ pyvenv .venv</code>.</li>
-    <li>Do aktivního prostøedí je následnì nutné nainstalovat project se v¹emi jeho závislostmi: <code>$ pip install .</code>.</li>
+    <li>
+        Pro vývoj jsou zapotøebí následující technologie/nástroje:
+        <ul>
+            <li><code>Python</code> ve verzi 3.5 èi vy¹¹í</li>
+            <li><code>PostgreSQL</code> 9.6 èi vy¹¹í <i>(alternativnì jiný SØBD, bez záruky MySQL ¹i SQLite)</i></li>
+            <li><code>npm</code> >= 6.1.0</li>
+            <li><code>node</code> >= 9.11.2</li>
+        </ul>
+        Pro produkèní pou¾ití jsou následnì doporuèovány slu¾by <code>gunicorn</code> a <code>nginx</code>.
+    </li>
+    <li>
+        Vzhledem k implementaci v jazyce Python 3 je doporuèeno vytvoøit virtuální prostøedí a aktivovat jej:
+        <code>$ pyvenv .venv && . .venv/bin/activate</code>.
+    </li>
+    <li>
+        Do aktivního prostøedí je následnì nutné nainstalovat projekt se v¹emi jeho závislostmi:
+        <code>$ pip install .</code>.
+    </li>
+    <li>
+        Poté nainstalovat i frontend závislosti projektu: <code>$ npm ci</code> a sestavit balíèky pro frontend:
+        <code>$ npm run build</code>.
+    </li>
+    <li>
+        Dle souboru s ¹ablonou pro Django nastavení <code>settings.py.template</code> vytvoøte soubor
+        <code>settings.py</code>, do kterého nastavte údaje pro pøipojení k databázi a vygenerujte náhodný klíè.
+    </li>
+    <li>
+        Inicializaci schématu databáze lze provést pomocí migrací, v aktivovaném virtuálním prostøedí:
+        <code>PYTHONPATH=. python ./ziscz/manage.py migrate</code>.
+    </li>
+    <li>
+        Následující pøíkaz poté spustí vývojáøský server
+        <code>PYTHONPATH=. python ./ziscz/manage.py runserver</code>.
+    </li>
 </ul>
 
 <h2>Známé problémy</h2>
-<p>Zde popi¹te, které body zadání (IDS a IIS) nejsou implementovány a z jakého dùvodu. Napø. &bdquo;Z èasových dùvodù
+<p>
+    Zde popi¹te, které body zadání (IDS a IIS) nejsou implementovány a z jakého dùvodu. Napø. &bdquo;Z èasových dùvodù
     nebyla implementována správa u¾ivatelù.&rdquo; Pomù¾ete tím zrychlit opravování, kdy¾ neimplementované funkce
-    nebudeme muset dlouze hledat.</p>
+    nebudeme muset dlouze hledat.
+</p>
 
 </body>
 </html>
