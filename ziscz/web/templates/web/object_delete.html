@@ -9,13 +9,17 @@
                 <h3>{% trans "Delete confirm" %}</h3>
                 <p class="lead">{% trans "Are you sure to delete " %} {{ object }}?</p>
                 <p class="font-italic">{% trans "This action cannot be undone." %}</p>
-                <form method="post">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger float-right">
-                        {% trans "Yes, I am sure." %}
-                    </button>
-                    <div class="clearfix"></div>
-                </form>
+                {% if can_perform_delete %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger float-right">
+                            {% trans "Yes, I am sure." %}
+                        </button>
+                        <div class="clearfix"></div>
+                    </form>
+                {% else %}
+                    <p>{% trans "This object cannot be deleted at this time." %}</p>
+                {% endif %}
             </div>
         </div>
     </div>

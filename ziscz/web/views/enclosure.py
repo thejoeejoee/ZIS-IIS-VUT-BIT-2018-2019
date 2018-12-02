@@ -7,6 +7,7 @@ from django.views.generic import ListView, UpdateView, CreateView
 
 from ziscz.core.models import Enclosure
 from ziscz.core.serializers import EnclosureSerializer
+from ziscz.core.views.delete import DeleteView
 from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.enclosure import EnclosureForm
 
@@ -25,6 +26,7 @@ class EnclosureListView(PermissionRequiredMixin, ListView):
             enclosures=EnclosureSerializer(context.get('object_list'), many=True).data,
             can_change_animal=self.request.user.has_perm('core.change_animal'),
             can_change_enclosure=self.request.user.has_perm('core.change_enclosure'),
+            can_delete_enclosure=self.request.user.has_perm('core.delete_enclosure'),
         )
         return context
 
@@ -43,3 +45,14 @@ class EnclosureCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndC
     success_url = reverse_lazy('enclosure_list')
     model = Enclosure
     permission_required = 'core.add_enclosure'
+
+
+class EnclosureDeleteView(PermissionRequiredMixin, DeleteView):
+    template_name = 'web/object_delete.html'
+    success_url = reverse_lazy('enclosure_list')
+    model = Enclosure
+    permission_required = 'core.delete_enclosure'
+
+    def can_perform_delete(self):
+        enclosure = self.object  # type: Enclosure
+        return not enclosure.current_animals.exists()

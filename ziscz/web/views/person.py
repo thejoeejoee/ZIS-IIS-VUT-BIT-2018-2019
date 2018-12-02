@@ -17,6 +17,7 @@ from django.views.generic import ListView, UpdateView, CreateView
 
 from ziscz.core.models import Person, TypeRole, Cleaning
 from ziscz.core.utils.utils import get_object_or_none
+from ziscz.core.views.delete import DeleteView
 from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.person import PersonForm
 
@@ -137,3 +138,17 @@ class PersonCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCont
             extra_tags=json.dumps(dict(timeout=0, infinite=True))
         )
         return resp
+
+
+class PersonDeleteView(PermissionRequiredMixin, DeleteView):
+    template_name = 'web/object_delete.html'
+    success_url = reverse_lazy('person_list')
+    model = Person
+    permission_required = 'core.delete_person'
+
+    @atomic
+    def delete(self, request, *args, **kwargs):
+        obj = self.get_object()
+        if hasattr(obj, 'user'):
+            obj.user.delete()
+        return super().delete(request, *args, **kwargs)

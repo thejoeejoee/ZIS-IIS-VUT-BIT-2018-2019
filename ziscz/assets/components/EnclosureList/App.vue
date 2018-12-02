@@ -8,10 +8,19 @@
                     :style="{backgroundColor: enclosure.enclosure_color}"
                     class="card"
                 >
-                    <a class="card-header text-light" :href="url(enclosure)">
-                        {{ enclosure.name }}
-                        <small class="float-right">{{ enclosure.type_enclosure }}</small>
-                    </a>
+                    <span class="card-header text-light small d-flex justify-content-between align-items-center">
+                        <a :href="url(enclosure)" class="flex-fill">
+                            {{ enclosure.name }}
+                        </a>
+                        
+                        <a
+                            v-if="can_delete_enclosure && !enclosure.animals.length"
+                            :href="urlDelete(enclosure)" class="btn btn-outline-danger btn-sm">
+                                <img src="../../../web/static/img/icons/trash.svg" alt="" width="20">
+                        </a>
+
+                    </span>
+
                     <animal-list :enclosure="enclosure"/>
                     <div class="card-footer small" v-if="enclosure.last_cleaning_date" title="Last cleaning">
                         <img src="../../../web/static/img/icons/duster.svg" alt="" width="20" class="mr-1">
@@ -33,11 +42,14 @@
         name: "App",
         components: {AnimalList},
         computed: {
-            ...mapState(['enclosures', 'can_change_enclosure']),
+            ...mapState(['enclosures', 'can_change_enclosure', 'can_delete_enclosure']),
         },
         methods: {
             url(enclosure) {
                 return this.can_change_enclosure ? reverse('enclosure_detail', enclosure.id) : undefined;
+            },
+            urlDelete(enclosure) {
+                return this.can_delete_enclosure ? reverse('enclosure_delete', enclosure.id) : undefined;
             },
         }
     }

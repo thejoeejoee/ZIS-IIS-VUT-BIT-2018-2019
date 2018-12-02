@@ -17,9 +17,18 @@
                 <div class="card mb-3">
                     <img class="card-img-top" src="http://i.pravatar.cc/300?u={{ person.pk }}" alt="{% trans "Avatar" %}">
                     <div class="card-header d-flex flex-row justify-content-between align-items-center">
-                        <a href="{% url "person_detail" person.pk %}" class="flex-fill">
-                            {{ person }}
-                        </a>
+                        {% if perms.core.change_person %}
+                            <a href="{% url "person_detail" person.pk %}" class="flex-fill">
+                                {{ person }}
+                            </a>
+                        {% else %}
+                            <span class="flex-fill">{{ person }}</span>
+                        {% endif %}
+                        {% if perms.core.delete_person %}
+                            <a href="{% url "person_delete" person.pk %}" title="{% trans "Delete person" %}" class="btn btn-outline-danger btn-sm">
+                                <img src="{% static "img/icons/trash.svg" %}" alt="{% trans "Delete person" %}" class="svg fill-gray" width="20">
+                            </a>
+                        {% endif %}
                     </div>
                     <div class="card-body p-2 px-4">
                         <div class="row small no-gutters">

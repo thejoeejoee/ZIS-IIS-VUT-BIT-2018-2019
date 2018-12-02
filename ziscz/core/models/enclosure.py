@@ -92,12 +92,12 @@ class Enclosure(BaseModel):
         return self.name
 
     @property
-    def enclosure_color(self):
+    def enclosure_color(self) -> str:
         # black is default for rgb fields
         return (self.color if self.color != '#000000' else None) or self.type_enclosure.color
 
     @property
-    def current_animals(self):
+    def current_animals(self) -> QuerySet:
         from ziscz.core.models import Animal, AnimalStay
         return Animal.live_animals.filter(
             AnimalStay.filter_for_actual('animal_stay_animal'),
@@ -135,7 +135,7 @@ class Cleaning(BaseEventModel):
 
     enclosure = models.ForeignKey(
         "core.Enclosure",
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name="cleaning_enclosure",
         verbose_name=_('Enclosure'),
     )
