@@ -27,4 +27,4 @@ restart:
 
 
 pack:
-	zip -r xkavan05.zip ziscz/ doc/ webpack.config.js package.json package-lock.json setup.py settings.py.template
+	zip -r xkavan05.zip ziscz/ doc/ webpack.config.js package.json package-lock.json setup.py settings.py.template .babelrc
