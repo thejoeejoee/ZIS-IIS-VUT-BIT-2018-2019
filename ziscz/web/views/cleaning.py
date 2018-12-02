@@ -24,7 +24,7 @@ class CleaningCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCo
     form_class = CleaningForm
     success_url = reverse_lazy('calendar')
     model = Cleaning
-    permission_required = 'core.create_cleaning'
+    permission_required = 'core.add_cleaning'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

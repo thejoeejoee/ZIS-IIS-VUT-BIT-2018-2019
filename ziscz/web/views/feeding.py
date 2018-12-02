@@ -24,7 +24,7 @@ class FeedingCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCon
     form_class = FeedingForm
     success_url = reverse_lazy('calendar')
     model = Feeding
-    permission_required = 'core.create_feeding'
+    permission_required = 'core.add_feeding'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

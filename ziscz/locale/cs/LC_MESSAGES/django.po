@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-12-02 12:49+0100\n"
-"PO-Revision-Date: 2018-11-28 13:14+0100\n"
+"PO-Revision-Date: 2018-12-02 14:26+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -127,10 +127,8 @@ msgid "Person trained on animal"
 msgstr "Osoba vyškolená na zvíře"
 
 #: ziscz/core/models/animal.py:180
-#, fuzzy
-#| msgid "Person trained on animal"
 msgid "Persons trained on animals"
-msgstr "Osoba vyškolená na zvíře"
+msgstr "Osoby vyškoleny na zvířata"
 
 #: ziscz/core/models/animal.py:200
 msgid "Animal region"
@@ -173,16 +171,12 @@ msgid "Can mark own event as done"
 msgstr "Může označit vlastní událost jako hotovou"
 
 #: ziscz/core/models/enclosure.py:28
-#, fuzzy
-#| msgid "Cleaning accessory"
 msgid "Type cleaning accessory"
-msgstr "Čistící doplňky"
+msgstr "Typ čistícího nástroje"
 
 #: ziscz/core/models/enclosure.py:29
-#, fuzzy
-#| msgid "Cleaning accessory"
 msgid "Types cleaning accessories"
-msgstr "Čistící doplňky"
+msgstr "Typy čistících nástrojů"
 
 #: ziscz/core/models/enclosure.py:43
 msgid ""
@@ -193,16 +187,12 @@ msgstr ""
 "ve výchozím nastavení."
 
 #: ziscz/core/models/enclosure.py:52
-#, fuzzy
-#| msgid "Same type enclosures"
 msgid "Type enclosure"
-msgstr "Stejné typy výběhů"
+msgstr "Typ výběhu"
 
 #: ziscz/core/models/enclosure.py:53
-#, fuzzy
-#| msgid "Same type enclosures"
 msgid "Types enclosures"
-msgstr "Stejné typy výběhů"
+msgstr "Typy výběhů"
 
 #: ziscz/core/models/enclosure.py:72
 msgid "Describing color used in system UI as helper, black is default."
@@ -262,44 +252,32 @@ msgid "{} by {}"
 msgstr "{} od {}"
 
 #: ziscz/core/models/enclosure.py:193 ziscz/core/models/enclosure.py:194
-#, fuzzy
-#| msgid "Person trained on animal"
 msgid "Person types animal"
-msgstr "Osoba vyškolená na zvíře"
+msgstr "Osoba vyškolená na typ zvíře"
 
 #: ziscz/core/models/enclosure.py:214
-#, fuzzy
-#| msgid "Cleaning accessory"
 msgid "Type enclosure type cleaning accessory"
-msgstr "Čistící doplňky"
+msgstr "Typ čistícího nástroje potřebný k čištění typu výběhu"
 
 #: ziscz/core/models/enclosure.py:215
 msgid "Types enclosure type cleaning accessories"
-msgstr ""
+msgstr "Typy čistících nástrojů potřebných k čištění typu výběhu"
 
 #: ziscz/core/models/enclosure.py:232
-#, fuzzy
-#| msgid "Cleanings"
 msgid "Cleaning person"
-msgstr "Čištění"
+msgstr "Osoba v události čištění"
 
 #: ziscz/core/models/enclosure.py:233
-#, fuzzy
-#| msgid "Cleanings"
 msgid "Cleaning persons"
-msgstr "Čištění"
+msgstr "Osoby v události čištění"
 
 #: ziscz/core/models/feed.py:20
-#, fuzzy
-#| msgid "Type of feed"
 msgid "Type feed"
-msgstr "Typy krmení"
+msgstr "Typ krmení"
 
 #: ziscz/core/models/feed.py:21
-#, fuzzy
-#| msgid "New feeding"
 msgid "Types feeding"
-msgstr "Nové krmení"
+msgstr "Typy krmení"
 
 #: ziscz/core/models/feed.py:34
 msgid "Type of feed"
@@ -311,7 +289,7 @@ msgstr "Vykonavatel"
 
 #: ziscz/core/models/feed.py:53
 msgid "Amount of feed."
-msgstr ""
+msgstr "Množství krmení."
 
 #: ziscz/core/models/feed.py:54
 msgid "Amount"
@@ -337,26 +315,20 @@ msgid "{} by {} ({} {})"
 msgstr "{} od {} ({} {})"
 
 #: ziscz/core/models/feed.py:102
-#, fuzzy
-#| msgid "Feeding"
 msgid "Feeding animal"
-msgstr "Krmení"
+msgstr "Krmení zvířete"
 
 #: ziscz/core/models/feed.py:103
-#, fuzzy
-#| msgid "Feedings"
 msgid "Feedings animal"
-msgstr "Krmení"
+msgstr "Krmení zvířat"
 
 #: ziscz/core/models/person.py:18 ziscz/core/models/person.py:27
 msgid "Type role"
 msgstr "Typ role"
 
 #: ziscz/core/models/person.py:19
-#, fuzzy
-#| msgid "Type role"
 msgid "Types role"
-msgstr "Typ role"
+msgstr "Typy role"
 
 #: ziscz/core/models/person.py:34 ziscz/web/forms/person.py:95
 msgid "User"
@@ -402,26 +374,20 @@ msgid "Persons"
 msgstr "Osoby"
 
 #: ziscz/core/models/region.py:13
-#, fuzzy
-#| msgid "Type role"
 msgid "Type region"
-msgstr "Typ role"
+msgstr "Typ oblasti"
 
 #: ziscz/core/models/region.py:14
-#, fuzzy
-#| msgid "Type role"
 msgid "Types region"
-msgstr "Typ role"
+msgstr "Typy oblasti"
 
 #: ziscz/core/models/region.py:23
-#, fuzzy
-#| msgid "Origin country"
 msgid "Type country"
 msgstr "Země původu"
 
 #: ziscz/core/models/region.py:24
 msgid "Types country"
-msgstr ""
+msgstr "Země původu"
 
 #: ziscz/core/templates/core/forms/form.html:10
 #: ziscz/web/templates/web/form_detail.html:9
@@ -434,7 +400,7 @@ msgstr "zpět"
 
 #: ziscz/core/templates/core/forms/form.html:35
 msgid "Created at"
-msgstr ""
+msgstr "Vytvořeno v"
 
 #: ziscz/core/templates/core/forms/form.html:38
 msgid "Last modified at"
@@ -508,25 +474,16 @@ msgid "Can user log in?"
 msgstr "Může se uživatel přihlásit?"
 
 #: ziscz/web/forms/person.py:26
-#, fuzzy
-#| msgctxt "as page title on reset password page"
-#| msgid "Password reset"
 msgid "Password"
-msgstr "Obnovení hesla"
+msgstr "Heslo"
 
 #: ziscz/web/forms/person.py:31
-#, fuzzy
-#| msgctxt "as page title on reset password page"
-#| msgid "Password reset"
 msgid "Password second"
-msgstr "Obnovení hesla"
+msgstr "Heslo znovu"
 
 #: ziscz/web/forms/person.py:88
-#, fuzzy
-#| msgctxt "as page title on reset password page"
-#| msgid "Password reset"
 msgid "Password change"
-msgstr "Obnovení hesla"
+msgstr "Změna hesla"
 
 #: ziscz/web/forms/person.py:98
 msgid "Groups"
@@ -538,7 +495,7 @@ msgstr "Nelze nastavit datum narození v budoucnu."
 
 #: ziscz/web/forms/person.py:178
 msgid "Password does not match the first one."
-msgstr ""
+msgstr "Hesla se neshodují."
 
 #: ziscz/web/templates/403.html:6 ziscz/web/templates/403.html:7
 msgid "Access denied."
@@ -554,19 +511,19 @@ msgstr "Stránka nebyla nalezena."
 
 #: ziscz/web/templates/500.html:6
 msgid "Internal server error"
-msgstr ""
+msgstr "Interní chyba serveru"
 
 #: ziscz/web/templates/500.html:7
 msgid "Internal server error."
-msgstr ""
+msgstr "Interní chyba serveru."
 
 #: ziscz/web/templates/500.html:8
 msgid "If problems remains, please, contact administrators."
-msgstr ""
+msgstr "Pokud problém přetrvává, kontaktujte administrátora."
 
 #: ziscz/web/templates/bootstrap4/errors.html:4
 msgid "Please, check value in fields with errors below."
-msgstr ""
+msgstr "Zkontrolujte hodnoty v polích s níže uvedenými chybami. "
 
 #: ziscz/web/templates/registration/logged_out.html:7
 #: ziscz/web/templates/registration/logged_out.html:8
@@ -790,7 +747,7 @@ msgstr "Hotovo"
 
 #: ziscz/web/templates/web/home.html:54
 msgid "No events today - free day!"
-msgstr ""
+msgstr "Žádné události dnes - volný den!"
 
 #: ziscz/web/templates/web/home.html:60
 msgid "Legend"
@@ -837,20 +794,16 @@ msgid "Yes, I am sure."
 msgstr "Ano, chci."
 
 #: ziscz/web/templates/web/person_detail.html:15
-#, fuzzy
-#| msgid "Qualified type enclosures to clean"
 msgid "Possible enclosures to clean"
-msgstr "Vyškolené typy výběhů k čištění"
+msgstr "Možné výběhy k čistění"
 
 #: ziscz/web/templates/web/person_detail.html:34
-#, fuzzy
-#| msgid "Qualified type animals to feed"
 msgid "Possible animals to feed"
-msgstr "Vyškolené typy zvířat ke krmení"
+msgstr "Možná zvířata ke krmení"
 
 #: ziscz/web/templates/web/person_list.html:18
 msgid "Avatar"
-msgstr "Avata"
+msgstr "Avatar"
 
 #: ziscz/web/templates/web/person_list.html:27
 #: ziscz/web/templates/web/person_list.html:31
@@ -867,8 +820,11 @@ msgid "Following feeding was deleted due to person qualification lost: {}."
 msgid_plural ""
 "Following feedings were deleted due to person qualification lost: {}."
 msgstr[0] ""
+"Vzhledem ke ztrátě vyškolení osoby byly smazány následující krmení: {}."
 msgstr[1] ""
+"Vzhledem ke ztrátě vyškolení osoby byla smazána následující krmení: {}."
 msgstr[2] ""
+"Vzhledem ke ztrátě vyškolení osoby byla smazána následující krmení: {}."
 
 #: ziscz/web/views/person.py:95
 msgid ""
@@ -878,16 +834,25 @@ msgid_plural ""
 "From following cleanings were deleted person assignment due to person "
 "qualification lost: {}."
 msgstr[0] ""
+"Vzhledem ke ztrátě vyškolení osoby bylo smazáno přiřazení osoby k "
+"následujícímu čištění: {}."
 msgstr[1] ""
+"Vzhledem ke ztrátě vyškolení osoby bylo smazáno přiřazení osoby k "
+"následujícím čištěním: {}."
 msgstr[2] ""
+"Vzhledem ke ztrátě vyškolení osoby bylo smazáno přiřazení osoby k "
+"následujícím čištěním: {}."
 
 #: ziscz/web/views/person.py:111
 msgid "Following cleaning was deleted due to small executors count: {}."
 msgid_plural ""
 "Following cleanings were deleted due to small executors count: {}."
 msgstr[0] ""
+"Vzhledem k malému počtu vykonavatelů bylo smazáno následující čištění: {}."
 msgstr[1] ""
+"Vzhledem k malému počtu vykonavatelů byla smazána následující čištění: {}."
 msgstr[2] ""
+"Vzhledem k malému počtu vykonavatelů byla smazána následující čištění: {}."
 
 #: ziscz/web/views/person.py:136
 msgid "User was created, login credentials are {} {}."
