@@ -24,7 +24,7 @@
                         {% else %}
                             <span class="flex-fill">{{ person }}</span>
                         {% endif %}
-                        {% if perms.core.delete_person %}
+                        {% if perms.core.delete_person and user != person.user %}
                             <a href="{% url "person_delete" person.pk %}" title="{% trans "Delete person" %}" class="btn btn-outline-danger btn-sm">
                                 <img src="{% static "img/icons/trash.svg" %}" alt="{% trans "Delete person" %}" class="svg fill-gray" width="20">
                             </a>

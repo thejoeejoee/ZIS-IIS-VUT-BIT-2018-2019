@@ -152,3 +152,9 @@ class PersonDeleteView(PermissionRequiredMixin, DeleteView):
         if hasattr(obj, 'user'):
             obj.user.delete()
         return super().delete(request, *args, **kwargs)
+
+    def can_perform_delete(self):
+        obj = self.get_object() # type: Person
+        if not hasattr(obj, 'user'):
+            return True
+        return obj.user != self.request.user
