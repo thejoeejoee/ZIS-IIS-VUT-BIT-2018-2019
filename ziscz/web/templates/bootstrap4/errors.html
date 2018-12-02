@@ -1,5 +1,5 @@
 {% load i18n %}
-{% if form.errors %}
+{% if form.errors and not form.non_field_errors %}
     <div class="alert alert-block alert-danger">
         {% trans "Please, check value in fields with errors below." %}
     </div>

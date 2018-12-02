@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from datetime import timedelta
 from typing import Iterable, Optional
-from uuid import uuid4, UUID
+from uuid import UUID
 
 from crispy_forms.layout import Layout, Row, Div, HTML
 from django.db.transaction import atomic
@@ -23,7 +23,7 @@ from ziscz.core.utils.m2m import update_m2m
 
 class CleaningForm(BaseModelForm):
     date_range = DateRangeField(required=False)
-    done = BooleanSwitchField(required=False)
+    done = BooleanSwitchField(required=False, label=_('Done'))
 
     class Meta:
         model = Cleaning
@@ -67,7 +67,7 @@ class CleaningForm(BaseModelForm):
                 Col('done') if self.updating else None,
             ),
             Div(
-                HTML(render_to_string('web/cleaning_planning_note.html')),
+                HTML(render_to_string('web/range_planning_note.html')),
                 Div(css_id='cleaning-planning')
             ) if not self.updating else 'date',
         )
@@ -90,7 +90,7 @@ class CleaningForm(BaseModelForm):
         data = super().clean()
 
         enclosure = data.get('enclosure')  # type: Enclosure
-        executors = data.get('executors')  # type: Iterable[Person]
+        executors = data.get('executors', ())  # type: Iterable[Person]
         if enclosure:
             if len(executors) < enclosure.min_cleaners_count:
                 self.add_error(
@@ -112,7 +112,7 @@ class CleaningForm(BaseModelForm):
         if date_range:
             self.instance.date = data['date'] = date_range[0]
         else:
-            date_range = [data.get('date')]
+            date_range = list(filter(None, (data.get('date'), )))
 
         length = data.get('length')  # type: Optional[timedelta]
 
@@ -143,6 +143,8 @@ class CleaningForm(BaseModelForm):
                             )
                         )
                         break
+        if not date_range:
+            self.add_error(None, _('Please, specify datetime to plan.'))
 
         return data
 

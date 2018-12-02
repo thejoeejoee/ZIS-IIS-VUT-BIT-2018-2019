@@ -1,0 +1,16 @@
+{% load i18n %}
+
+<script>
+    window.zis.installRangePlanning(
+        '{{ selector }}',
+        {
+            trans: {
+                planning: '{% trans "Planning" %}',
+                one_time: '{% trans "One time" %}',
+                daily: '{% trans "Daily" %}',
+                weekly: '{% trans "Weekly" %}',
+                monthly: '{% trans "Monthly" %}',
+            }
+        }
+    );
+</script>

@@ -23,7 +23,7 @@ from ziscz.core.utils.m2m import update_m2m
 
 class FeedingForm(BaseModelForm):
     date_range = DateRangeField(required=False)
-    done = BooleanSwitchField(required=False)
+    done = BooleanSwitchField(required=False, label=_('Done'))
 
     class Meta:
         model = Feeding
@@ -74,7 +74,7 @@ class FeedingForm(BaseModelForm):
                 Col('done') if self.updating else None,
             ),
             Div(
-                HTML(render_to_string('web/cleaning_planning_note.html')),
+                HTML(render_to_string('web/range_planning_note.html')),
                 Div(css_id='feeding-planning')
             ) if not self.updating else 'date',
         )
@@ -127,6 +127,9 @@ class FeedingForm(BaseModelForm):
         if executor and animals:
             if animals.exclude(type_animal__person_type_animal_type_animal__person=executor).exists():
                 self.add_error('animals', _('Selected some animals, that is selected executor not qualified to feed.'))
+
+        if not date_range:
+            self.add_error(None, _('Please, specify datetime to plan.'))
 
         return data
 

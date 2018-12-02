@@ -7,7 +7,6 @@ from django.forms import Form, ModelForm
 
 class BaseFormMixin(object):
     save_and_continue_button = True
-    back_button = True
 
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)

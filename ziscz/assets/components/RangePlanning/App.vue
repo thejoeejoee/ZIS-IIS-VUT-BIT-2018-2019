@@ -2,7 +2,7 @@
 
     <div class="card">
         <div class="card-header">
-            Planning
+            {{ trans.planning }}
         </div>
         <div class="card-body">
             <input type="hidden" name="date_range" v-model="serialized">
@@ -25,15 +25,13 @@
                 </div>
             </div>
             <div class="form-group">
-                <div class="row justify-content-center" v-if="actual === 'One time'">
+                <div class="row justify-content-center" v-if="actual === trans.one_time">
                     <div class="col-4 text-center">
-                        datetime
                         <datetime v-model="date" :auto="true" type="datetime" input-class="form-control text-center"></datetime>
                     </div>
                 </div>
                 <div class="row justify-content-center" v-if="rangeUnit">
                     <div class="col-3 text-right">
-                        first
                         <datetime
                             v-model="dateFrom"
                             :auto="true"
@@ -45,7 +43,6 @@
                     </div>
                     <div class="col-1 text-center">-</div>
                     <div class="col-3">
-                        end of plan
                         <datetime
                             v-model="dateTo"
                             :auto="true"
@@ -54,7 +51,7 @@
                         ></datetime>
                     </div>
                 </div>
-                <hr v-if="rangeUnit">
+                <hr v-if="rangeUnit && range.length">
 
                 <div class="row">
                     <div class="col" :class="rangeUnit === 'day' ? 'text-left' : 'text-center'">
@@ -84,26 +81,28 @@
         components: {
             datetime: Datetime
         },
-        data: () => {
+        data() {
             let date = new Date();
             date.setHours(date.getHours() + 1);
             date.setMinutes(0);
-            return ({
-                modes: [
-                    'One time',
-                    'Daily',
-                    'Weekly',
-                    'Monthly',
-                    // 'Custom',
-                ],
-                actual: 'One time',
+            return {
+                actual: undefined,
                 dateFrom: date.toISOString(),
                 dateTo: null,
                 date: date.toISOString(),
-            })
+            }
         },
         computed: {
-            ...mapState([]),
+            ...mapState(['trans']),
+            modes() {
+                return [
+                    this.trans.one_time,
+                    this.trans.daily,
+                    this.trans.weekly,
+                    this.trans.monthly,
+                    // 'Custom',
+                ]
+            },
             range() {
                 if (!(this.dateFrom && this.dateTo && this.rangeUnit)) return [];
                 const from_ = new Date(this.dateFrom);
@@ -117,16 +116,16 @@
             },
             rangeUnit() {
                 return {
-                    'Daily': 'day',
-                    'Weekly': 'week',
-                    'Monthly': 'month',
+                    [this.trans.daily]: 'day',
+                    [this.trans.weekly]: 'week',
+                    [this.trans.monthly]: 'month',
                 }[this.actual]
             },
             serialized() {
                 return JSON.stringify({
                     mode: this.actual,
                     range: (
-                        this.actual === 'One time' ?
+                        this.actual === this.trans.one_time ?
                             [new Date(this.date),] :
                             this.range
                     ).map((date) => date.getTime() / 1000),
@@ -137,7 +136,8 @@
             }
         },
         methods: {},
-        mounted() {
+        created() {
+            this.actual = this.trans.one_time;
         }
     }
 </script>
