@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html>
+<html lang="cs">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=iso-8859-2"/>
     <title>Projekt IIS</title>
@@ -165,7 +165,7 @@ length = models.<strong>DurationField</strong>(
 <p>
     S prezentační vrstou jsou spjaty veškeré formuláře pro vytváření a úpravu jednotlivých entit v systému. Díky
     frameworku je s pomocí třídy <code>django.forms.ModelForm</code> možno tyto formuláře přímo generovat z definice
-    jednotlivých modelů. Z pohledu případů užití jsou pomocí těchto formulářů splněny případy užití týkající se
+    jednotlivých modelů. Z pohledu případů užití jsou tyto formuláře podmínkou pro splnění případů užití týkající se
     jednoduché úpravy zvířat/výběhů/osob, stejně tak jako plánování čištění a krmení.
 </p>
 <p>
@@ -176,6 +176,21 @@ length = models.<strong>DurationField</strong>(
     a přemístování zvířat mezi výběhy jsou poté použity komponenty ve frameworku <code>Vue.js</code>.
 </p>
 
+<h3>Řídící vrstva</h3>
+
+<p>
+    Django tuto vrstvu realizuje v takzvaných pohledech, potomky třídy <code>View</code>.
+    V této vrstvě se odehrává většina exekutivních operací nad entitami v systému. Ve velkém množství zde projekt
+    využívá generických tříd pocházejících z frameworku. Jedná se především o trojici tříd
+    <code>django.views.generic.ListView, CreateView, UpdateView</code>. První zmíněná podporuje deklarativní definici
+    výpisu obsahu jednotlivých modelů - v tomto případě výpis seznamu zvířat <code>AnimalListView</code> nebo osob
+    <code>PersonListView</code>.
+</p>
+
+<p>
+    Zbylé dvě jsou úzce spjaty s definovanými formuláři popsanými výše - obě jsou schopny dle definice modelu a šablony
+    vykreslovat a zpracovávat formuláře pro vytvoření, resp. upravení dat konkrétní entity.
+</p>
 
 <h2>Instalace</h2>
 <ul>
