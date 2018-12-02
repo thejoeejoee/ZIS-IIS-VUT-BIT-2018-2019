@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import UpdateView, CreateView
 
 from ziscz.core.models import Cleaning, Enclosure, Person
+from ziscz.core.views.delete import DeleteView
 from ziscz.core.views.forms import SuccessMessageMixin, SaveAndContinueMixin
 from ziscz.web.forms.cleaning import CleaningForm
 
@@ -37,3 +38,10 @@ class CleaningCreateView(PermissionRequiredMixin, SuccessMessageMixin, SaveAndCo
                 executors=get_list_or_404(Person, pk=self.request.GET.get('executor'))
             ))
         return kwargs
+
+
+class CleaningDeleteView(PermissionRequiredMixin, DeleteView):
+    template_name = 'web/object_delete.html'
+    success_url = reverse_lazy('calendar')
+    model = Cleaning
+    permission_required = 'core.delete_cleaning'

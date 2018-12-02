@@ -4,9 +4,9 @@ from django.urls import path, include
 
 from ziscz.web.views.animal import AnimalListView, AnimalDetailView, AnimalCreateView, AnimalDeleteView
 from ziscz.web.views.calendar import CalendarView
-from ziscz.web.views.cleaning import CleaningDetailView, CleaningCreateView
+from ziscz.web.views.cleaning import CleaningDetailView, CleaningCreateView, CleaningDeleteView
 from ziscz.web.views.enclosure import EnclosureListView, EnclosureDetailView, EnclosureCreateView, EnclosureDeleteView
-from ziscz.web.views.feeding import FeedingCreateView, FeedingDetailView
+from ziscz.web.views.feeding import FeedingCreateView, FeedingDetailView, FeedingDeleteView
 from ziscz.web.views.home import HomeView, HelpView, CreditsView
 from ziscz.web.views.person import PersonListView, PersonDetailView, PersonCreateView, PersonDeleteView
 
@@ -32,9 +32,11 @@ urlpatterns = [
 
     path('cleaning/create', CleaningCreateView.as_view(), name='cleaning_create'),
     path('cleaning/<uuid:pk>', CleaningDetailView.as_view(), name='cleaning_detail'),
+    path('cleaning/delete/<uuid:pk>', CleaningDeleteView.as_view(), name='cleaning_delete'),
 
     path('feeding/create', FeedingCreateView.as_view(), name='feeding_create'),
     path('feeding/<uuid:pk>', FeedingDetailView.as_view(), name='feeding_detail'),
+    path('feeding/delete/<uuid:pk>', FeedingDeleteView.as_view(), name='feeding_delete'),
 
     path('calendar', CalendarView.as_view(), name='calendar'),
 ]

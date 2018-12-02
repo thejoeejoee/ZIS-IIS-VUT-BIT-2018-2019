@@ -27,9 +27,9 @@
                 {% crispy form %}
             {% endblock %}
         </div>
-        <div class="card-footer">
+        <div class="card-footer d-flex align-items-center justify-content-between">
             {% block form_card_footer_left %}
-                <small class="float-left font-italic small">
+                <small class="font-italic small">
                     {% if form.updating %}
                         <span title="{{ form.instance.x_created }}">
                             {% trans "Created at" %} {{ form.instance.x_created|naturaltime }},
@@ -42,6 +42,7 @@
             {% endblock form_card_footer_left %}
             <button type="submit" class="d-none"></button>
             {# default submit button should not be "and continue #}
+            {% block form_card_footer_ext %}{% endblock %}
             <div class="btn-group float-right">
                 {% if form.save_and_continue_button and form.updating %}
                     <button type="submit" name="_save_and_continue" class="btn btn-outline-success" value=":-)">

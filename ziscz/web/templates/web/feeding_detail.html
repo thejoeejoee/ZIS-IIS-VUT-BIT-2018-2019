@@ -7,7 +7,8 @@
 {% endblock %}
 
 {% block content %}
-    {% include "core/forms/form.html" with form=form %}
+    {% url "feeding_delete" object.pk as url %}
+    {% include "core/forms/form_with_delete.html" with form=form url=url can_delete=perms.core.delete_feeding %}
     {% if not form.updating %}
         <script>
             window.zis.installRangePlanning('#feeding-planning');
