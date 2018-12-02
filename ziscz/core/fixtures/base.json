@@ -1,0 +1,518 @@
+[
+  {
+    "model": "core.typeanimal",
+    "pk": "252c873d-8dd4-4910-9ced-c5c3fec4507a",
+    "fields": {
+      "x_created": "2018-11-29T20:24:51.956Z",
+      "x_modified": "2018-11-29T20:24:51.956Z",
+      "identifier": null,
+      "name": "Delf\u00edn",
+      "description": "",
+      "order": 11,
+      "icon": "065-dolphin.svg"
+    }
+  },
+  {
+    "model": "core.typeanimal",
+    "pk": "43bea6b4-c612-4a61-90f2-fa81a8e42643",
+    "fields": {
+      "x_created": "2018-10-31T01:09:01.469Z",
+      "x_modified": "2018-11-06T18:00:54.536Z",
+      "identifier": null,
+      "name": "Los",
+      "description": "",
+      "order": 3,
+      "icon": "043-deer.svg"
+    }
+  },
+  {
+    "model": "core.typeanimal",
+    "pk": "6b9d3081-6e0d-47a7-b117-e9a2befd23c8",
+    "fields": {
+      "x_created": "2018-10-30T17:24:10.657Z",
+      "x_modified": "2018-11-06T17:34:01.487Z",
+      "identifier": null,
+      "name": "Karas",
+      "description": "",
+      "order": 3,
+      "icon": "067-blowfish.svg"
+    }
+  },
+  {
+    "model": "core.typeanimal",
+    "pk": "95344cfd-4ac7-43c7-be09-aa3186a0f343",
+    "fields": {
+      "x_created": "2018-11-07T12:55:29.791Z",
+      "x_modified": "2018-11-07T12:55:29.791Z",
+      "identifier": null,
+      "name": "Opice",
+      "description": "",
+      "order": 6,
+      "icon": "140-monkey-4.svg"
+    }
+  },
+  {
+    "model": "core.typeanimal",
+    "pk": "b3e88607-f73a-458c-956e-a7948de029b6",
+    "fields": {
+      "x_created": "2018-10-10T18:42:47.874Z",
+      "x_modified": "2018-11-29T20:05:17.046Z",
+      "identifier": null,
+      "name": "Kapr",
+      "description": "Sladkovodn\u00ed rybi\u010dka.",
+      "order": 2,
+      "icon": "069-fish-1.svg"
+    }
+  },
+  {
+    "model": "core.typeanimal",
+    "pk": "b72461ca-7ed1-4e56-9682-2b6fb77cb739",
+    "fields": {
+      "x_created": "2018-11-15T20:38:27.720Z",
+      "x_modified": "2018-11-29T20:05:23.703Z",
+      "identifier": null,
+      "name": "\u017dirafa",
+      "description": "",
+      "order": 10,
+      "icon": "020-giraffe.svg"
+    }
+  },
+  {
+    "model": "core.typeanimal",
+    "pk": "bf151043-1d58-4614-b80d-037b14449870",
+    "fields": {
+      "x_created": "2018-11-06T21:17:21.904Z",
+      "x_modified": "2018-11-29T20:05:20.552Z",
+      "identifier": null,
+      "name": "K\u016f\u0148",
+      "description": "Kon\u00edk",
+      "order": 5,
+      "icon": "029-horse-1.svg"
+    }
+  },
+  {
+    "model": "core.typeanimal",
+    "pk": "cb5c6ddd-b98c-4eab-9950-e145d8a10897",
+    "fields": {
+      "x_created": "2018-10-10T00:18:24.331Z",
+      "x_modified": "2018-11-29T20:05:13.157Z",
+      "identifier": null,
+      "name": "Pes",
+      "description": "Dom\u00e1c\u00ed zv\u00ed\u0159e.",
+      "order": 1,
+      "icon": "019-dog-1.svg"
+    }
+  },
+  {
+    "model": "core.typeanimal",
+    "pk": "e2cec6cd-8b31-4055-a934-57bcbcb2a108",
+    "fields": {
+      "x_created": "2018-11-29T20:09:51.213Z",
+      "x_modified": "2018-11-29T20:09:51.213Z",
+      "identifier": null,
+      "name": "Panda",
+      "description": "",
+      "order": 12,
+      "icon": "010-panda.svg"
+    }
+  },
+  {
+    "model": "core.typerole",
+    "pk": "1f47bffa-96a1-421e-89e1-6ce1fcf5c34a",
+    "fields": {
+      "x_created": "2018-11-08T18:45:04.418Z",
+      "x_modified": "2018-11-24T00:42:53.862Z",
+      "identifier": null,
+      "name": "O\u0161et\u0159ovatel",
+      "description": "\u0158adov\u00fd zam\u011bstnanec povinn\u00fd evidovat pln\u011bn\u00ed napl\u00e1novan\u00fdch \u00faklid\u016f a krmen\u00ed.",
+      "order": 3
+    }
+  },
+  {
+    "model": "core.typerole",
+    "pk": "7c26a793-9660-4ff4-a191-4cf7951107a7",
+    "fields": {
+      "x_created": "2018-11-08T18:11:59.785Z",
+      "x_modified": "2018-11-24T00:41:59.345Z",
+      "identifier": null,
+      "name": "Spr\u00e1vce",
+      "description": "Spr\u00e1vce ZOO bez p\u0159\u00edstupu k zam\u011bstnanc\u016fm, administruje zv\u00ed\u0159ata ve v\u00fdb\u011bz\u00edch, pl\u00e1nuje \u010di\u0161t\u011bn\u00ed a krmen\u00ed zv\u00ed\u0159at.",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.typerole",
+    "pk": "a3dfbdf5-690b-4f80-a5ab-1a0e6b3c4e05",
+    "fields": {
+      "x_created": "2018-10-31T19:14:00.015Z",
+      "x_modified": "2018-11-24T00:42:27.333Z",
+      "identifier": null,
+      "name": "\u0158editel",
+      "description": "\u0158editel ZOO s pr\u00e1vy na spr\u00e1vu zam\u011bstnanc\u016f i zv\u00ed\u0159at, v\u010detn\u011b pl\u00e1nov\u00e1n\u00ed krmen\u00ed a \u010di\u0161t\u011bn\u00ed, bez p\u0159\u00edstupu do administrace.",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.typeenclosure",
+    "pk": "79ff63fc-941e-45a4-a95e-a583504e416d",
+    "fields": {
+      "x_created": "2018-11-06T23:18:37.626Z",
+      "x_modified": "2018-11-06T23:18:37.626Z",
+      "identifier": null,
+      "name": "Klec",
+      "description": "",
+      "order": 3,
+      "color": "#ffd58d"
+    }
+  },
+  {
+    "model": "core.typeenclosure",
+    "pk": "a96cc042-8995-4ae2-bcfe-da8cc032ccab",
+    "fields": {
+      "x_created": "2018-10-31T01:08:06.460Z",
+      "x_modified": "2018-10-31T01:08:06.460Z",
+      "identifier": null,
+      "name": "Les",
+      "description": "",
+      "order": 2,
+      "color": "#007f12"
+    }
+  },
+  {
+    "model": "core.typeenclosure",
+    "pk": "b969acf2-baef-4dee-8c4c-f8694e65277a",
+    "fields": {
+      "x_created": "2018-10-30T16:54:21.819Z",
+      "x_modified": "2018-10-30T16:54:21.819Z",
+      "identifier": null,
+      "name": "Akv\u00e1rko",
+      "description": "",
+      "order": 1,
+      "color": "#a3a7ff"
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "02efd447-68ec-4282-986b-03f83b55683d",
+    "fields": {
+      "x_created": "2018-11-27T20:53:59.737Z",
+      "x_modified": "2018-11-27T20:55:53.741Z",
+      "identifier": null,
+      "name": "Celina",
+      "description": "",
+      "order": 6
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "13bd9db9-018e-4b92-9003-c7431bd2da34",
+    "fields": {
+      "x_created": "2018-11-27T20:53:47.971Z",
+      "x_modified": "2018-11-27T20:53:47.971Z",
+      "identifier": null,
+      "name": "Pr\u00e9rie",
+      "description": "",
+      "order": 5
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "1732bb4d-6912-4498-8e83-bfd435ae74c9",
+    "fields": {
+      "x_created": "2018-11-27T20:53:39.731Z",
+      "x_modified": "2018-11-27T20:55:24.998Z",
+      "identifier": null,
+      "name": "Arktick\u00fd oce\u00e1n",
+      "description": "",
+      "order": 4
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "439069c3-cdcc-4b49-a554-025ff94a2b49",
+    "fields": {
+      "x_created": "2018-11-27T20:55:09.367Z",
+      "x_modified": "2018-11-27T20:55:09.367Z",
+      "identifier": null,
+      "name": "Oce\u00e1n",
+      "description": "",
+      "order": 9
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "6de3b2fe-9b35-4936-a275-fc342c2e135c",
+    "fields": {
+      "x_created": "2018-11-27T20:54:09.829Z",
+      "x_modified": "2018-11-27T20:56:10.173Z",
+      "identifier": null,
+      "name": "Pampa",
+      "description": "",
+      "order": 7
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "a0dd0aa0-07eb-467d-9847-d2000aa47251",
+    "fields": {
+      "x_created": "2018-10-10T19:45:43.450Z",
+      "x_modified": "2018-11-27T20:52:52.904Z",
+      "identifier": null,
+      "name": "Arktick\u00e1 tundra",
+      "description": "",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "a1039b88-7584-44d8-99c6-8ef225d5f8cc",
+    "fields": {
+      "x_created": "2018-11-27T20:53:23.322Z",
+      "x_modified": "2018-11-27T20:55:58.966Z",
+      "identifier": null,
+      "name": "Step",
+      "description": "",
+      "order": 3
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "dbf2501d-8107-4b9a-a224-dfcf1dbfbd50",
+    "fields": {
+      "x_created": "2018-10-10T19:45:52.823Z",
+      "x_modified": "2018-11-27T20:53:02.285Z",
+      "identifier": null,
+      "name": "Pou\u0161\u0165",
+      "description": "",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.typeregion",
+    "pk": "fdd36265-ac00-40f9-a94c-7005b0eea6d1",
+    "fields": {
+      "x_created": "2018-11-27T20:54:32.871Z",
+      "x_modified": "2018-11-27T20:55:17.024Z",
+      "identifier": null,
+      "name": "Mimozemsk\u00fd oce\u00e1n",
+      "description": "",
+      "order": 8
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "153fb3f1-b394-45f7-b5db-afeecbdf3897",
+    "fields": {
+      "x_created": "2018-11-27T20:50:42.013Z",
+      "x_modified": "2018-11-27T20:51:01.043Z",
+      "identifier": null,
+      "name": "Norsko",
+      "description": "",
+      "order": 4
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "18d3bad0-8eaa-45ef-89db-3742a91136d7",
+    "fields": {
+      "x_created": "2018-11-08T16:59:26.889Z",
+      "x_modified": "2018-11-08T16:59:26.889Z",
+      "identifier": null,
+      "name": "Som\u00e1lsko",
+      "description": "",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "41edc994-97ef-45cb-8b00-65f73e008001",
+    "fields": {
+      "x_created": "2018-11-27T20:50:52.202Z",
+      "x_modified": "2018-11-27T20:50:52.202Z",
+      "identifier": null,
+      "name": "Antarktida",
+      "description": "",
+      "order": 5
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "4c3efcd4-9061-4cc1-9f39-324322fb2847",
+    "fields": {
+      "x_created": "2018-11-27T20:51:22.962Z",
+      "x_modified": "2018-11-27T20:51:22.962Z",
+      "identifier": null,
+      "name": "Kanada",
+      "description": "",
+      "order": 8
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "58a0b8ae-4c75-4fb4-9bf5-6420b203cb81",
+    "fields": {
+      "x_created": "2018-11-27T20:52:09.770Z",
+      "x_modified": "2018-11-27T20:52:09.770Z",
+      "identifier": null,
+      "name": "N\u011bmecko",
+      "description": "",
+      "order": 9
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "8a7ae8aa-c1e5-4292-a5a4-c29c7c08b886",
+    "fields": {
+      "x_created": "2018-11-08T16:59:45.409Z",
+      "x_modified": "2018-11-27T20:50:23.484Z",
+      "identifier": null,
+      "name": "\u010cesk\u00e1 republika",
+      "description": "",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "b3e1d449-5986-4d7e-bed5-3b70946fc353",
+    "fields": {
+      "x_created": "2018-11-27T20:51:42.195Z",
+      "x_modified": "2018-11-27T20:51:42.195Z",
+      "identifier": null,
+      "name": "Rusko",
+      "description": "",
+      "order": 7
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "c29cc8f1-973b-4e93-b212-25a1ceae229e",
+    "fields": {
+      "x_created": "2018-11-27T20:51:11.634Z",
+      "x_modified": "2018-11-27T20:51:11.634Z",
+      "identifier": null,
+      "name": "Indie",
+      "description": "",
+      "order": 6
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "e673e371-533e-4f66-b548-f59762589905",
+    "fields": {
+      "x_created": "2018-11-27T20:51:53.805Z",
+      "x_modified": "2018-11-27T20:51:53.805Z",
+      "identifier": null,
+      "name": "Afrika",
+      "description": "",
+      "order": 10
+    }
+  },
+  {
+    "model": "core.typecountry",
+    "pk": "f59aa7b7-3bf8-4cb3-b8be-835c4390cafa",
+    "fields": {
+      "x_created": "2018-11-27T20:50:32.936Z",
+      "x_modified": "2018-11-27T20:51:33.021Z",
+      "identifier": null,
+      "name": "Braz\u00edlie",
+      "description": "",
+      "order": 3
+    }
+  },
+  {
+    "model": "core.person",
+    "pk": "00e8d85c-7ddf-46a5-8f04-aa01f2366859",
+    "fields": {
+      "x_created": "2018-11-29T18:35:27.939Z",
+      "x_modified": "2018-11-29T19:08:26.845Z",
+      "type_role": "1f47bffa-96a1-421e-89e1-6ce1fcf5c34a",
+      "user": 22,
+      "first_name": "Ivo",
+      "last_name": "Karas",
+      "birth_date": "1981-11-01",
+      "education": "zootechnik",
+      "note": "Zosetrovatel"
+    }
+  },
+  {
+    "model": "core.person",
+    "pk": "5bfa41c3-58a7-4a3f-89c3-bfdd59651f5f",
+    "fields": {
+      "x_created": "2018-11-27T21:12:16.602Z",
+      "x_modified": "2018-11-29T19:08:37.837Z",
+      "type_role": "1f47bffa-96a1-421e-89e1-6ce1fcf5c34a",
+      "user": 19,
+      "first_name": "Maxmili\u00e1n",
+      "last_name": "Vlk",
+      "birth_date": "1997-03-04",
+      "education": "zootechnik",
+      "note": "nespolehliv\u00fd"
+    }
+  },
+  {
+    "model": "core.person",
+    "pk": "9e61511b-23b5-48f6-9595-cfe5760ab12e",
+    "fields": {
+      "x_created": "2018-11-29T18:21:26.556Z",
+      "x_modified": "2018-11-29T18:48:11.004Z",
+      "type_role": "a3dfbdf5-690b-4f80-a5ab-1a0e6b3c4e05",
+      "user": 21,
+      "first_name": "Franti\u0161ek",
+      "last_name": "Mrkvi\u010dka",
+      "birth_date": "1971-02-28",
+      "education": "management",
+      "note": "nejvy\u0161\u0161\u00ed pozice"
+    }
+  },
+  {
+    "model": "core.person",
+    "pk": "ffbe1350-37d1-4507-ae4a-a72bbabce339",
+    "fields": {
+      "x_created": "2018-11-27T21:37:25.206Z",
+      "x_modified": "2018-11-29T19:06:20.602Z",
+      "type_role": "7c26a793-9660-4ff4-a191-4cf7951107a7",
+      "user": 20,
+      "first_name": "Jana",
+      "last_name": "Veverkov\u00e1",
+      "birth_date": "1981-10-25",
+      "education": "zoologie",
+      "note": "M\u00e1m r\u00e1da kubismus."
+    }
+  },
+  {
+    "model": "core.typecleaningaccessory",
+    "pk": "3c0b4e8e-2a90-45d2-b45f-a8f94309a793",
+    "fields": {
+      "x_created": "2018-11-09T23:05:50.347Z",
+      "x_modified": "2018-11-09T23:05:50.347Z",
+      "identifier": null,
+      "name": "K\u00fdbl",
+      "description": "",
+      "order": 2
+    }
+  },
+  {
+    "model": "core.typecleaningaccessory",
+    "pk": "81471fb6-facd-4523-999d-9fb4f65039a6",
+    "fields": {
+      "x_created": "2018-11-09T23:05:45.408Z",
+      "x_modified": "2018-11-09T23:05:45.408Z",
+      "identifier": null,
+      "name": "Smet\u00e1k",
+      "description": "",
+      "order": 1
+    }
+  },
+  {
+    "model": "core.typecleaningaccessory",
+    "pk": "8ee51416-ce13-4438-be3c-9aeff0aef96d",
+    "fields": {
+      "x_created": "2018-11-09T23:05:55.244Z",
+      "x_modified": "2018-11-09T23:05:55.244Z",
+      "identifier": null,
+      "name": "Mop",
+      "description": "",
+      "order": 3
+    }
+  }
+]
