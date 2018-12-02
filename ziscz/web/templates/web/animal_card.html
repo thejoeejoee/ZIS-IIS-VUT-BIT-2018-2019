@@ -10,10 +10,11 @@
             </small>
             {{ animal.name }}
         </a>
-
-        <a href="{% url "animal_delete" animal.pk %}" class="btn btn-sm small btn-outline-danger float-right" title="{% trans "Delete anima" %}">
-            <img src="{% static "img/icons/trash.svg" %}" alt="{% trans "delete" %}" width="20" class="svg fill-gray">
-        </a>
+        {% if perms.core.delete_animal %}
+            <a href="{% url "animal_delete" animal.pk %}" class="btn btn-sm small btn-outline-danger float-right" title="{% trans "Delete anima" %}">
+                <img src="{% static "img/icons/trash.svg" %}" alt="{% trans "delete" %}" width="20" class="svg fill-gray">
+            </a>
+        {% endif %}
     </div>
     <div class="card-body p-2 px-4">
         <div class="row small">

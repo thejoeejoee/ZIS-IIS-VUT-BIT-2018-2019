@@ -14,7 +14,9 @@ from .base import BaseModel, BaseTypeModel
 
 
 class TypeRole(BaseTypeModel):
-    pass
+    class Meta(BaseTypeModel.Meta):
+        verbose_name = _('Type role')
+        verbose_name_plural = _('Types role')
 
 
 class Person(BaseModel):

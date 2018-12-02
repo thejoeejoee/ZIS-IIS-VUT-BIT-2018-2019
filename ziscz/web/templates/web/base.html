@@ -34,17 +34,17 @@
             <div class="col-6 text-right d-flex fill-white justify-content-end">
                 {% block menu %}
                     {% if user.is_authenticated %}
-                        {% if perms.core.view_animal %}
-                            <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'animal_list' %}">
-                                <img src="{% static "img/icons/animals/165-dog.svg" %}" alt="{% trans "Animals" %}" height="45" class="svg fill-white flex-fill">
-                                <span class="flex-fill">{% trans "Animals" %}</span>
-                            </a>
-                        {% endif %}
-
                         {% if perms.core.view_person %}
                             <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'person_list' %}">
                                 <img src="{% static "img/icons/networking.svg" %}" alt="{% trans "Persons" %}" height="45" class="svg fill-white flex-fill">
                                 <span class="flex-fill">{% trans "Persons" %}</span>
+                            </a>
+                        {% endif %}
+
+                        {% if perms.core.view_animal %}
+                            <a class="mx-3 text-white d-flex flex-column align-items-center" href="{% url 'animal_list' %}">
+                                <img src="{% static "img/icons/animals/165-dog.svg" %}" alt="{% trans "Animals" %}" height="45" class="svg fill-white flex-fill">
+                                <span class="flex-fill">{% trans "Animals" %}</span>
                             </a>
                         {% endif %}
 
@@ -103,7 +103,6 @@
         </div>
     </div>
 {% endblock body %}
-
 
 {% if messages %}
     <script>

@@ -15,7 +15,9 @@ if typing.TYPE_CHECKING:
 
 
 class TypeFeed(BaseTypeModel):
-    pass
+    class Meta(BaseTypeModel.Meta):
+        verbose_name = _("Type feed")
+        verbose_name_plural = _("Types feeding")
 
 
 class Feeding(BaseEventModel):
@@ -96,6 +98,8 @@ class FeedingAnimal(BaseModel):
 
     class Meta:
         ordering = 'feeding__date', 'animal'
+        verbose_name = _('Feeding animal')
+        verbose_name_plural = _('Feedings animal')
 
 
 __all__ = ["TypeFeed", "Feeding", "FeedingAnimal"]

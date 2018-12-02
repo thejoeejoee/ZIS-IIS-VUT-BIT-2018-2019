@@ -177,6 +177,7 @@ class PersonTypeAnimal(BaseModel):
             ('type_animal', 'person'),
         )
         verbose_name = _("Person trained on animal")
+        verbose_name_plural = _("Persons trained on animals")
 
 
 class AnimalRegion(BaseModel):

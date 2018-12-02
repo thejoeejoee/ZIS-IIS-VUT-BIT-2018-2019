@@ -23,7 +23,10 @@ class TypeCleaningAccessory(BaseTypeModel):
     """
     Type vybavení pro úklid.
     """
-    pass
+
+    class Meta(BaseTypeModel.Meta):
+        verbose_name = _("Type cleaning accessory")
+        verbose_name_plural = _("Types cleaning accessories")
 
 
 class TypeEnclosure(BaseTypeModel):
@@ -44,6 +47,10 @@ class TypeEnclosure(BaseTypeModel):
         "core.Person",
         through="core.PersonTypeEnclosure"
     )
+
+    class Meta(BaseTypeModel.Meta):
+        verbose_name = _("Type enclosure")
+        verbose_name_plural = _("Types enclosures")
 
 
 class Enclosure(BaseModel):
@@ -182,6 +189,10 @@ class PersonTypeEnclosure(BaseModel):
         related_name="person_type_enclosure_person"
     )
 
+    class Meta:
+        verbose_name = _("Person types animal")
+        verbose_name_plural = _("Person types animal")
+
 
 class TypeEnclosureTypeCleaningAccessory(BaseModel):
     """
@@ -199,6 +210,10 @@ class TypeEnclosureTypeCleaningAccessory(BaseModel):
         related_name="type_enclosure_type_cleaning_accessory_type_cleaning_accessory"
     )
 
+    class Meta:
+        verbose_name = _("Type enclosure type cleaning accessory")
+        verbose_name_plural = _("Types enclosure type cleaning accessories")
+
 
 class CleaningPerson(BaseModel):
     cleaning = models.ForeignKey(
@@ -212,6 +227,10 @@ class CleaningPerson(BaseModel):
         on_delete=models.CASCADE,
         related_name="cleaning_person_person"
     )
+
+    class Meta:
+        verbose_name = _("Cleaning person")
+        verbose_name_plural = _("Cleaning persons")
 
 
 __all__ = ["TypeCleaningAccessory", "TypeEnclosure", "Enclosure", "PersonTypeEnclosure",
