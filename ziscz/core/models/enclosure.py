@@ -169,11 +169,7 @@ class Cleaning(BaseEventModel):
     def description(self):
         needed = self.needed_type_cleaning_accessory
         if needed:
-            return ungettext(
-                'Needed cleaning accessory: {}',
-                'Needed cleaning accessories: {}',
-                len(needed),
-            ).format(', '.join(map(str, needed)))
+            return ', '.join(map(str, needed))
         return ''
 
     def get_executors(self) -> Iterable["CleaningPerson"]:

@@ -10,7 +10,7 @@ from django.db.transaction import atomic
 from django.forms import Textarea
 from django.template.loader import render_to_string
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ungettext
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
@@ -59,6 +59,7 @@ class CleaningForm(BaseModelForm):
             self.fields['date'].required = False
             self.fields['date'].disabled = True
 
+        needed = self.instance.needed_type_cleaning_accessory
         self.helper.layout = Layout(
             'enclosure',
             'executors',
@@ -71,7 +72,17 @@ class CleaningForm(BaseModelForm):
                 HTML(render_to_string('web/range_planning_note.html')),
                 Div(css_id='cleaning-planning')
             ) if not self.updating else 'date',
-            HTML(mark_safe(self.instance.description or _('No required cleaning accessories.')))
+            HTML(
+                mark_safe(
+                    ungettext(
+                        'Needed cleaning accessory: {}',
+                        'Needed cleaning accessories: {}',
+                        len(needed),
+                    ).format(
+                        ', '.join(map(str, needed))
+                    ) if needed else _('No required cleaning accessories.')
+                )
+            )
             if self.updating else None
         )
         if self.instance.done:
@@ -115,7 +126,7 @@ class CleaningForm(BaseModelForm):
         if date_range:
             self.instance.date = data['date'] = date_range[0]
         else:
-            date_range = list(filter(None, (data.get('date'), )))
+            date_range = list(filter(None, (data.get('date'),)))
 
         length = data.get('length')  # type: Optional[timedelta]
 
