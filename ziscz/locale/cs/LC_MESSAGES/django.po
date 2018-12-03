@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 02:48+0100\n"
-"PO-Revision-Date: 2018-12-03 02:48+0100\n"
+"POT-Creation-Date: 2018-12-03 21:28+0100\n"
+"PO-Revision-Date: 2018-12-03 21:29+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -495,11 +495,11 @@ msgstr "Vybraný výběh požaduje {} nebo více vykonavatelů čištění."
 msgid "Selected enclosure require longer cleaning duration ({}) than filled."
 msgstr "Vybraný výběh požaduje delší trvání čištění ({}) než bylo zadáno."
 
-#: ziscz/web/forms/cleaning.py:143 ziscz/web/forms/feeding.py:109
+#: ziscz/web/forms/cleaning.py:143 ziscz/web/forms/feeding.py:112
 msgid "Executor {} has not time in filled date and duration - he has {}."
 msgstr "Vykonavatel {} nemá čas v zadaném datumu a trvání - má {}."
 
-#: ziscz/web/forms/cleaning.py:161 ziscz/web/forms/feeding.py:132
+#: ziscz/web/forms/cleaning.py:161 ziscz/web/forms/feeding.py:135
 msgid "Please, specify datetime to plan."
 msgstr "Prosím, vyplňte data k naplánovaní."
 
@@ -513,7 +513,11 @@ msgstr ""
 msgid "Only persons with qualification to feed some animals are shown."
 msgstr "Pouze osoby se školením mohou krmit zobrazená zvířata."
 
-#: ziscz/web/forms/feeding.py:129
+#: ziscz/web/forms/feeding.py:57
+msgid "Feed type"
+msgstr "Typ krmení"
+
+#: ziscz/web/forms/feeding.py:132
 msgid "Selected some animals, that is selected executor not qualified to feed."
 msgstr "Vybrána zvířata, pro která vykonavatel není vyškolen na krmení."
 

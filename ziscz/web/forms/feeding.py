@@ -53,6 +53,9 @@ class FeedingForm(BaseModelForm):
             'animals': _('Only live animals, that could be feed by selected person, are displayed.'),
             'executor': _('Only persons with qualification to feed some animals are shown.'),
         }
+        labels = {
+            'type_feed': _('Feed type'),
+        }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

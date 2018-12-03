@@ -10,9 +10,8 @@
                     <ul class="list-unstyled">
                         {% for animal in object.current_animals %}
                             <li>
-                                {# TODO: resoled via static #}
                                 <a href="{% url "animal_detail" animal.pk %}" class="link-keep-color">
-                                    <img src="/static/img/icons/animals/{{ animal.type_animal.icon }}" alt="{{ animal.type_animal }}" width="25">
+                                    <img src="{% static "img/icons/animals/"|add:animal.type_animal.icon %}" alt="{{ animal.type_animal }}" width="25">
                                     {{ animal }}
                                 </a>
                             </li>
