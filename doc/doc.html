@@ -54,31 +54,31 @@
 </head>
 <body>
 
-<!-- Zkontrolujte prosím nastavení kódování v hlavièce dokumentu 
-     podle pou¾itého editoru -->
+<!-- Zkontrolujte prosÃ­m nastavenÃ­ kÃ³dovÃ¡nÃ­ v hlaviÄce dokumentu 
+     podle pouÅ¾itÃ©ho editoru -->
 
-<h1>Správa ZOO</h1>
+<h1>SprÃ¡va ZOO</h1>
 
 <dl>
-    <dt>Autoøi</dt>
-    <dd>Josef Koláø
+    <dt>AutoÅ™i</dt>
+    <dd>Josef KolÃ¡Å™
         <a href="mailto:xkolar71@stud.fit.vutbr.cz">xkolar71@stud.fit.vutbr.cz</a> -
-        architektura, modelová vrstva, dynamické komponenty, produkèní nasazení
+        architektura, modelovÃ¡ vrstva, dynamickÃ© komponenty, produkÄnÃ­ nasazenÃ­
     </dd>
-    <dd>Iva Kavánková
+    <dd>Iva KavÃ¡nkovÃ¡
         <a href="mailto:xkavan05@stud.fit.vutbr.cz">xkavan05@stud.fit.vutbr.cz</a> -
-        textace, u¾ivatelské formuláøe, testování
+        textace, uÅ¾ivatelskÃ© formulÃ¡Å™e, testovÃ¡nÃ­
     </dd>
     <dd>Son Hai Nguyen
         <a href="mailto:xnguye16@stud.fit.vutbr.cz">xnguye16@stud.fit.vutbr.cz</a> -
-        vizuál, øídící vrstva, testování
+        vizuÃ¡l, Å™Ã­dÃ­cÃ­ vrstva, testovÃ¡nÃ­
     </dd>
     <dt>URL aplikace</dt>
     <dd><a href="https://zis.josefkolar.cz/">https://zis.josefkolar.cz/</a></dd>
 </dl>
 
-<h2>U¾ivatelé systému pro testování</h2>
-<p>Uveïte prosím existující zástupce <strong>v¹ech rolí u¾ivatelù</strong>.</p>
+<h2>UÅ¾ivatelÃ© systÃ©mu pro testovÃ¡nÃ­</h2>
+<p>UveÄte prosÃ­m existujÃ­cÃ­ zÃ¡stupce <strong>vÅ¡ech rolÃ­ uÅ¾ivatelÅ¯</strong>.</p>
 <table>
     <tr>
         <th>Login</th>
@@ -88,49 +88,49 @@
     <tr>
         <td>admin</td>
         <td>Zadmin</td>
-        <td>Administrátor</td>
+        <td>AdministrÃ¡tor</td>
     </tr>
     <tr>
         <td>reditel</td>
         <td>Zreditel</td>
-        <td>Øeditel</td>
+        <td>Å˜editel</td>
     </tr>
     <tr>
         <td>spravce</td>
         <td>Zspravce</td>
-        <td>Správce</td>
+        <td>SprÃ¡vce</td>
     </tr>
     <tr>
         <td>osetrovatel</td>
         <td>Zosetrovatel</td>
-        <td>O¹etøovatel</td>
+        <td>OÅ¡etÅ™ovatel</td>
     </tr>
 </table>
-<h2>Diagram pøípadù u¾ití</h2>
+<h2>Diagram pÅ™Ã­padÅ¯ uÅ¾itÃ­</h2>
 <div>
     <a href="./use-case.png"><img src="./use-case.png" alt="Use case"></a>
 </div>
 <h2>Implementace</h2>
 <p>
-    Vzhledem k implementaci v frameworku <i>Django</i> je struktura a architektura projektu navrhnuta dle doporuèovanıch
-    konvencí v tomto nástroji. S vyu¾itím návrhového vzoru MVC jsou v projektu oddìleny zodpovìdnosti jednotlivıch
+    Vzhledem k implementaci ve frameworku <i>Django</i> je struktura a architektura projektu navrhnuta dle doporuÄovanÃ½ch
+    konvencÃ­ v tomto nÃ¡stroji. S vyuÅ¾itÃ­m nÃ¡vrhovÃ©ho vzoru MVC jsou v projektu oddÄ›leny zodpovÄ›dnosti jednotlivÃ½ch
     vrstev.
-    Dále budou popsány jednotlivé vrstvy a jejich funkce v rámci jednotlivıch pøípadù u¾ití plynoucích ze zadání.
+    DÃ¡le budou popsÃ¡ny jednotlivÃ© vrstvy a jejich funkce v rÃ¡mci jednotlivÃ½ch pÅ™Ã­padÅ¯ uÅ¾itÃ­ plynoucÃ­ch ze zadÃ¡nÃ­.
 </p>
-<h3>Modelová vrstva</h3>
+<h3>ModelovÃ¡ vrstva</h3>
 <p>
-    Modelová vrstva obsahuje kompletní definici datové struktury systému, tedy tøídy jako potomky
-    <code>django.db.models.Model</code> reprezentující entitiní mno¾inu z pohledu ER <i>(dále jen Modely)</i>
-    - existují tedy základní modely jako <code>Animals</code>, <code>Person</code>,
-    <code>Enclosure</code> èi <code>Feeding</code>, resp. <code>Cleaning</code>. Mezi tìmito základními modely jsou
-    poté navázané rùzné relaèní modely, napøíklad pøiøazení osoby k èi¹tìní <code>CleaningPerson</code> èi <code>AnimalStay</code>,
-    jako¾to model reprezentující zaøazení zvíøete ve vıbìhu. Definice v¹ech modelù, jako¾to tøíd, jsou umístìny
-    strukturovanì v balíèku <code>ziscz/core/models/</code>.
+    ModelovÃ¡ vrstva obsahuje kompletnÃ­ definici datovÃ© struktury systÃ©mu, tedy tÅ™Ã­dy jako potomky
+    <code>django.db.models.Model</code> reprezentujÃ­cÃ­ entitnÃ­ mnoÅ¾inu z pohledu ER <i>(dÃ¡le jen Modely)</i>
+    - existujÃ­ tedy zÃ¡kladnÃ­ modely jako <code>Animals</code>, <code>Person</code>,
+    <code>Enclosure</code> Äi <code>Feeding</code>, resp. <code>Cleaning</code>. Mezi tÄ›mito zÃ¡kladnÃ­mi modely jsou
+    potÃ© navÃ¡zanÃ© rÅ¯znÃ© relaÄnÃ­ modely, napÅ™Ã­klad pÅ™iÅ™azenÃ­ osoby k ÄiÅ¡tÄ›nÃ­ <code>CleaningPerson</code> Äi <code>AnimalStay</code>,
+    jakoÅ¾to model reprezentujÃ­cÃ­ zaÅ™azenÃ­ zvÃ­Å™ete ve vÃ½bÄ›hu. Definice vÅ¡ech modelÅ¯, jakoÅ¾to tÅ™Ã­d, jsou umÃ­stÄ›ny
+    strukturovanÄ› v balÃ­Äku <code>ziscz/core/models/</code>.
 </p>
 <p>
-    Jednotlivé atributy modelù (entitních mno¾in) jsou nejèastìji definovány spoleènì se svımi datovımi omezeními, tedy
-    napø. pro délku èi¹tìní/krmení je definován atribut <code>length</code> pøímo s validátorem na minimální délku
-    trvání 15 minut, stejnì jako se svou vıchozí hodnotou a pøelo¾enım popiskem pro dal¹í pou¾ití:
+    JednotlivÃ© atributy modelÅ¯ (entitnÃ­ch mnoÅ¾in) jsou nejÄastÄ›ji definovÃ¡ny spoleÄnÄ› se svÃ½mi datovÃ½mi omezenÃ­mi, tedy
+    napÅ™. pro dÃ©lku ÄiÅ¡tÄ›nÃ­/krmenÃ­ je definovÃ¡n atribut <code>length</code> pÅ™Ã­mo s validÃ¡torem na minimÃ¡lnÃ­ dÃ©lku
+    trvÃ¡nÃ­ 15 minut, stejnÄ› jako se svou vÃ½chozÃ­ hodnotou a pÅ™eloÅ¾enÃ½m popiskem pro dalÅ¡Ã­ pouÅ¾itÃ­:
 </p>
 <pre>
 length = models.<strong>DurationField</strong>(
@@ -140,14 +140,14 @@ length = models.<strong>DurationField</strong>(
 )
 </pre>
 <p>
-    Takto definované atributy díky frameworku Django zaji¹tují i validace na úrovni formuláøù, o kterıch bude zmínka
-    dále.
+    Takto definovanÃ© atributy dÃ­ky frameworku Django zajiÅ¡tujÃ­ i validace na Ãºrovni formulÃ¡Å™Å¯, o kterÃ½ch bude zmÃ­nka
+    dÃ¡le.
 </p>
 <p>
-    Takté¾ tento framework zaji¹tuje verzování databázového schématu pomocí migrací, tedy i multiplatformost z hlediska
-    SØBD vèetnì generování skriptù v jazyce SQL pro úpravu schématu - to v¹e pro konzistentní chování objektovì
-    relaèního mapováním nad definovanımi modely. Ní¾e jejich struktura: <i>(pro pøehlednost nejsou zahrnuty èíselníkové
-    modely, jako je typ role osoby, zvíøete èi vıbìhu)</i>.
+    TaktÃ©Å¾ tento framework zajiÅ¡tuje verzovÃ¡nÃ­ databÃ¡zovÃ©ho schÃ©matu pomocÃ­ migracÃ­, tedy i multiplatformnost z hlediska
+    SÅ˜BD vÄetnÄ› generovÃ¡nÃ­ skriptÅ¯ v jazyce SQL pro Ãºpravu schÃ©matu - to vÅ¡e pro konzistentnÃ­ chovÃ¡nÃ­ objektovÄ›
+    relaÄnÃ­ho mapovÃ¡nÃ­m nad definovanÃ½mi modely. NÃ­Å¾e jejich struktura: <i>(pro pÅ™ehlednost nejsou zahrnuty ÄÃ­selnÃ­kovÃ©
+    modely, jako je typ role osoby, zvÃ­Å™ete Äi vÃ½bÄ›hu)</i>.
 </p>
 
 <div>
@@ -155,93 +155,93 @@ length = models.<strong>DurationField</strong>(
 </div>
 
 
-<h3>Prezentaèní vrstva</h3>
+<h3>PrezentaÄnÃ­ vrstva</h3>
 <p>
-    Prezentaèní vrstva se z pohledu pou¾itého frameworku zú¾uje pøedev¹ím na ¹ablony v ¹ablonovacím jazyce <i>Django
-    Templates</i> - v zásadì není tento jazyk omezenı na generování konkrétního jazyka, v pøípadì tohoto projektu je
-    ov¹em generováno standardní HTML. V projektu jsou ¹ablony umístìny ve slo¾kách s pøíznaènım názvem
+    PrezentaÄnÃ­ vrstva se z pohledu pouÅ¾itÃ©ho frameworku zÃºÅ¾uje pÅ™edevÅ¡Ã­m na Å¡ablony v Å¡ablonovacÃ­m jazyce <i>Django
+    Templates</i> - v zÃ¡sadÄ› nenÃ­ tento jazyk omezenÃ½ na generovÃ¡nÃ­ konkrÃ©tnÃ­ho jazyka, v pÅ™Ã­padÄ› tohoto projektu je
+    ovÅ¡em generovÃ¡no standardnÃ­ HTML. V projektu jsou Å¡ablony umÃ­stÄ›ny ve sloÅ¾kÃ¡ch s pÅ™Ã­znaÄnÃ½m nÃ¡zvem
     <code>templates/</code>.
 </p>
 <p>
-    S prezentaèní vrstou jsou spjaty ve¹keré formuláøe pro vytváøení a úpravu jednotlivıch entit v systému. Díky
-    frameworku je s pomocí tøídy <code>django.forms.ModelForm</code> mo¾no tyto formuláøe pøímo generovat z definice
-    jednotlivıch modelù. Z pohledu pøípadù u¾ití jsou tyto formuláøe podmínkou pro splnìní pøípadù u¾ití tıkající se
-    jednoduché úpravy zvíøat/vıbìhù/osob, stejnì tak jako plánování èi¹tìní a krmení.
+    S prezentaÄnÃ­ vrstvou jsou spjaty veÅ¡kerÃ© formulÃ¡Å™e pro vytvÃ¡Å™enÃ­ a Ãºpravu jednotlivÃ½ch entit v systÃ©mu. DÃ­ky
+    frameworku je s pomocÃ­ tÅ™Ã­dy <code>django.forms.ModelForm</code> moÅ¾no tyto formulÃ¡Å™e pÅ™Ã­mo generovat z definice
+    jednotlivÃ½ch modelÅ¯. Z pohledu pÅ™Ã­padÅ¯ uÅ¾itÃ­ jsou tyto formulÃ¡Å™e podmÃ­nkou pro splnÄ›nÃ­ pÅ™Ã­padÅ¯ uÅ¾itÃ­ tÃ½kajÃ­cÃ­ se
+    jednoduchÃ© Ãºpravy zvÃ­Å™at/vÃ½bÄ›hÅ¯/osob, stejnÄ› tak jako plÃ¡novÃ¡nÃ­ ÄiÅ¡tÄ›nÃ­ a krmenÃ­.
 </p>
 <p>
-    Pro zjednodu¹ení u¾ivatelského rozhraní jsou pro nìkteré pøípady pou¾ití vyu¾ity komponenty v jazyce Javascript.
-    Pøedev¹ím se jedná o kalendáø (JS komonenta <code>FullCalendar</code>), kterı je díky této technologii schopen
-    zobrazovat dynamicky pøehledy jednotlivıch dnù, tıdnù i mìsícù a takté¾ pro u¾ivatele s dostateènımi právy umo¾nit
-    pøímé plánování jednotlivıch událostí - tedy editovat zaèátky a délky. Pro dynamické plánování opakovanıch událostí
-    a pøemístování zvíøat mezi vıbìhy jsou poté pou¾ity komponenty ve frameworku <code>Vue.js</code>.
+    Pro zjednoduÅ¡enÃ­ uÅ¾ivatelskÃ©ho rozhranÃ­ jsou pro nÄ›kterÃ© pÅ™Ã­pady pouÅ¾itÃ­ vyuÅ¾ity komponenty v jazyce Javascript.
+    PÅ™edevÅ¡Ã­m se jednÃ¡ o kalendÃ¡Å™ (JS komonenta <code>FullCalendar</code>), kterÃ½ je dÃ­ky tÃ©to technologii schopen
+    zobrazovat dynamicky pÅ™ehledy jednotlivÃ½ch dnÅ¯, tÃ½dnÅ¯ i mÄ›sÃ­cÅ¯ a taktÃ©Å¾ pro uÅ¾ivatele s dostateÄnÃ½mi prÃ¡vy umoÅ¾nit
+    pÅ™Ã­mÃ© plÃ¡novÃ¡nÃ­ jednotlivÃ½ch udÃ¡lostÃ­ - tedy editovat zaÄÃ¡tky a dÃ©lky. Pro dynamickÃ© plÃ¡novÃ¡nÃ­ opakovanÃ½ch udÃ¡lostÃ­
+    a pÅ™emÃ­stovÃ¡nÃ­ zvÃ­Å™at mezi vÃ½bÄ›hy jsou potÃ© pouÅ¾ity komponenty ve frameworku <code>Vue.js</code>.
 </p>
 
-<h3>Øídící vrstva</h3>
+<h3>Å˜Ã­dÃ­cÃ­ vrstva</h3>
 
 <p>
-    Django tuto vrstvu realizuje v takzvanıch pohledech, potomky tøídy <code>View</code>.
-    V této vrstvì se odehrává vìt¹ina exekutivních operací nad entitami v systému. Ve velkém mno¾ství zde projekt
-    vyu¾ívá generickıch tøíd pocházejících z frameworku. Jedná se pøedev¹ím o trojici tøíd
-    <code>django.views.generic.ListView, CreateView, UpdateView</code>. První zmínìná podporuje deklarativní definici
-    vıpisu obsahu jednotlivıch modelù - v tomto pøípadì vıpis seznamu zvíøat <code>AnimalListView</code> nebo osob
+    Django tuto vrstvu realizuje v takzvanÃ½ch pohledech, potomky tÅ™Ã­dy <code>View</code>.
+    V tÃ©to vrstvÄ› se odehrÃ¡vÃ¡ vÄ›tÅ¡ina exekutivnÃ­ch operacÃ­ nad entitami v systÃ©mu. Ve velkÃ©m mnoÅ¾stvÃ­ zde projekt
+    vyuÅ¾Ã­vÃ¡ generickÃ½ch tÅ™Ã­d pochÃ¡zejÃ­cÃ­ch z frameworku. JednÃ¡ se pÅ™edevÅ¡Ã­m o trojici tÅ™Ã­d
+    <code>django.views.generic.ListView, CreateView, UpdateView</code>. PrvnÃ­ zmÃ­nÄ›nÃ¡ podporuje deklarativnÃ­ definici
+    vÃ½pisu obsahu jednotlivÃ½ch modelÅ¯ - v tomto pÅ™Ã­padÄ› vÃ½pis seznamu zvÃ­Å™at <code>AnimalListView</code> nebo osob
     <code>PersonListView</code>.
 </p>
 
 <p>
-    Zbylé dvì jsou úzce spjaty s definovanımi formuláøi popsanımi vı¹e - obì jsou schopny dle definice modelu a ¹ablony
-    vykreslovat a zpracovávat formuláøe pro vytvoøení, resp. upravení dat konkrétní entity.
+    ZbylÃ© dvÄ› jsou Ãºzce spjaty s definovanÃ½mi formulÃ¡Å™i popsanÃ½mi vÃ½Å¡e - obÄ› jsou schopny dle definice modelu a Å¡ablony
+    vykreslovat a zpracovÃ¡vat formulÃ¡Å™e pro vytvoÅ™enÃ­, resp. upravenÃ­ dat konkrÃ©tnÃ­ entity.
 </p>
 
 <h2>Instalace</h2>
 <ul>
     <li>
-        Pro vıvoj jsou zapotøebí následující technologie/nástroje:
+        Pro vÃ½voj jsou zapotÅ™ebÃ­ nÃ¡sledujÃ­cÃ­ technologie/nÃ¡stroje:
         <ul>
-            <li><code>Python</code> ve verzi 3.5 èi vy¹¹í</li>
-            <li><code>PostgreSQL</code> 9.6 èi vy¹¹í <i>(alternativnì jinı SØBD, bez záruky MySQL ¹i SQLite)</i></li>
+            <li><code>Python</code> ve verzi 3.5 Äi vyÅ¡Å¡Ã­</li>
+            <li><code>PostgreSQL</code> 9.6 Äi vyÅ¡Å¡Ã­ <i>(alternativnÄ› jinÃ½ SÅ˜BD, bez zÃ¡ruky MySQL Å¡i SQLite)</i></li>
             <li><code>npm</code> >= 6.1.0</li>
             <li><code>node</code> >= 9.11.2</li>
         </ul>
-        Pro produkèní pou¾ití jsou následnì doporuèovány slu¾by <code>gunicorn</code> a <code>nginx</code>.
+        Pro produkÄnÃ­ pouÅ¾itÃ­ jsou nÃ¡slednÄ› doporuÄovÃ¡ny sluÅ¾by <code>gunicorn</code> a <code>nginx</code>.
     </li>
     <li>
-        Vzhledem k implementaci v jazyce Python 3 je doporuèeno vytvoøit virtuální prostøedí a aktivovat jej:
+        Vzhledem k implementaci v jazyce Python 3 je doporuÄeno vytvoÅ™it virtuÃ¡lnÃ­ prostÅ™edÃ­ a aktivovat jej:
         <code>$ pyvenv .venv && . .venv/bin/activate</code>.
     </li>
     <li>
-        Do aktivního prostøedí je následnì nutné nainstalovat projekt se v¹emi jeho závislostmi:
+        Do aktivnÃ­ho prostÅ™edÃ­ je nÃ¡slednÄ› nutnÃ© nainstalovat projekt se vÅ¡emi jeho zÃ¡vislostmi:
         <code>$ pip install .</code>.
     </li>
     <li>
-        Poté nainstalovat i frontend závislosti projektu: <code>$ npm ci</code> a sestavit balíèky pro frontend:
+        PotÃ© nainstalovat i frontend zÃ¡vislosti projektu: <code>$ npm ci</code> a sestavit balÃ­Äky pro frontend:
         <code>$ npm run build</code>.
     </li>
     <li>
-        Dle souboru s ¹ablonou pro Django nastavení <code>settings.py.template</code> vytvoøte soubor
-        <code>settings.py</code>, do kterého nastavte údaje pro pøipojení k databázi a vygenerujte náhodnı klíè.
+        Dle souboru s Å¡ablonou pro Django nastavenÃ­ <code>settings.py.template</code> vytvoÅ™te soubor
+        <code>settings.py</code>, do kterÃ©ho nastavte Ãºdaje pro pÅ™ipojenÃ­ k databÃ¡zi a vygenerujte nÃ¡hodnÃ½ klÃ­Ä.
     </li>
     <li>
-        Inicializaci schématu databáze lze provést pomocí migrací, v aktivovaném virtuálním prostøedí:
+        Inicializaci schÃ©matu databÃ¡ze lze provÃ©st pomocÃ­ migracÃ­, v aktivovanÃ©m virtuÃ¡lnÃ­m prostÅ™edÃ­:
         <code>PYTHONPATH=. python ./ziscz/manage.py migrate</code>.
     </li>
     <li>
-        Pro prvotní práci je vhodné vlo¾it úèet pro administrátora - superu¾ivatele:
+        Pro prvotnÃ­ prÃ¡ci je vhodnÃ© vloÅ¾it ÃºÄet pro administrÃ¡tora - superuÅ¾ivatele:
         <code>PYTHONPATH=. python ./ziscz/manage.py createsuperuser</code>.
     </li>
     <li>
-        Vlo¾ení základnıch èíselníkovıch hodnot zajistí následující pøíkaz:
+        VloÅ¾enÃ­ zÃ¡kladnÃ½ch ÄÃ­selnÃ­kovÃ½ch hodnot zajistÃ­ nÃ¡sledujÃ­cÃ­ pÅ™Ã­kaz:
         <code>PYTHONPATH=. python ./ziscz/manage.py loaddata base</code>.
     </li>
     <li>
-        Následující pøíkaz poté spustí vıvojáøskı server
+        NÃ¡sledujÃ­cÃ­ pÅ™Ã­kaz potÃ© spustÃ­ vÃ½vojÃ¡Å™skÃ½ server
         <code>PYTHONPATH=. python ./ziscz/manage.py runserver</code>.
     </li>
 </ul>
 
-<h2>Známé problémy</h2>
+<h2>ZnÃ¡mÃ© problÃ©my</h2>
 <p>
-    Zde popi¹te, které body zadání (IDS a IIS) nejsou implementovány a z jakého dùvodu. Napø. &bdquo;Z èasovıch dùvodù
-    nebyla implementována správa u¾ivatelù.&rdquo; Pomù¾ete tím zrychlit opravování, kdy¾ neimplementované funkce
+    Zde popiÅ¡te, kterÃ© body zadÃ¡nÃ­ (IDS a IIS) nejsou implementovÃ¡ny a z jakÃ©ho dÅ¯vodu. NapÅ™. &bdquo;Z ÄasovÃ½ch dÅ¯vodÅ¯
+    nebyla implementovÃ¡na sprÃ¡va uÅ¾ivatelÅ¯.&rdquo; PomÅ¯Å¾ete tÃ­m zrychlit opravovÃ¡nÃ­, kdyÅ¾ neimplementovanÃ© funkce
     nebudeme muset dlouze hledat.
 </p>
 
