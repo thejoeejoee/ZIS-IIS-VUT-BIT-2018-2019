@@ -9,6 +9,7 @@ from crispy_forms.layout import Layout, Row, Div, HTML
 from django.db.transaction import atomic
 from django.forms import Textarea
 from django.template.loader import render_to_string
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from ziscz.core.forms.base import BaseModelForm
@@ -70,6 +71,8 @@ class CleaningForm(BaseModelForm):
                 HTML(render_to_string('web/range_planning_note.html')),
                 Div(css_id='cleaning-planning')
             ) if not self.updating else 'date',
+            HTML(mark_safe(self.instance.description or _('No required cleaning accessories.')))
+            if self.updating else None
         )
         if self.instance.done:
             for f in ('date', 'length', 'executors', 'enclosure'):

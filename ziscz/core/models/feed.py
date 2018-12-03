@@ -72,6 +72,10 @@ class Feeding(BaseEventModel):
             self.type_feed,
         )
 
+    @property
+    def description(self):
+        return ''
+
     def get_executors(self) -> Iterable["Person"]:
         return self.executor,
 

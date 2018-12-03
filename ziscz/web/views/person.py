@@ -32,6 +32,10 @@ class PersonListView(PermissionRequiredMixin, ListView):
     ).prefetch_related(
         'trained_type_animals',
         'trained_type_enclosures',
+    ).order_by(
+        'type_role__order',
+        'last_name',
+        'first_name',
     )
 
     allow_empty = True

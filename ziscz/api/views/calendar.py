@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from datetime import datetime, timedelta, timezone
-from typing import Type, Iterable, Tuple
+from typing import Type, Iterable, Tuple, Callable
 
 import pytz
 from braces.views import CsrfExemptMixin, JsonRequestResponseMixin
@@ -10,7 +10,7 @@ from dateutil import parser
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.exceptions import ValidationError
 from django.core.handlers.wsgi import WSGIRequest
-from django.db.models import ExpressionWrapper, Case, When, Value, BooleanField
+from django.db.models import ExpressionWrapper, Case, When, Value, BooleanField, QuerySet, Prefetch
 from django.db.models.functions import Now
 from django.http import JsonResponse, Http404
 from django.utils import timezone
@@ -22,11 +22,12 @@ from rest_framework.serializers import ModelSerializer
 
 from ziscz.api.filters import CalendarFilterBackend
 from ziscz.api.serializers.calendar import FeedingCalendarSerializer, CleaningCalendarSerializer
-from ziscz.core.models import Cleaning, Feeding
+from ziscz.core.models import Cleaning, Feeding, Person
 from ziscz.core.models.base import BaseEventModel
 
 
-def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[ModelSerializer]) -> type:
+def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[ModelSerializer],
+                                 qs_modifier: Callable[[QuerySet], QuerySet] = lambda qs: qs) -> type:
     class View(ListAPIView):
         class serializer_class(serializer):
             editable = NullBooleanField()
@@ -46,7 +47,7 @@ def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[M
                     data['url'] = obj.get_absolute_url()
                 return data
 
-        queryset = model.objects.annotate(
+        queryset = qs_modifier(model.objects.annotate(
             editable=ExpressionWrapper(
                 Case(
                     When(
@@ -58,7 +59,7 @@ def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[M
                 ),
                 output_field=BooleanField(),
             ),
-        )
+        ))
         filter_backends = (CalendarFilterBackend,)
 
         def get_serializer_context(self):
@@ -70,9 +71,29 @@ def _calendar_event_view_factory(model: Type[BaseEventModel], serializer: Type[M
     return View
 
 
+def _prefetch_cleaning_accessory(qs: QuerySet):
+    return qs.select_related(
+        'enclosure',
+        'enclosure__type_enclosure',
+    ).prefetch_related(
+        # TODO: not works properly :-(
+        Prefetch(
+            'cleaning_person_cleaning__person',
+            queryset=Person.objects.get_queryset().select_related('type_role').order_by(*Person._meta.ordering),
+            to_attr='_executors',
+        ),
+        # 'enclosure__type_enclosure__type_enclosure_type_cleaning_accessory_type_enclosure',
+        Prefetch(
+            'enclosure__type_enclosure__type_enclosure_type_cleaning_accessory_type_enclosure__type_cleaning_accessory',
+            to_attr='_needed_type_cleaning_accessory',
+        )
+    )
+
+
 CleaningCalendarView = _calendar_event_view_factory(
     model=Cleaning,
-    serializer=CleaningCalendarSerializer
+    serializer=CleaningCalendarSerializer,
+    qs_modifier=_prefetch_cleaning_accessory
 )
 
 FeedingCalendarView = _calendar_event_view_factory(

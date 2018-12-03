@@ -5,7 +5,7 @@ from ziscz.core.models import (
     Animal, TypeAnimal, Person, TypeRole,
     PersonTypeAnimal, TypeCountry, Enclosure,
     TypeEnclosure, TypeFeed, TypeRegion,
-    TypeCleaningAccessory)
+    TypeCleaningAccessory, TypeEnclosureTypeCleaningAccessory)
 
 
 class BaseTypeModelAdmin(admin.ModelAdmin):
@@ -55,4 +55,12 @@ class AnimalPersonAdmin(admin.ModelAdmin):
     list_display = [
         'person',
         'type_animal',
+    ]
+
+
+@admin.register(TypeEnclosureTypeCleaningAccessory)
+class TypeEnclosureTypeCleaningAccessoryAdmin(admin.ModelAdmin):
+    list_display = [
+        'type_enclosure',
+        'type_cleaning_accessory',
     ]

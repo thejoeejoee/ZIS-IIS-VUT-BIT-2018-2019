@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-12-03 00:42+0100\n"
-"PO-Revision-Date: 2018-12-03 00:43+0100\n"
+"POT-Creation-Date: 2018-12-03 02:37+0100\n"
+"PO-Revision-Date: 2018-12-03 02:38+0100\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: cs\n"
@@ -18,27 +18,27 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==1) ? 0 : (n>=2 && n<=4) ? 1 : 2;\n"
 "X-Generator: Poedit 1.8.7.1\n"
 
-#: ziscz/api/views/calendar.py:106
+#: ziscz/api/views/calendar.py:127
 msgid "Event successfully replanned."
 msgstr "Událost byla úspěšně přeplánována."
 
-#: ziscz/api/views/calendar.py:128
+#: ziscz/api/views/calendar.py:149
 msgid "Reverted, conflict in time plan of executor {}."
 msgstr "Vráceno, konflikt v časovém plánu vykonavatele {}."
 
-#: ziscz/api/views/calendar.py:131
+#: ziscz/api/views/calendar.py:152
 msgid "Reverted, cannot change historical or already started event."
 msgstr "Vráceno, nelze změnit historickou nebo právě probíhající událost."
 
-#: ziscz/api/views/calendar.py:134
+#: ziscz/api/views/calendar.py:155
 msgid "Reverted, cannot move event to history."
 msgstr "Vráceno, nelze přeplánovat událost do historie."
 
-#: ziscz/api/views/calendar.py:137
+#: ziscz/api/views/calendar.py:158
 msgid "Reverted, cannot move already done event."
 msgstr "Vráceno, nelze přeplánovat již potvrzenou událost."
 
-#: ziscz/api/views/calendar.py:160
+#: ziscz/api/views/calendar.py:181
 msgid "Reverted, {} is the minimal duration of cleaning {}."
 msgstr "Vráceno, {} je minimální doba čistění {}."
 
@@ -64,6 +64,38 @@ msgstr "Ne"
 #: ziscz/core/forms/fields.py:46
 msgid "Yes"
 msgstr "Ano"
+
+#: ziscz/core/forms/widgets/duration.py:22
+msgid "day"
+msgstr "den"
+
+#: ziscz/core/forms/widgets/duration.py:23
+msgid "hour"
+msgstr "hodina"
+
+#: ziscz/core/forms/widgets/duration.py:24
+msgid "minute"
+msgstr "minuta"
+
+#: ziscz/core/forms/widgets/duration.py:25
+msgid "second"
+msgstr "sekunda"
+
+#: ziscz/core/forms/widgets/duration.py:26
+msgid "days"
+msgstr "dny"
+
+#: ziscz/core/forms/widgets/duration.py:27
+msgid "hours"
+msgstr "hodiny"
+
+#: ziscz/core/forms/widgets/duration.py:28
+msgid "minutes"
+msgstr "minuty"
+
+#: ziscz/core/forms/widgets/duration.py:29
+msgid "seconds"
+msgstr "sekundy"
 
 #: ziscz/core/models/animal.py:27
 msgid "Type animal"
@@ -232,7 +264,7 @@ msgstr "Výběhy"
 msgid "Executors"
 msgstr "Vykonavatelé"
 
-#: ziscz/core/models/enclosure.py:152 ziscz/web/templates/web/calendar.html:16
+#: ziscz/core/models/enclosure.py:152 ziscz/web/templates/web/calendar.html:17
 #: ziscz/web/templates/web/cleaning_detail.html:6
 #: ziscz/web/templates/web/enclosure_detail.html:89
 #: ziscz/web/templates/web/person_detail.html:23
@@ -251,23 +283,30 @@ msgstr "Čištění ve {} {}"
 msgid "{} by {}"
 msgstr "{} od {}"
 
-#: ziscz/core/models/enclosure.py:193 ziscz/core/models/enclosure.py:194
+#: ziscz/core/models/enclosure.py:173
+msgid "Needed cleaning accessory: {}"
+msgid_plural "Needed cleaning accessories: {}"
+msgstr[0] "Požadovaný čistící nástroj: {}"
+msgstr[1] "Požadované čistící nástroje: {}"
+msgstr[2] "Požadované čistící nástroje: {}"
+
+#: ziscz/core/models/enclosure.py:211 ziscz/core/models/enclosure.py:212
 msgid "Person types animal"
 msgstr "Osoba vyškolená na typ zvíře"
 
-#: ziscz/core/models/enclosure.py:214
+#: ziscz/core/models/enclosure.py:232
 msgid "Type enclosure type cleaning accessory"
 msgstr "Typ čistícího nástroje potřebný k čištění typu výběhu"
 
-#: ziscz/core/models/enclosure.py:215
+#: ziscz/core/models/enclosure.py:233
 msgid "Types enclosure type cleaning accessories"
 msgstr "Typy čistících nástrojů potřebných k čištění typu výběhu"
 
-#: ziscz/core/models/enclosure.py:232
+#: ziscz/core/models/enclosure.py:253
 msgid "Cleaning person"
 msgstr "Osoba v události čištění"
 
-#: ziscz/core/models/enclosure.py:233
+#: ziscz/core/models/enclosure.py:254
 msgid "Cleaning persons"
 msgstr "Osoby v události čištění"
 
@@ -296,7 +335,7 @@ msgid "Amount"
 msgstr "Množství"
 
 #: ziscz/core/models/feed.py:57 ziscz/web/templates/web/animal_detail.html:60
-#: ziscz/web/templates/web/calendar.html:22
+#: ziscz/web/templates/web/calendar.html:23
 #: ziscz/web/templates/web/feeding_detail.html:6
 #: ziscz/web/templates/web/person_detail.html:42
 msgid "Feeding"
@@ -314,11 +353,11 @@ msgstr "Krmení ve {} {}"
 msgid "{} by {} ({} {})"
 msgstr "{} od {} ({} {})"
 
-#: ziscz/core/models/feed.py:101
+#: ziscz/core/models/feed.py:105
 msgid "Feeding animal"
 msgstr "Krmení zvířete"
 
-#: ziscz/core/models/feed.py:102
+#: ziscz/core/models/feed.py:106
 msgid "Feedings animal"
 msgstr "Krmení zvířat"
 
@@ -435,28 +474,32 @@ msgstr "Zvíře nemůže mít jednoho rodiče dvakrát {}."
 msgid "Cannot set death date in future."
 msgstr "Nemůže nastavit datum úmrtí v budoucnu."
 
-#: ziscz/web/forms/cleaning.py:26 ziscz/web/forms/feeding.py:26
+#: ziscz/web/forms/cleaning.py:27 ziscz/web/forms/feeding.py:26
 #: ziscz/web/templates/web/home.html:35
 msgid "Done"
 msgstr "Hotovo"
 
-#: ziscz/web/forms/cleaning.py:51
+#: ziscz/web/forms/cleaning.py:52
 msgid "Displayed are only persons that are able to clean selected enclosure."
 msgstr "Zobrazuje pouze osoby, které mohou čistit vybraný výběh."
 
-#: ziscz/web/forms/cleaning.py:98
+#: ziscz/web/forms/cleaning.py:74
+msgid "No required cleaning accessories."
+msgstr "Žádné požadované nástroje k čištění."
+
+#: ziscz/web/forms/cleaning.py:101
 msgid "Selected enclosure requires {} or more executors for cleaning."
 msgstr "Vybraný výběh požaduje {} nebo více vykonavatelů čištění."
 
-#: ziscz/web/forms/cleaning.py:106
+#: ziscz/web/forms/cleaning.py:109
 msgid "Selected enclosure require longer cleaning duration ({}) than filled."
 msgstr "Vybraný výběh požaduje delší trvání čištění ({}) než bylo zadáno."
 
-#: ziscz/web/forms/cleaning.py:129 ziscz/web/forms/feeding.py:109
+#: ziscz/web/forms/cleaning.py:132 ziscz/web/forms/feeding.py:109
 msgid "Executor {} has not time in filled date and duration - he has {}."
 msgstr "Vykonavatel {} nemá čas v zadaném datumu a trvání - má {}."
 
-#: ziscz/web/forms/cleaning.py:147 ziscz/web/forms/feeding.py:132
+#: ziscz/web/forms/cleaning.py:150 ziscz/web/forms/feeding.py:132
 msgid "Please, specify datetime to plan."
 msgstr "Prosím, vyplňte data k naplánovaní."
 
@@ -663,15 +706,43 @@ msgstr "Kalendář"
 msgid "Help"
 msgstr "Nápověda"
 
-#: ziscz/web/templates/web/base.html:70
+#: ziscz/web/templates/web/base.html:71
 msgid "Logout"
 msgstr "Odhlásit"
 
-#: ziscz/web/templates/web/base.html:100
+#: ziscz/web/templates/web/base.html:114
+msgid "change"
+msgstr "změnit"
+
+#: ziscz/web/templates/web/base.html:123
 msgid "administration"
 msgstr "administrace"
 
+#: ziscz/web/templates/web/calendar.html:44
+msgid "Sorry, you have not permissions to perform this action."
+msgstr "Pro tuto operaci nemáte dostatečná práva."
+
+#: ziscz/web/templates/web/calendar.html:45
+msgid "Week"
+msgstr "Týden"
+
+#: ziscz/web/templates/web/calendar.html:46
+msgid "Day detail"
+msgstr "Detail dne"
+
 #: ziscz/web/templates/web/calendar.html:47
+msgid "Month"
+msgstr "Měsíc"
+
+#: ziscz/web/templates/web/calendar.html:48
+msgid "prev"
+msgstr "zpět"
+
+#: ziscz/web/templates/web/calendar.html:49
+msgid "next"
+msgstr "vpřed"
+
+#: ziscz/web/templates/web/calendar.html:58
 msgid ""
 "In standard calendar view (week/month) you can move actions in time or "
 "beetween days."
@@ -679,7 +750,7 @@ msgstr ""
 "Ve standardní zobrazení kalendáře (týden/měsíc) můžete posouvat akce v čase "
 "nebo mezi dny."
 
-#: ziscz/web/templates/web/calendar.html:48
+#: ziscz/web/templates/web/calendar.html:59
 msgid ""
 "For week view are displayed only times between 6:00 and 21:00 for better "
 "understanding."
@@ -706,7 +777,7 @@ msgstr "Poslední čistění"
 
 #: ziscz/web/templates/web/enclosure_detail.html:70
 msgid "Cleaning accessory"
-msgstr "Čistící doplňky"
+msgstr "Čistící nástroj"
 
 #: ziscz/web/templates/web/enclosure_detail.html:81
 msgid "Qualified cleaners"
@@ -855,7 +926,7 @@ msgstr ""
 "Po zvolení módu a vyplnění rozsahu lze taktéž vidět termíny, které budou "
 "vygenerovány."
 
-#: ziscz/web/views/person.py:76
+#: ziscz/web/views/person.py:80
 msgid "Following feeding was deleted due to person qualification lost: {}."
 msgid_plural ""
 "Following feedings were deleted due to person qualification lost: {}."
@@ -866,7 +937,7 @@ msgstr[1] ""
 msgstr[2] ""
 "Vzhledem ke ztrátě vyškolení osoby byla smazána následující krmení: {}."
 
-#: ziscz/web/views/person.py:96
+#: ziscz/web/views/person.py:100
 msgid ""
 "From following cleaning was deleted person assignment due to person "
 "qualification lost: {}."
@@ -883,7 +954,7 @@ msgstr[2] ""
 "Vzhledem ke ztrátě vyškolení osoby bylo smazáno přiřazení osoby k "
 "následujícím čištěním: {}."
 
-#: ziscz/web/views/person.py:112
+#: ziscz/web/views/person.py:116
 msgid "Following cleaning was deleted due to small executors count: {}."
 msgid_plural ""
 "Following cleanings were deleted due to small executors count: {}."
@@ -894,15 +965,15 @@ msgstr[1] ""
 msgstr[2] ""
 "Vzhledem k malému počtu vykonavatelů byla smazána následující čištění: {}."
 
-#: ziscz/web/views/person.py:137
+#: ziscz/web/views/person.py:141
 msgid "User was created, login credentials are {} {}."
 msgstr "Uživatel byl vytvořen, přihlašovací údaje jsou {} {}."
 
-#: ziscz/zis/settings_default.py:146
+#: ziscz/zis/settings_default.py:148
 msgid "Czech"
 msgstr "Čeština"
 
-#: ziscz/zis/settings_default.py:147
+#: ziscz/zis/settings_default.py:149
 msgid "English"
 msgstr "Angličtina"
 

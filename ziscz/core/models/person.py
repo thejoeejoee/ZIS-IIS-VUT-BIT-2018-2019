@@ -65,7 +65,7 @@ class Person(BaseModel):
     class Meta:
         verbose_name = _('Person')
         verbose_name_plural = _('Persons')
-        ordering = ('type_role__order', 'last_name', 'first_name',)
+        ordering = ('last_name', 'first_name',)
 
     def find_in_time(self, start: datetime, length: timedelta) -> Tuple[QuerySet, QuerySet]:
         """

@@ -34,6 +34,7 @@ class BaseCalendarEventSerializer(ModelSerializer):
             'done',
             'color',
             'its_too_late_to_apologize',
+            'description',
         )
 
 

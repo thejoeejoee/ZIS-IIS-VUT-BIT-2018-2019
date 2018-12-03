@@ -9,14 +9,14 @@ from django.db.models import QuerySet
 from django.utils import timezone
 from django.utils.formats import time_format, date_format
 from django.utils.timezone import localtime, localdate
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ungettext
 
 from .base import BaseModel, BaseTypeModel
 from ..models.base import BaseEventModel
 from ..models.managers.calendar import CleaningQuerySet
 
 if typing.TYPE_CHECKING:
-    from . import Person
+    pass
 
 
 class TypeCleaningAccessory(BaseTypeModel):
@@ -165,8 +165,26 @@ class Cleaning(BaseEventModel):
             ', '.join(map(str, self.get_executors())),
         )
 
-    def get_executors(self) -> Iterable["Person"]:
+    @property
+    def description(self):
+        needed = self.needed_type_cleaning_accessory
+        if needed:
+            return ungettext(
+                'Needed cleaning accessory: {}',
+                'Needed cleaning accessories: {}',
+                len(needed),
+            ).format(', '.join(map(str, needed)))
+        return ''
+
+    def get_executors(self) -> Iterable["CleaningPerson"]:
         return self.executors.all()
+
+    @property
+    def needed_type_cleaning_accessory(self):
+        # prefetch
+        if hasattr(self, '_needed_type_cleaning_accessory'):
+            return self._needed_type_cleaning_accessory
+        return list(self.enclosure.type_enclosure.required_cleaning_accessory.all())
 
     @property
     def color(self):
@@ -214,6 +232,9 @@ class TypeEnclosureTypeCleaningAccessory(BaseModel):
         verbose_name = _("Type enclosure type cleaning accessory")
         verbose_name_plural = _("Types enclosure type cleaning accessories")
 
+    def __str__(self):
+        return str(self.type_cleaning_accessory)
+
 
 class CleaningPerson(BaseModel):
     cleaning = models.ForeignKey(
@@ -231,6 +252,9 @@ class CleaningPerson(BaseModel):
     class Meta:
         verbose_name = _("Cleaning person")
         verbose_name_plural = _("Cleaning persons")
+
+    def __str__(self):
+        return str(self.person)
 
 
 __all__ = ["TypeCleaningAccessory", "TypeEnclosure", "Enclosure", "PersonTypeEnclosure",
