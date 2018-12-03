@@ -66,6 +66,7 @@
                             <img src="{% static "img/icons/question.svg" %}" alt="{% trans "Help" %}" height="45" class="svg fill-white flex-fill">
                             <span class="flex-fill">{% trans "Help" %}</span>
                         </a>
+
                         <a class="pl-3 text-white d-flex flex-column align-items-center border-left border-light" href="{% url 'logout' %}">
                             <img src="{% static "img/icons/exit.svg" %}" alt="{% trans "Logout" %}" height="45" class="svg fill-white flex-fill">
                             <span class="flex-fill small pr-2">{{ user.get_short_name|default:user.last_name|default:user }}</span>
@@ -79,13 +80,13 @@
                 {% block content %}{% endblock content %}
             </div>
         </div>
-        <div class="row justify-content-between p-3 bg-primary text-light small">
-            <div class="col">
+        <div class="row p-3 bg-primary text-light small d-flex align-items-center justify-content-between">
+            <div class="">
                 <a class="small text-light" href="{% url "credits" %}">
-                    Josef Kolář, Iva Kavánková, Son Hai Nguyen © VUT FIT 2018
+                    Josef Kolář, Iva Kavánková, Son Hai Nguyen <br>© VUT FIT 2018
                 </a>
             </div>
-            <div class="col text-center">
+            <div class="text-center">
                 {% if user.is_authenticated %}
                     {{ user }}
                     {% if user.groups.exists %}
@@ -93,9 +94,31 @@
                     {% endif %}
                 {% endif %}
             </div>
-            <div class="col text-right text-light">
+            <div class="text-center">
+                <form action="{% url 'set_language' %}" method="post" class="form-inline">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ redirect_to }}">
+                    <div class="input-group">
+                        <select name="language" class="form-control form-control-sm bg-primary text-white">
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <option value="{{ language.code }}"
+                                    {% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                    {{ language.name_local }} ({{ language.code }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                        <div class="input-group-append">
+                            <input type="submit" value="{% trans "change" %}" class="btn btn-outline-primary btn-sm text-white border-white">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="text-right text-light">
                 <small>{% now "j.n.Y H:i:s" %}</small>
-                |
+                <br>
                 <a href="{% url "admin:index" %}" class="text-light">
                     {% trans "administration" %}
                 </a>

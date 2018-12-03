@@ -8,7 +8,7 @@ from django.db.models import Q, F, DateTimeField, ExpressionWrapper, QuerySet
 from django.db.models.constants import LOOKUP_SEP
 from django.utils.datetime_safe import datetime
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from .base import BaseModel, BaseTypeModel
 

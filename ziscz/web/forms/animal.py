@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 from crispy_forms.layout import Layout, Row
 from django.forms import ModelChoiceField
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django_select2.forms import Select2MultipleWidget
 
 from ziscz.core.forms.base import BaseModelForm

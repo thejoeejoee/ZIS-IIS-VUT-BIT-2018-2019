@@ -8,7 +8,7 @@ from crispy_forms.layout import Layout, Row, Div, HTML
 from django.db.models import QuerySet
 from django.forms import Textarea
 from django.template.loader import render_to_string
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col

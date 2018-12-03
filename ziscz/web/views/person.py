@@ -12,7 +12,7 @@ from django.db.models import Count, F
 from django.db.transaction import atomic
 from django.urls import reverse_lazy
 from django.utils import timezone
-from django.utils.translation import ugettext as _, ungettext
+from django.utils.translation import ugettext_lazy as _, ungettext
 from django.views.generic import ListView, UpdateView, CreateView
 
 from ziscz.core.models import Person, TypeRole, Cleaning

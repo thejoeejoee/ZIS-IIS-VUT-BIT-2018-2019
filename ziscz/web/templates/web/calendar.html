@@ -10,18 +10,20 @@
         <div class="col-6"><h1>{% trans "Calendar" %}</h1></div>
         <div class="col-6 text-right">
             <div class="btn-group d-inline-block">
-                {% if perms.core.add_cleaning %}
-                    <a href="{% url "cleaning_create" %}" class="btn btn-info">
-                        &plus;
-                        {% trans "Cleaning" %}
-                    </a>
-                {% endif %}
-                {% if perms.core.add_feeding %}
-                    <a href="{% url "feeding_create" %}" class="btn btn-warning">
-                        &plus;
-                        {% trans "Feeding" %}
-                    </a>
-                {% endif %}
+                {% spaceless %}
+                    {% if perms.core.add_cleaning %}
+                        <a href="{% url "cleaning_create" %}" class="btn btn-info">
+                            &plus;
+                            {% trans "Cleaning" %}
+                        </a>
+                    {% endif %}
+                    {% if perms.core.add_feeding %}
+                        <a href="{% url "feeding_create" %}" class="btn btn-warning">
+                            &plus;
+                            {% trans "Feeding" %}
+                        </a>
+                    {% endif %}
+                {% endspaceless %}
             </div>
         </div>
     </div>
@@ -36,7 +38,16 @@
             '#calendar',
             {
                 {% comment %} Global permission for editation - it's overriden by per event editation flag. {% endcomment %}
-                editable: and({{ perms.core.change_cleaning|yesno:"true,false" }}, {{ perms.core.change_feeding|yesno:"true,false" }})
+                editable: and({{ perms.core.change_cleaning|yesno:"true,false" }}, {{ perms.core.change_feeding|yesno:"true,false" }}),
+                trans: {
+                    no_perms: '{% trans "Sorry, you have not permissions to perform this action." %}',
+                    week: '{% trans "Week" %}',
+                    day_detail: '{% trans "Day detail" %}',
+                    month: '{% trans "Month" %}',
+                    prev: '{% trans "prev" %}',
+                    next: '{% trans "next" %}',
+                },
+                locale: '{{ LANGUAGE_CODE }}',
             }
         );
     </script>
@@ -44,7 +55,8 @@
         <div class="col">
             <div class="alert alert-info">
                 {% trans "In standard calendar view (week/month) you can move actions in time or beetween days." %} <br>
-                {% trans "For week view are displayed only times between 6:00 and 21:00 for better understanding." %} <br>
+                {% trans "For week view are displayed only times between 6:00 and 21:00 for better understanding." %}
+                <br>
             </div>
         </div>
     </div>

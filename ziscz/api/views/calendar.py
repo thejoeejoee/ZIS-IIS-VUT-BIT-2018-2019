@@ -14,7 +14,7 @@ from django.db.models import ExpressionWrapper, Case, When, Value, BooleanField
 from django.db.models.functions import Now
 from django.http import JsonResponse, Http404
 from django.utils import timezone
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from django.views import View
 from rest_framework.fields import NullBooleanField
 from rest_framework.generics import ListAPIView, get_object_or_404

@@ -34,7 +34,17 @@
         components: {
             FullCalendar
         },
-        computed: mapState(['editable']),
+        computed: mapState(['editable', 'trans', 'locale']),
+        mounted() {
+            this.$refs.calendar.fireMethod('option', {
+                buttonText: {
+                    agendaWeek: this.trans.week,
+                    listDay: this.trans.day_detail,
+                    month: this.trans.month,
+                },
+            });
+            this.$refs.calendar.fireMethod('option', {locale: this.locale});
+        },
         data() {
             return {
                 config: {
@@ -64,12 +74,10 @@
                         prevYear: 'left-double-arrow',
                         nextYear: 'right-double-arrow'
                     },
+                    // buttonText in created()
                     buttonText: {
                         prev: '<',
                         next: '>',
-                        agendaWeek: 'týden',
-                        listDay: 'detail dne',
-                        month: 'měsíc'
                     },
                     defaultView: 'agendaWeek',
                     header: {

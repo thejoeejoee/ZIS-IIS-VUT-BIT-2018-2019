@@ -9,7 +9,7 @@ from django.db.models import QuerySet
 from django.utils import timezone
 from django.utils.formats import time_format, date_format
 from django.utils.timezone import localtime, localdate
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from .base import BaseModel, BaseTypeModel
 from ..models.base import BaseEventModel

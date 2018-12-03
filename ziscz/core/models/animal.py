@@ -4,7 +4,7 @@ from django.db import models
 from django.db.models import Q, Manager, QuerySet
 from django.utils import timezone
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 from relativefilepathfield.fields import RelativeFilePathField
 
 from ziscz.core.models.managers.animal import AnimalStayManager, LiveAnimalsManager

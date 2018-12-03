@@ -9,7 +9,7 @@ from typing import List
 from django.forms import Field, TypedChoiceField, RadioSelect
 from django.utils import timezone
 from django.utils.datetime_safe import datetime
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 
 class DateRangeField(Field):

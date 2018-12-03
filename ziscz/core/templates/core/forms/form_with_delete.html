@@ -4,6 +4,6 @@
 
 {% block form_card_footer_ext %}
     {% if form.updating and can_delete %}
-        <a href="{{ url }}" class="btn btn-danger">{% trans "Delete" %}</a>
+        <a href="{{ url }}" class="btn btn-outline-danger">{% trans "Delete" %}</a>
     {% endif %}
 {% endblock %}

@@ -8,7 +8,7 @@ from django.db.transaction import atomic
 from django.forms import Textarea, CharField, PasswordInput
 from django.utils.text import slugify
 from django.utils.timezone import localdate
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col

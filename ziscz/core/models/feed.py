@@ -5,7 +5,7 @@ from typing import Iterable
 from django.db import models
 from django.utils.formats import time_format, date_format
 from django.utils.timezone import localtime, localdate
-from django.utils.translation import ugettext as _
+from django.utils.translation import ugettext_lazy as _
 
 from .base import BaseModel, BaseTypeModel, BaseEventModel
 from ..models.managers.calendar import FeedingQuerySet
