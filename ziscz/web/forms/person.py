@@ -8,7 +8,7 @@ from django.db.transaction import atomic
 from django.forms import Textarea, CharField, PasswordInput
 from django.utils.text import slugify
 from django.utils.timezone import localdate
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ugettext
 
 from ziscz.core.forms.base import BaseModelForm
 from ziscz.core.forms.crispy import Col
@@ -92,10 +92,20 @@ class PersonForm(BaseModelForm):
                 )
             ) if self._user.has_perm('auth.change_user') and not self.updating else None,
             Row(
-                Col(HTML(': '.join((_('User'), str(self.instance.user))))) if self.instance.user else None,
+                Col(HTML(
+                    ': '.join(
+                        map(
+                            str,
+                            (
+                                ugettext('User'),
+                                self.instance.user
+                            )
+                        )
+                    )
+                )) if self.instance.user else None,
                 Col(HTML(
                     ': '.join((
-                        _('Groups'),
+                        ugettext('Groups'),
                         ', '.join(map(str, self.instance.user.groups.all()))
                     ))
                 )) if self.instance.user else None,

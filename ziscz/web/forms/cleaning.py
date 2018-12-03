@@ -59,7 +59,7 @@ class CleaningForm(BaseModelForm):
             self.fields['date'].required = False
             self.fields['date'].disabled = True
 
-        needed = self.instance.needed_type_cleaning_accessory
+        needed = self.instance.needed_type_cleaning_accessory if self.updating else []
         self.helper.layout = Layout(
             'enclosure',
             'executors',
