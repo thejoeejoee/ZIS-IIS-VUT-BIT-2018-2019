@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.urls import reverse_lazy
+from django.utils.translation import ugettext
 from django.views.generic import ListView, UpdateView, CreateView
 
 from ziscz.core.models import Enclosure
@@ -27,6 +28,10 @@ class EnclosureListView(PermissionRequiredMixin, ListView):
             can_change_animal=self.request.user.has_perm('core.change_animal'),
             can_change_enclosure=self.request.user.has_perm('core.change_enclosure'),
             can_delete_enclosure=self.request.user.has_perm('core.delete_enclosure'),
+            trans=dict(
+                no_animals=ugettext('No animals in enclosure at this moment.'),
+                last_cleaning=ugettext('Last cleaning'),
+            )
         )
         return context
 

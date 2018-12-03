@@ -34,6 +34,7 @@ export default function create(initial) {
                 can_change_animal: false,
                 can_change_enclosure: false,
                 can_delete_enclosure: false,
+                trans: {},
             },
             ...initial,
         },
@@ -48,6 +49,7 @@ export default function create(initial) {
                         can_change_animal: false,
                         can_change_enclosure: false,
                         can_delete_enclosure: false,
+                        trans: {},
                     },
                     ...initial,
                 });

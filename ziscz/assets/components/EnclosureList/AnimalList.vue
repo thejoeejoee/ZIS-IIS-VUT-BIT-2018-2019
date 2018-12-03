@@ -9,7 +9,7 @@
             </li>
             <div slot="footer" style="height: 1em;"></div>
         </draggable>
-        <span v-if="!enclosure.animals.length">No animals in enclosure at this moment.</span>
+        <span v-if="!enclosure.animals.length">{{ trans.no_animals }}</span>
     </div>
 </template>
 <script>
@@ -24,7 +24,7 @@
         },
         methods: mapActions(['updateAnimals']),
         computed: {
-            ...mapState(['can_change_animal']),
+            ...mapState(['can_change_animal', 'trans']),
             animals: {
                 get() {
                     return this.enclosure.animals

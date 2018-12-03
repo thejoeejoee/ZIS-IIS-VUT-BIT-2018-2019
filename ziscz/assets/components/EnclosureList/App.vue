@@ -22,7 +22,7 @@
                     </span>
 
                     <animal-list :enclosure="enclosure"/>
-                    <div class="card-footer small" v-if="enclosure.last_cleaning_date" title="Last cleaning">
+                    <div class="card-footer small" v-if="enclosure.last_cleaning_date" :title="trans.last_cleaning">
                         <img src="../../../web/static/img/icons/duster.svg" alt="" width="20" class="mr-1">
                         {{ enclosure.last_cleaning_date | moment("HH:mm DD.MM.YYYY") }}
                     </div>
@@ -42,7 +42,7 @@
         name: "App",
         components: {AnimalList},
         computed: {
-            ...mapState(['enclosures', 'can_change_enclosure', 'can_delete_enclosure']),
+            ...mapState(['enclosures', 'can_change_enclosure', 'can_delete_enclosure', 'trans']),
         },
         methods: {
             url(enclosure) {
